@@ -179,7 +179,6 @@ AC_SUBST(m4_toupper($1)_ARCHIVE)
 ])
 
 handle_package([binutils])
-handle_package([mggcc])
 handle_package([gcc])
 handle_package([mgsim])
 handle_package([slc], [sl-core])
@@ -200,7 +199,6 @@ echo "* C compiler:         $CC $CPPFLAGS $CFLAGS $LDFLAGS"
 echo "* C++ compiler:       $CXX $CPPFLAGS $CXXFLAGS $LDFLAGS"
 echo "*"
 echo "* mg-binutils:        $BINUTILS_ARCHIVE ($BINUTILS_VERSION)"
-echo "* uTC core compiler:  $MGGCC_ARCHIVE ($MGGCC_VERSION)"
 echo "* GCC (patched):      $GCC_ARCHIVE ($GCC_VERSION)"
 echo "* m4 (patched):       $M4_ARCHIVE ($M4_VERSION)"
 echo "* SystemC (patched):  $SC_ARCHIVE ($SC_VERSION)"

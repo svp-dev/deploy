@@ -17,7 +17,7 @@ ARCHIVEDIR = distfiles
 SRCBASE = sources
 BLDBASE = build
 
-REQPARTS = sc binutils m4 mggcc gcc slenv
+REQPARTS = sc binutils m4 gcc slenv
 SLPARTS = mgsim slc
 PARTS = $(REQPARTS) $(SLPARTS)
 
@@ -50,7 +50,7 @@ help:
 	@echo "   XXX-install    install part XXX"
 	@echo
 	@echo "Parts:"
-	@echo "   m4 binutils mggcc gcc sc"
+	@echo "   m4 binutils gcc sc"
 	@echo "   mgsim slc slenv"
 
 RULE_DONE = @echo "*** $@: done. ***"; echo
@@ -107,7 +107,6 @@ tags/.installed: Makefile
 	 echo "sc:$(SC_VERSION)"; \
 	 echo "m4:$(M4_VERSION)"; \
 	 echo "gcc:$(GCC_VERSION)"; \
-	 echo "mggcc:$(MGGCC_VERSION)"; \
 	 echo "binutils:$(BINUTILS_VERSION)"; \
 	 echo "mgsim:$(MGSIM_VERSION)"; \
 	 echo "slc:$(SLC_VERSION)"; \

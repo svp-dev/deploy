@@ -2,7 +2,7 @@
 
 BINUTILS_SRC = $(SRCBASE)/binutils-$(BINUTILS_VERSION)
 BINUTILS_BUILD = $(BLDBASE)/binutils-$(BINUTILS_VERSION)
-BINUTILS_TARGETS = alpha-linux-gnu mtalpha-linux-gnu sparc-leon-linux mtsparc-leon-linux
+BINUTILS_TARGETS = mtalpha-linux-gnu mtsparc-linux-gnu
 
 BINUTILS_CFG_TARGETS = $(foreach T,$(BINUTILS_TARGETS),$(BINUTILS_BUILD)-$(T)/configure_done)
 BINUTILS_BUILD_TARGETS = $(foreach T,$(BINUTILS_TARGETS),$(BINUTILS_BUILD)-$(T)/build_done)

@@ -2,7 +2,7 @@
 
 GCC_SRC = $(SRCBASE)/gcc-$(GCC_VERSION)
 GCC_BUILD = $(BLDBASE)/gcc-$(GCC_VERSION)
-GCC_TARGETS = alpha-linux-gnu
+GCC_TARGETS = mtalpha-linux-gnu
 
 GCC_CFG_TARGETS = $(foreach T,$(GCC_TARGETS),$(GCC_BUILD)-$(T)/configure_done)
 GCC_BUILD_TARGETS = $(foreach T,$(GCC_TARGETS),$(GCC_BUILD)-$(T)/build_done)

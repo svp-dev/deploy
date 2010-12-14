@@ -1,5 +1,23 @@
 2010-12-14  Raphael 'kena' Poss  <r.c.poss@uva.nl>
 
+	Refactor the installer as a result of the gcc/binutils cleanup.
+
+	* deploy/installer/bootstrap: Use `sl-init-autoconf' to fetch the
+	build auxiliary files.
+
+	* deploy/installer/configure.ac,
+	* deploy/installer/Makefile.am: Forget about `mggcc'.
+
+	* deploy/installer/rules/mggcc.mk: Remove.
+
+	* deploy/installer/rules/binutils.mk: Do not build the base
+	targets any more, since the compiler now uses the `mt' targets
+	always.
+
+	* deploy/installer/rules/gcc.mk: Build the `mt' target now.
+
+2010-12-14  Raphael 'kena' Poss  <r.c.poss@uva.nl>
+
 	Refactor the deployment utilities as a result of the gcc/binutils cleanup.
 
 	The custom GCC patch was recently integrated as a 'mtalpha' target

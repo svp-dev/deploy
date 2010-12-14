@@ -18,7 +18,7 @@ else
   AUTORECONF=autoreconf
 fi
 
-cp ../../slc/build-aux/{version.mk,version-gen} ./build-aux/
+sl-init-autoconf
 $AUTORECONF -v -f -i
 
 echo "Reconfiguration done."
