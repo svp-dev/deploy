@@ -1,3 +1,9 @@
+2010-12-15  Raphael 'kena' Poss  <r.c.poss@uva.nl>
+
+	Upgrade installer to 3.2.
+
+	* deploy/installer/build-aux/package_version: Do it.
+
 2010-12-14  Raphael 'kena' Poss  <r.c.poss@uva.nl>
 
 	Refactor the installer as a result of the gcc/binutils cleanup.
