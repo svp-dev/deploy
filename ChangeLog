@@ -1,0 +1,26 @@
+2010-12-14  Raphael 'kena' Poss  <r.c.poss@uva.nl>
+
+	Refactor the deployment utilities as a result of the gcc/binutils cleanup.
+
+	The custom GCC patch was recently integrated as a 'mtalpha' target
+	on a dedicated Microthreaded-enabled GCC tree. This drops the
+	requirement for both the ÂµTC core compiler and the
+	'alpha-linux-gnu' binutils targets. Additionally, development on
+	the custom binutils was also moved to a dedicated repository.
+	
+	* deploy/dist/common.mk,
+	* deploy/dist/dist-common.mk: Forget about `mggcc'.
+	
+	* deploy/dist/mggcc-dist.mk: Remove.
+
+	* deploy/dist/dist-common.mk,
+	* deploy/dist/binutils-dist.mk,
+	* deploy/dist/gcc-dist.mk,
+	* deploy/dist/slc-dist.mk: Fetch source from Git repositories
+	instead of Subversion.
+
+	* deploy/dist/m4-dist.mk: Use the Git hash in the source tree name
+	instead of timestamps to support persistence across builds.
+
+	* deploy/patches/gcc.patch: Remove, as this is now integrated
+	in a branch on a dedicated GCC repository.

@@ -7,15 +7,15 @@ include dist-common.mk
 
 M4_GIT_BRANCH = branch-1.6
 
-M4_TIMESTAMP := $(strip $(shell date +%Y%m%d))
-M4_DISTBASE = m4-$(M4_TIMESTAMP)
+M4_GIT_HASH := $(strip $(shell $(GIT) ls-remote $(M4_REPO) $(M4_GIT_BRANCH)|cut -c1-6))
+M4_DISTBASE = m4-$(M4_GIT_HASH)
 M4_METASRC = $(META_SOURCES)/$(M4_DISTBASE)
 
 $(M4_METASRC)/download_done:
 	rm -f $@
 	$(MKDIR_P) $(META_SOURCES)
-	cd $(META_SOURCES) && git clone $(M4_REPO) $(M4_DISTBASE)
-	cd $(M4_METASRC) && git checkout -b $(M4_GIT_BRANCH) origin/$(M4_GIT_BRANCH)
+	cd $(META_SOURCES) && $(GIT) clone $(M4_REPO) $(M4_DISTBASE)
+	cd $(M4_METASRC) && $(GIT) checkout -b $(M4_GIT_BRANCH) origin/$(M4_GIT_BRANCH)
 	touch $@
 
 $(M4_METASRC)/patch_done: $(M4_METASRC)/download_done

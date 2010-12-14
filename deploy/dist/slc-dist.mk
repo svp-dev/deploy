@@ -5,23 +5,17 @@
 include common.mk
 include dist-common.mk
 
-SLC_DIST_SVNBRANCH = trunk
-SLC_DIST_REV = latest
+SLC_GIT_BRANCH = master
 
-SLC_BASEBRANCH := $(strip $(shell basename $(SLC_DIST_SVNBRANCH)))
-SLC_SVN_REV := $(strip $(if $(filter latest, $(SLC_DIST_REV)), \
-	          $(shell $(SVN) info $(SLC_REPO)/$(SLC_DIST_SVNBRANCH)/slc | \
-	                  grep 'Last Changed Rev' | \
-	                  cut -d: -f2), $(SLC_DIST_REV)))
-
-SLC_DIST_VERSION = $(SLC_SVN_REV)-$(SLC_BASEBRANCH)
-SLC_DISTBASE = slc-$(SLC_DIST_VERSION)
-SLC_METASRC = $(META_SOURCES)/$(SLC_DISTBASE)
+SLC_GIT_HASH := $(strip $(shell $(GIT) ls-remote $(SLC_REPO) $(SLC_GIT_BRANCH)|cut -c1-6))
+SLC_DISTBASE = slc-$(SLC_GIT_HASH)
+SLC_METASRC = $(META_SOURCES)/$(SLC_DISTBASE)/slc
 
 $(SLC_METASRC)/download_done:
 	rm -f $@
 	$(MKDIR_P) $(META_SOURCES)
-	cd $(META_SOURCES) && $(SVN) checkout -r$(SLC_SVN_REV) $(SLC_REPO)/$(SLC_DIST_SVNBRANCH)/slc $(SLC_DISTBASE)
+	cd $(META_SOURCES) && $(GIT) clone $(SLC_REPO) $(SLC_DISTBASE)
+	cd $(SLC_METASRC) && $(GIT) checkout origin/$(SLC_GIT_BRANCH)
 	touch $@
 
 $(SLC_METASRC)/bootstrap_done: $(SLC_METASRC)/download_done

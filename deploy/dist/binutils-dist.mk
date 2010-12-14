@@ -5,32 +5,39 @@
 include common.mk
 include dist-common.mk
 
-BINUTILS_DIST_SVNBRANCH = trunk
-BINUTILS_DIST_REV = latest
-BINUTILS_DIST_BASEVER = 1.18
+BINUTILS_GIT_BRANCH = master
 
-BINUTILS_BASEBRANCH := $(strip $(shell basename $(BINUTILS_DIST_SVNBRANCH)))
-BU_SVN_REV := $(strip $(if $(filter latest, $(BINUTILS_DIST_REV)), \
-	          $(shell $(SVN) info $(BINUTILS_REPO)/$(BINUTILS_DIST_SVNBRANCH) | \
-	                  grep 'Last Changed Rev' | \
-	                  cut -d: -f2), $(BINUTILS_DIST_REV)))
+BINUTILS_GIT_HASH := $(strip $(shell $(GIT) ls-remote $(BINUTILS_REPO) $(BINUTILS_GIT_BRANCH)|cut -c1-6))
+BINUTILS_DISTBASE = binutils-mt-$(BINUTILS_GIT_HASH)
+BINUTILS_METASRC = $(META_SOURCES)/$(BINUTILS_DISTBASE)
 
-BINUTILS_DIST_VERSION = $(BINUTILS_DIST_BASEVER)-$(BU_SVN_REV)-$(BINUTILS_BASEBRANCH)
-BINUTILS_DISTBASE = binutils-$(BINUTILS_DIST_VERSION)
-
-$(META_SOURCES)/$(BINUTILS_DISTBASE)/download_done:
+$(BINUTILS_METASRC)/download_done:
 	rm -f $@
 	$(MKDIR_P) $(META_SOURCES)
-	cd $(META_SOURCES) && \
-	   $(SVN) export -r$(BU_SVN_REV) $(BINUTILS_REPO)/$(BINUTILS_DIST_SVNBRANCH) $(BINUTILS_DISTBASE)
+	cd $(META_SOURCES) && $(GIT) clone $(BINUTILS_REPO) $(BINUTILS_DISTBASE)
+	cd $(BINUTILS_METASRC) && $(GIT) checkout origin/$(BINUTILS_GIT_BRANCH)
 	touch $@
 
-$(ARCHIVEDIR)/$(BINUTILS_DISTBASE).tar.bz2: $(META_SOURCES)/$(BINUTILS_DISTBASE)/download_done
-	rm -f $@.tmp $@
-	$(MKDIR_P) $(ARCHIVEDIR)
-	echo $(BINUTILS_DIST_VERSION) > $(META_SOURCES)/$(BINUTILS_DISTBASE)/bfd/.tarball-version
-	tar -cjvf $@.tmp -C $(META_SOURCES) $(BINUTILS_DISTBASE)
-	mv -f $@.tmp $@
+$(BINUTILS_METASRC)/bootstrap_done: $(BINUTILS_METASRC)/download_done
+	rm -f $@
+	cd $(BINUTILS_METASRC)/src && AUTORECONF=autoreconf263 ./bootstrap
+	touch $@
 
-binutils-dist: $(ARCHIVEDIR)/$(BINUTILS_DISTBASE).tar.bz2
+.PHONY: binutils-dist
+binutils-dist: $(BINUTILS_METASRC)/bootstrap_done
+	$(MKDIR_P) $(ARCHIVEDIR)
+	rm -f $(BINUTILS_METASRC)/*.tar.*
+	cd $(BINUTILS_METASRC) && \
+	   ver=binutils-mt-`$(GIT) describe --abbrev=4 --tags|sed -e 's/^v//g'` && \
+	   echo "**** Preparing $$ver ****" && \
+	   rm -rf $$ver && \
+	   cp -RL src $$ver && \
+	   tar -cjvf $$ver.tar.bz2 $$ver
+	for arch in $(BINUTILS_METASRC)/*.tar.bz2; do \
+	   bn=`basename $$arch`; \
+	   if ! test -f $(ARCHIVEDIR)/$$bn; then \
+	      mv -f $$arch $(ARCHIVEDIR)/; \
+	   fi; \
+	done
+
 

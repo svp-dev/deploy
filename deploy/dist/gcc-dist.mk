@@ -5,44 +5,37 @@
 include common.mk
 include dist-common.mk
 
-GCC_DIST_REV = latest
-GCC_DIST_BASEVER = 4.4.3
+GCC_GIT_BRANCH = master
 
-GCC_VENDOR_ARCHIVE = gcc-core-$(GCC_DIST_BASEVER).tar.bz2
-GCC_PATCH = patches/gcc.patch
-
-GCC_SVN_REV := $(strip $(if $(filter latest, $(GCC_DIST_REV)), \
-	          $(shell $(SVN) info $(DEPLOY_REPO)/$(GCC_PATCH) | \
-	                  grep 'Last Changed Rev' | \
-	                  cut -d: -f2), $(GCC_DIST_REV)))
-
-
-GCC_DIST_VERSION = $(GCC_DIST_BASEVER)-$(GCC_SVN_REV)
-GCC_DISTBASE = gcc-$(GCC_DIST_VERSION)
+GCC_GIT_HASH := $(strip $(shell $(GIT) ls-remote $(GCC_REPO) $(GCC_GIT_BRANCH) | cut -c1-6))
+GCC_DISTBASE = gcc-mt-$(GCC_GIT_HASH)
 GCC_METASRC = $(META_SOURCES)/$(GCC_DISTBASE)
 
-$(META_SOURCES)/$(GCC_VENDOR_ARCHIVE):
+$(GCC_METASRC)/download_done:
 	rm -f $@
 	$(MKDIR_P) $(META_SOURCES)
-	cd $(META_SOURCES) && $(FETCH) $(GCC_MIRROR)/gcc-$(GCC_DIST_BASEVER)/$(GCC_VENDOR_ARCHIVE)
-
-$(GCC_METASRC)/extract_done: $(META_SOURCES)/$(GCC_VENDOR_ARCHIVE)
-	rm -f $@
-	cd $(META_SOURCES) && tar -xjf $(GCC_VENDOR_ARCHIVE)
-	rm -rf $(GCC_METASRC)
-	mv -f $(META_SOURCES)/gcc-$(GCC_DIST_BASEVER) $(GCC_METASRC)
+	cd $(META_SOURCES) && $(GIT) clone $(GCC_REPO) $(GCC_DISTBASE)
+	cd $(GCC_METASRC) && $(GIT) checkout origin/$(GCC_GIT_BRANCH)
 	touch $@
 
-$(GCC_METASRC)/patch_done: $(GCC_METASRC)/extract_done $(GCC_PATCH)
+$(GCC_METASRC)/bootstrap_done: $(GCC_METASRC)/download_done
 	rm -f $@
-	cd $(GCC_METASRC) && patch -p1 <$$OLDPWD/$(GCC_PATCH)
+	cd $(GCC_METASRC)/src && ./bootstrap
 	touch $@
 
-$(ARCHIVEDIR)/$(GCC_DISTBASE).tar.bz2: $(GCC_METASRC)/patch_done
-	rm -f $@.tmp $@
+.PHONY: gcc-dist
+gcc-dist: $(GCC_METASRC)/bootstrap_done
 	$(MKDIR_P) $(ARCHIVEDIR)
-	tar -cjvf $@.tmp -C $(META_SOURCES) $(GCC_DISTBASE)
-	mv -f $@.tmp $@
-
-gcc-dist: $(ARCHIVEDIR)/$(GCC_DISTBASE).tar.bz2
+	rm -f $(GCC_METASRC)/*.tar.*
+	cd $(GCC_METASRC) && ver=gcc-mt-`$(GIT) describe --abbrev=4 --tags|sed -e 's/^v//g'` && \
+	   echo "**** Preparing $$ver ****" && \
+	   rm -rf $$ver && \
+	   cp -RL src $$ver && \
+	   tar -cjvf $$ver.tar.bz2 $$ver
+	for arch in $(GCC_METASRC)/*.tar.bz2; do \
+	   bn=`basename $$arch`; \
+	   if ! test -f $(ARCHIVEDIR)/$$bn; then \
+	      mv -f $$arch $(ARCHIVEDIR)/; \
+	   fi; \
+	done
 
