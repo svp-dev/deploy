@@ -19,7 +19,7 @@ $(MGSIM_SRC)/configure: $(MGSIM_ARCHIVE)
 	$(UNTAR) $(SRCBASE) $(MGSIM_ARCHIVE)
 	touch $@
 
-$(MGSIM_BUILD)/configure_done: $(MGSIM_SRC)/configure $(SLTAG) $(SC_INST_TARGETS) $(BINUTILS_INST_TARGETS)
+$(MGSIM_BUILD)/configure_done: $(MGSIM_SRC)/configure $(SLTAG) $(BINUTILS_INST_TARGETS)
 	rm -f $@
 	$(MKDIR_P) $(MGSIM_BUILD)
 	cd $(DSTBASE) && rm -f slreqs-$(SLNAME) && $(LN_S) $(REQNAME) slreqs-$(SLNAME)
@@ -27,9 +27,9 @@ $(MGSIM_BUILD)/configure_done: $(MGSIM_SRC)/configure $(SLTAG) $(SC_INST_TARGETS
 	   cd $(MGSIM_BUILD) && \
 	   PATH=$(REQCURRENT)/bin:$$PATH $$SRC/configure --prefix=$(SLDIR) \
 			  CC="$(CC)" CXX="$(CXX)" \
-	                  CPPFLAGS="-I$(REQCURRENT)/include $(CPPFLAGS)" \
+	                  CPPFLAGS="$(CPPFLAGS)" \
 			  CFLAGS="$(CFLAGS)" CXXFLAGS="$(CXXFLAGS)" \
-	                  LDFLAGS="-L$(REQCURRENT)/lib $(LDFLAGS)"
+	                  LDFLAGS="$(LDFLAGS)"
 	rm -f $(MGSIM_BUILD)/src/*main.o
 	touch $@
 

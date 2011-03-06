@@ -1,3 +1,17 @@
+2011-03-06  Raphael 'kena' Poss  <r.c.poss@uva.nl>
+
+	Do not install SystemC any more.
+
+	The newer version of MGSim (at this date) does not require SystemC
+	for the alternate COMA implementation. Drop the requirement.
+
+	* deploy/installer/rules/sc.mk: Remove.
+
+	* deploy/installer/Makefile.am: Do not mention SystemC any more.
+	
+	* deploy/installer/rules/mgsim.mk: Do not fish for `include' and
+	`lib' in the requirements tree.
+
 2010-12-15  Raphael 'kena' Poss  <r.c.poss@uva.nl>
 
 	Upgrade installer to 3.2.

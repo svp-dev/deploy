@@ -1,6 +1,6 @@
 DSTBASE = $(DESTDIR)$(prefix)
 
-REQBASENAME = b$(BINUTILS_VERSION)-u$(MGGCC_VERSION)-g$(GCC_VERSION)-m$(M4_VERSION)-sc$(SC_VERSION)
+REQBASENAME = b$(BINUTILS_VERSION)-u$(MGGCC_VERSION)-g$(GCC_VERSION)-m$(M4_VERSION)
 REQNAME = slreqs-$(REQBASENAME)
 REQDIR = $(DSTBASE)/$(REQNAME)
 REQTAG = $(REQDIR)/.tag
@@ -17,7 +17,7 @@ ARCHIVEDIR = distfiles
 SRCBASE = sources
 BLDBASE = build
 
-REQPARTS = sc binutils m4 gcc slenv
+REQPARTS = binutils m4 gcc slenv
 SLPARTS = mgsim slc
 PARTS = $(REQPARTS) $(SLPARTS)
 
@@ -50,7 +50,7 @@ help:
 	@echo "   XXX-install    install part XXX"
 	@echo
 	@echo "Parts:"
-	@echo "   m4 binutils gcc sc"
+	@echo "   m4 binutils gcc"
 	@echo "   mgsim slc slenv"
 
 RULE_DONE = @echo "*** $@: done. ***"; echo
@@ -74,7 +74,7 @@ latest.dist:
 	$(AM_V_GEN)$(FETCH) $(TAGS_SITE)/latest >latest
 	$(AM_V_at)mv -f latest latest.dist
 
-reqs-fetch: sc-fetch
+reqs-fetch: 
 	$(AM_V_at)$(MAKE) $(foreach P,$(REQPARTS),$(P)-fetch)
 	$(RULE_DONE)
 
@@ -82,7 +82,7 @@ reqs-install: reqs-fetch
 	$(AM_V_at)$(MAKE) $(foreach P,$(REQPARTS),$(P)-install)
 	$(RULE_DONE)
 
-fetch: sc-fetch
+fetch:
 	$(AM_V_at)$(MAKE) $(foreach P,$(PARTS),$(P)-fetch)
 	$(RULE_DONE)
 
@@ -104,7 +104,6 @@ tags/.installed: Makefile
 	$(AM_V_at)$(MKDIR_P) tags
 	$(AM_V_at)rm -f $@
 	$(AM_V_GEN)(echo "# `date +'%Y-%m-%d %H:%M:%S'`"; \
-	 echo "sc:$(SC_VERSION)"; \
 	 echo "m4:$(M4_VERSION)"; \
 	 echo "gcc:$(GCC_VERSION)"; \
 	 echo "binutils:$(BINUTILS_VERSION)"; \
