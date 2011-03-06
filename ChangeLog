@@ -1,5 +1,15 @@
 2011-03-06  Raphael 'kena' Poss  <r.c.poss@uva.nl>
 
+	Remove custom patches to SysC.
+
+	* dist/sc-dist.mk,
+	* patches/sysc.patch,
+	* sysc/README,
+	* sysc/bootstrap,
+	* sysc/do_diff.sh: Delete.
+
+2011-03-06  Raphael 'kena' Poss  <r.c.poss@uva.nl>
+
 	Simplify the directory structure.
 
 	* deploy/installer/,
