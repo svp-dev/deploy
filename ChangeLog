@@ -1,5 +1,19 @@
 2011-03-06  Raphael 'kena' Poss  <r.c.poss@uva.nl>
 
+	Simplify the directory structure.
+
+	* deploy/installer/,
+	* deploy/dist/,
+	* deploy/patches/,
+	* deploy/sysc/: Move to...
+
+	* installer/,
+	* dist/,
+	* patches/,
+	* sysc/: ... here.
+
+2011-03-06  Raphael 'kena' Poss  <r.c.poss@uva.nl>
+
 	Do not check for alternate binary during MGSim distribution.
 	
 	* deploy/dist/mgsim-dist.mk: Remove check on configure output.
