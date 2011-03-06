@@ -1,5 +1,11 @@
 2011-03-07  Raphael 'kena' Poss  <r.c.poss@uva.nl>
 
+	Simplify the distribution Makefiles.
+
+	* dist/common.mk (REQPARTS): Forget about SysC here too.
+
+2011-03-07  Raphael 'kena' Poss  <r.c.poss@uva.nl>
+
 	Remove obsolete file.
 	
 	* deploy/installer/versions.m4: Remove. This was made obsolete
