@@ -1,5 +1,11 @@
 2011-03-06  Raphael 'kena' Poss  <r.c.poss@uva.nl>
 
+	Do not check for alternate binary during MGSim distribution.
+	
+	* deploy/dist/mgsim-dist.mk: Remove check on configure output.
+
+2011-03-06  Raphael 'kena' Poss  <r.c.poss@uva.nl>
+
 	Do not require `libgnugetopt' on OS X any more.
 
 	The latest combination of M4 / OS X does not seem to require this.
