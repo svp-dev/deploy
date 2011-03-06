@@ -1,5 +1,12 @@
 2011-03-07  Raphael 'kena' Poss  <r.c.poss@uva.nl>
 
+	Remove obsolete file.
+	
+	* deploy/installer/versions.m4: Remove. This was made obsolete
+	earlier by the automatic download of version files.
+
+2011-03-07  Raphael 'kena' Poss  <r.c.poss@uva.nl>
+
 	Protect the installation process against stray envvars.
 
 	* installer/configure.ac: Check for variable set by `slenv'. They
