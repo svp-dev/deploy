@@ -1,5 +1,19 @@
 2011-03-07  Raphael 'kena' Poss  <r.c.poss@uva.nl>
 
+	Notify copyright on packager.
+
+	* dist/README: New.
+
+	* dist/binutils-dist.mk,
+	* dist/common.mk,
+	* dist/dist-common.mk,
+	* dist/gcc-dist.mk,
+	* dist/m4-dist.mk,
+	* dist/mgsim-dist.mk,
+	* dist/slc-dist.mk: Add copyright notices.
+	
+2011-03-07  Raphael 'kena' Poss  <r.c.poss@uva.nl>
+
 	License the installer.
 
 	* installer/COPYING: New.

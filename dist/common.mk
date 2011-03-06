@@ -1,3 +1,8 @@
+## common.mk: this file is part of the SL packager.
+## 
+## Copyright (C) 2010,2011 The SL project.
+## All rights reserved. 
+
 ARCHIVEDIR = distfiles
 META_SOURCES = sl/meta
 INST_SOURCES = sl/src

@@ -1,6 +1,7 @@
-##
-## MGSim dist
+## slc-dist.mk: this file is part of the SL packager.
 ## 
+## Copyright (C) 2010,2011 The SL project.
+## All rights reserved. 
 
 include common.mk
 include dist-common.mk
