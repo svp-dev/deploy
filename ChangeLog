@@ -1,5 +1,26 @@
 2011-03-07  Raphael 'kena' Poss  <r.c.poss@uva.nl>
 
+	License the installer.
+
+	* installer/COPYING: New.
+
+	* installer/README: Document the license.
+	
+	* installer/Makefile.am,
+	* installer/bootstrap,
+	* installer/configure.ac,
+	* installer/deslenv.in,
+	* installer/rules/binutils.mk,
+	* installer/rules/gcc.mk,
+	* installer/rules/m4.mk,
+	* installer/rules/mgsim.mk,
+	* installer/rules/slc.mk,
+	* installer/rules/slenv.mk,
+	* installer/slenv.in,
+	* installer/slversion.in: Add copyright and licensing notices.
+
+2011-03-07  Raphael 'kena' Poss  <r.c.poss@uva.nl>
+
 	Simplify the distribution Makefiles.
 
 	* dist/common.mk (REQPARTS): Forget about SysC here too.

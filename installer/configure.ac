@@ -1,10 +1,22 @@
+## configure.ac: this file is part of the SL tool chain installer.
+## 
+## Copyright (C) 2010,2011 The SL project.
+##
+## This program is free software; you can redistribute it and/or
+## modify it under the terms of the GNU General Public License
+## as published by the Free Software Foundation; either version 2
+## of the License, or (at your option) any later version.
+##
+## The complete GNU General Public Licence Notice can be found as the
+## `COPYING' file in the root directory.
+##
 AC_PREREQ([2.65])
 AC_INIT([sl-installer], 
         m4_esyscmd([(pre=; if test -d ../../.git -a ! -d .git; then pre=$PWD/; cd ../..; fi; \
                     ${pre}build-aux/version-gen \
                     ${pre}build-aux/tarball-version \
                     ${pre}build-aux/package-version)]), 
-        [sl-users@nic.surfnet.nl])
+        [sl-users@svp-home.org])
 AC_CONFIG_AUX_DIR([build-aux])
 
 AC_PREFIX_DEFAULT([/opt/svp])
