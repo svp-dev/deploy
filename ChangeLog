@@ -1,3 +1,13 @@
+2011-03-07  Raphael 'kena' Poss  <r.c.poss@uva.nl>
+
+	Protect the installation process against stray envvars.
+
+	* installer/configure.ac: Check for variable set by `slenv'. They
+	should not be set otherwise incorrect paths may become embedded in
+	the build. Also check `MGSIM_ALPHA', `MGSIM_SPARC'.
+
+	* installer/deslenv.in: Unset more variables.
+
 2011-03-06  Raphael 'kena' Poss  <r.c.poss@uva.nl>
 
 	Remove custom patches to SysC.

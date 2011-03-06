@@ -172,6 +172,17 @@ handle_package([mgsim])
 handle_package([slc], [sl-core])
 handle_package([m4])
 
+for v in SL_TAG SLREQS_TAG CC_ALPHA_OVERRIDE \
+   UTCC_ALPHA_OVERRIDE AR_MTALPHA_OVERRIDE RANLIB_MTALPHA_OVERRIDE \
+   CC_SPARC_OVERRIDE UTCC_SPARC_OVERRIDE AR_MTSPARC_OVERRIDE \
+   RANLIB_MTSPARC_OVERRIDE SLC_DATADIR SLC_LIBDIR SLC_INCDIR \
+   MGSIM_ALPHA MGSIM_SPARC; do
+   val=`eval echo 'x$'$v`
+   if test "$val" != x; then
+       AC_MSG_ERROR([Variable $v is set. Please unset (or deslenv) before running configure again.])
+   fi
+done
+
 AC_CONFIG_FILES([Makefile slenv deslenv slversion])
 AC_OUTPUT
 
