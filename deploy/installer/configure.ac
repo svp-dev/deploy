@@ -100,22 +100,10 @@ case $build in
     AC_MSG_RESULT([yes]) 
     CPPFLAGS="$CPPFLAGS -I/opt/local/include"
     LDFLAGS="$LDFLAGS -L/opt/local/lib"
-    if test -d /opt/local/include/libgnugetopt; then
-       CPPFLAGS="$CPPFLAGS -I/opt/local/include/libgnugetopt"
-    fi
   else
     AC_MSG_RESULT([no])
   fi
   ;;
-esac
-
-case $build in
-  *-apple-darwin[1-8].*) ;;
-  *-apple-darwin*)
-    AC_LANG_PUSH([C])
-    AC_CHECK_LIB([gnugetopt], [getopt_long], [], [AC_MSG_WARN([GNU getopt is required with MacOS X 10.5+ (MacPorts: port install libgnugetopt)])])
-    AC_LANG_POP([C])
-    ;;
 esac
 
 AC_ARG_WITH([tagfile],
@@ -182,7 +170,6 @@ handle_package([binutils])
 handle_package([gcc])
 handle_package([mgsim])
 handle_package([slc], [sl-core])
-handle_package([sc], [systemc])
 handle_package([m4])
 
 AC_CONFIG_FILES([Makefile slenv deslenv slversion])
@@ -201,7 +188,6 @@ echo "*"
 echo "* mg-binutils:        $BINUTILS_ARCHIVE ($BINUTILS_VERSION)"
 echo "* GCC (patched):      $GCC_ARCHIVE ($GCC_VERSION)"
 echo "* m4 (patched):       $M4_ARCHIVE ($M4_VERSION)"
-echo "* SystemC (patched):  $SC_ARCHIVE ($SC_VERSION)"
 echo "* mgsim:              $MGSIM_ARCHIVE ($MGSIM_VERSION)"
 echo "* slc:                $SLC_ARCHIVE ($SLC_VERSION)"
 echo "*"

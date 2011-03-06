@@ -1,5 +1,14 @@
 2011-03-06  Raphael 'kena' Poss  <r.c.poss@uva.nl>
 
+	Do not require `libgnugetopt' on OS X any more.
+
+	The latest combination of M4 / OS X does not seem to require this.
+
+	* deploy/installer/configure.ac: Remove the tests on
+	`libgnugetopt'.
+	
+2011-03-06  Raphael 'kena' Poss  <r.c.poss@uva.nl>
+
 	Do not install SystemC any more.
 
 	The newer version of MGSim (at this date) does not require SystemC
