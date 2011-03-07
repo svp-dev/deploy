@@ -1,5 +1,11 @@
 2011-03-07  Raphael 'kena' Poss  <r.c.poss@uva.nl>
 
+	Fix detection of version number.
+	
+	* installer/configure.ac: Fix relative path to SCM root (git).
+
+2011-03-07  Raphael 'kena' Poss  <r.c.poss@uva.nl>
+
 	Upgrade installer to 3.3.
 
 	* installer/build-aux/package_version: Do it.
