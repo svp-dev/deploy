@@ -1,5 +1,11 @@
 2011-03-07  Raphael 'kena' Poss  <r.c.poss@uva.nl>
 
+	Upgrade installer to 3.3.
+
+	* installer/build-aux/package_version: Do it.
+
+2011-03-07  Raphael 'kena' Poss  <r.c.poss@uva.nl>
+
 	Notify copyright on packager.
 
 	* dist/README: New.
