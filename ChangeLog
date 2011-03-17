@@ -1,3 +1,10 @@
+2011-03-17  Raphael 'kena' Poss  <r.c.poss@uva.nl>
+
+	Update repository URL in packager.
+
+	* dist/dist-common.mk (SLC_REPO): Change from `sys.git' to
+	`slcore.git'.
+
 2011-03-07  Raphael 'kena' Poss  <r.c.poss@uva.nl>
 
 	Fix detection of version number.
