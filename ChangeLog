@@ -1,5 +1,11 @@
 2011-03-17  Raphael 'kena' Poss  <r.c.poss@uva.nl>
 
+	Upgrade installer to 3.4.
+
+	* installer/build-aux/package_version: Do it.
+
+2011-03-17  Raphael 'kena' Poss  <r.c.poss@uva.nl>
+
 	New arguments in installer to enable/disable MT support.
 
 	* installer/configure.ac: New arguments `--disable-mtalpha' and
