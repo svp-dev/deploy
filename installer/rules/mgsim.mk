@@ -18,6 +18,18 @@ MGSIM_CFG_TARGETS = $(MGSIM_BUILD)/configure_done
 MGSIM_BUILD_TARGETS = $(MGSIM_BUILD)/build_done
 MGSIM_INST_TARGETS = $(SLDIR)/.mgsim-installed
 
+MGSIM_TARGET_SELECT =
+if ENABLE_MTALPHA
+MGSIM_TARGET_SELECT += --enable-mtalpha
+else
+MGSIM_TARGET_SELECT += --disable-mtalpha
+endif
+if ENABLE_MTSPARC
+MGSIM_TARGET_SELECT += --enable-mtsparc
+else
+MGSIM_TARGET_SELECT += --disable-mtsparc
+endif
+
 .PRECIOUS: $(MGSIM_ARCHIVE) $(MGSIM_CFG_TARGETS) $(MGSIM_BUILD_TARGETS) $(MGSIM_INST_TARGETS)
 
 mgsim-fetch: $(MGSIM_ARCHIVE) ; $(RULE_DONE)
@@ -40,7 +52,8 @@ $(MGSIM_BUILD)/configure_done: $(MGSIM_SRC)/configure $(SLTAG) $(BINUTILS_INST_T
 			  CC="$(CC)" CXX="$(CXX)" \
 	                  CPPFLAGS="$(CPPFLAGS)" \
 			  CFLAGS="$(CFLAGS)" CXXFLAGS="$(CXXFLAGS)" \
-	                  LDFLAGS="$(LDFLAGS)"
+	                  LDFLAGS="$(LDFLAGS)" \
+	                  $(MGSIM_TARGET_SELECT)
 	rm -f $(MGSIM_BUILD)/src/*main.o
 	touch $@
 

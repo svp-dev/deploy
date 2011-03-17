@@ -13,7 +13,13 @@
 
 BINUTILS_SRC = $(SRCBASE)/binutils-$(BINUTILS_VERSION)
 BINUTILS_BUILD = $(BLDBASE)/binutils-$(BINUTILS_VERSION)
-BINUTILS_TARGETS = mtalpha-linux-gnu mtsparc-linux-gnu
+BINUTILS_TARGETS = 
+if ENABLE_MTALPHA
+BINUTILS_TARGETS += mtalpha-linux-gnu
+endif
+if ENABLE_MTSPARC
+BINUTILS_TARGETS += mtsparc-linux-gnu
+endif
 
 BINUTILS_CFG_TARGETS = $(foreach T,$(BINUTILS_TARGETS),$(BINUTILS_BUILD)-$(T)/configure_done)
 BINUTILS_BUILD_TARGETS = $(foreach T,$(BINUTILS_TARGETS),$(BINUTILS_BUILD)-$(T)/build_done)

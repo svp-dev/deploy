@@ -18,6 +18,18 @@ SLC_CFG_TARGETS = $(SLC_BUILD)/configure_done
 SLC_BUILD_TARGETS = $(SLC_BUILD)/build_done
 SLC_INST_TARGETS = $(SLDIR)/.slc-installed
 
+SLC_TARGET_SELECT =
+if ENABLE_MTALPHA
+SLC_TARGET_SELECT += --enable-mtalpha
+else
+SLC_TARGET_SELECT += --disable-mtalpha
+endif
+if ENABLE_MTSPARC
+SLC_TARGET_SELECT += --enable-mtsparc
+else
+SLC_TARGET_SELECT += --disable-mtsparc
+endif
+
 .PRECIOUS: $(SLC_ARCHIVE) $(SLC_CFG_TARGETS) $(SLC_BUILD_TARGETS) $(SLC_INST_TARGETS)
 
 slc-fetch: $(SLC_ARCHIVE) ; $(RULE_DONE)
@@ -45,7 +57,8 @@ $(SLC_BUILD)/configure_done: $(SLC_SRC)/configure \
 			  CC="$(CC)" CXX="$(CXX)" \
 	                  CPPFLAGS="-I$(REQCURRENT)/include $(CPPFLAGS)" \
 			  CFLAGS="$(CFLAGS)" CXXFLAGS="$(CXXFLAGS)" \
-	                  LDFLAGS="-L$(REQCURRENT)/lib $(LDFLAGS)"
+	                  LDFLAGS="-L$(REQCURRENT)/lib $(LDFLAGS)" \
+	                  $(SLC_TARGET_SELECT)
 	touch $@
 
 $(SLC_BUILD)/build_done: $(SLC_BUILD)/configure_done

@@ -195,6 +195,20 @@ for v in SL_TAG SLREQS_TAG CC_ALPHA_OVERRIDE \
    fi
 done
 
+AC_ARG_ENABLE([mtalpha],
+              [AC_HELP_STRING([--disable-mtalpha],
+                              [disable support for MT-Alpha targets])],
+              [], [enable_mtalpha=yes])
+AM_CONDITIONAL([ENABLE_MTALPHA], [test "x$enable_mtalpha" = "xyes"])
+
+AC_ARG_ENABLE([mtsparc],
+              [AC_HELP_STRING([--disable-mtsparc],
+                              [disable support for MT-Sparc targets])],
+              [], [enable_mtsparc=yes])
+AM_CONDITIONAL([ENABLE_MTSPARC], [test "x$enable_mtsparc" = "xyes"])
+
+AM_CONDITIONAL([ENABLE_MT], [test "x$enable_mtsparc" = "xyes" -o "x$enable_mtalpha" = "xyes"])
+
 AC_CONFIG_FILES([Makefile slenv deslenv slversion])
 AC_OUTPUT
 
@@ -213,6 +227,9 @@ echo "* GCC (patched):      $GCC_ARCHIVE ($GCC_VERSION)"
 echo "* m4 (patched):       $M4_ARCHIVE ($M4_VERSION)"
 echo "* mgsim:              $MGSIM_ARCHIVE ($MGSIM_VERSION)"
 echo "* slc:                $SLC_ARCHIVE ($SLC_VERSION)"
+echo "*"
+echo "* Support for MT-Sparc: $enable_mtsparc"
+echo "* Support for MT-Alpha: $enable_mtalpha"
 echo "*"
 echo "Now run:"
 echo 

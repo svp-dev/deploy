@@ -1,5 +1,18 @@
 2011-03-17  Raphael 'kena' Poss  <r.c.poss@uva.nl>
 
+	New arguments in installer to enable/disable MT support.
+
+	* installer/configure.ac: New arguments `--disable-mtalpha' and
+	`--disable-mtsparc'. Default is to enable. New AM conditionals.
+
+	* installer/Makefile.am,
+	* installer/rules/binutils.mk,
+	* installer/rules/gcc.mk,
+	* installer/rules/slc.mk,
+	* installer/rules/mgsim.mk: Use the conditionals.
+	
+2011-03-17  Raphael 'kena' Poss  <r.c.poss@uva.nl>
+
 	Update repository URL in packager.
 
 	* dist/dist-common.mk (SLC_REPO): Change from `sys.git' to

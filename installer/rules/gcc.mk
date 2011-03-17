@@ -13,7 +13,13 @@
 
 GCC_SRC = $(SRCBASE)/gcc-$(GCC_VERSION)
 GCC_BUILD = $(BLDBASE)/gcc-$(GCC_VERSION)
-GCC_TARGETS = mtalpha-linux-gnu
+GCC_TARGETS = 
+if ENABLE_MTALPHA
+GCC_TARGETS += mtalpha-linux-gnu 
+endif
+if ENABLE_MTSPARC
+GCC_TARGETS += mtsparc-linux-gnu
+endif
 
 GCC_CFG_TARGETS = $(foreach T,$(GCC_TARGETS),$(GCC_BUILD)-$(T)/configure_done)
 GCC_BUILD_TARGETS = $(foreach T,$(GCC_TARGETS),$(GCC_BUILD)-$(T)/build_done)

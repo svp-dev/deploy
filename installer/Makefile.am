@@ -12,12 +12,23 @@
 ##
 DSTBASE = $(DESTDIR)$(prefix)
 
+if ENABLE_MTALPHA
+MTA = -mta
+else
+MTA =
+endif
+if ENABLE_MTSPARC
+MTS = -mts
+else
+MTS =
+endif
+
 REQBASENAME = b$(BINUTILS_VERSION)-u$(MGGCC_VERSION)-g$(GCC_VERSION)-m$(M4_VERSION)
 REQNAME = slreqs-$(REQBASENAME)
 REQDIR = $(DSTBASE)/$(REQNAME)
 REQTAG = $(REQDIR)/.tag
 
-SLBASENAME = s$(MGSIM_VERSION)-c$(SLC_VERSION)
+SLBASENAME = s$(MGSIM_VERSION)-c$(SLC_VERSION)$(MTA)$(MTS)
 SLNAME = sl-$(SLBASENAME)
 SLDIR = $(DSTBASE)/$(SLNAME)
 SLTAG = $(SLDIR)/.tag
@@ -29,8 +40,15 @@ ARCHIVEDIR = distfiles
 SRCBASE = sources
 BLDBASE = build
 
-REQPARTS = binutils m4 gcc slenv
-SLPARTS = mgsim slc
+REQPARTS = 
+SLPARTS = 
+if ENABLE_MT
+REQPARTS += binutils gcc
+SLPARTS += mgsim
+endif
+REQPARTS += m4 slenv
+SLPARTS += slc
+
 PARTS = $(REQPARTS) $(SLPARTS)
 
 .PRECIOUS: $(REQTAG) $(SLTAG)
@@ -73,13 +91,21 @@ UNTAR = do_extract() { \
 	*.tar.bz2*|*.tbz) bzip2 -dc "$$2" | ( cd "$$1" && $(am__untar) ) ;; \
      esac; }; do_extract
 
-RULEFILES = $(foreach P,$(PARTS),$(srcdir)/rules/$(P).mk)
-
 include $(srcdir)/build-aux/version.mk
 
-include $(RULEFILES)
+include $(srcdir)/rules/binutils.mk
+include $(srcdir)/rules/gcc.mk
+include $(srcdir)/rules/m4.mk
+include $(srcdir)/rules/mgsim.mk
+include $(srcdir)/rules/slc.mk
 
-EXTRA_DIST += $(RULEFILES) latest.dist
+EXTRA_DIST += \
+	rules/binutils.mk \
+	rules/gcc.mk \
+	rules/m4.mk \
+	rules/mgsim.mk \
+	rules/slc.mk \
+	latest.dist
 
 latest.dist:
 	$(AM_V_at)rm -f latest latest.dist
