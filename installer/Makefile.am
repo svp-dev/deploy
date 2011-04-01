@@ -132,6 +132,7 @@ install-data-local: fetch tags/.installed
 	$(MKDIR_P) $(DSTBASE)/tags
 	for tf in tags/*; do \
 	   tag=`basename "$$tf"`; \
+	   if ! test -r "$$tf"; then continue; fi; \
 	   if test -r $(DSTBASE)/tags/"$$tag" && cmp -s "$$tf" $(DSTBASE)/tags/"$$tag"; then continue; fi; \
 	   echo "$$tf -> $(DSTBASE)/tags/$$tag"; \
 	   $(INSTALL_DATA) "$$tf" $(DSTBASE)/tags/; \

@@ -1,5 +1,12 @@
 2011-04-01  Raphael 'kena' Poss  <r.c.poss@uva.nl>
 
+	Fix the installer to deal with pristine installs.
+
+	* installer/Makefile.am (install-data-local): Avoid trying to copy
+	`*'.
+
+2011-04-01  Raphael 'kena' Poss  <r.c.poss@uva.nl>
+
 	Fix the packaging makefiles to deal with multiple git branches.
 
 	* dist/binutils-dist.mk,
