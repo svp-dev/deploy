@@ -1,3 +1,9 @@
+2011-04-01  Raphael 'kena' Poss  <r.c.poss@uva.nl>
+
+	Fix the installer.
+
+	* installer/Makefile.am: Include rules for `slenv' again.
+
 2011-03-17  Raphael 'kena' Poss  <r.c.poss@uva.nl>
 
 	Upgrade installer to 3.4.

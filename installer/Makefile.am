@@ -98,6 +98,7 @@ include $(srcdir)/rules/gcc.mk
 include $(srcdir)/rules/m4.mk
 include $(srcdir)/rules/mgsim.mk
 include $(srcdir)/rules/slc.mk
+include $(srcdir)/rules/slenv.mk
 
 EXTRA_DIST += \
 	rules/binutils.mk \
@@ -105,6 +106,7 @@ EXTRA_DIST += \
 	rules/m4.mk \
 	rules/mgsim.mk \
 	rules/slc.mk \
+	rules/slenv.mk \
 	latest.dist
 
 latest.dist:
