@@ -8,7 +8,7 @@ include dist-common.mk
 
 BINUTILS_GIT_BRANCH = master
 
-BINUTILS_GIT_HASH := $(strip $(shell $(GIT) ls-remote $(BINUTILS_REPO) $(BINUTILS_GIT_BRANCH)|cut -c1-6))
+BINUTILS_GIT_HASH := $(strip $(shell $(GIT) ls-remote $(BINUTILS_REPO) $(BINUTILS_GIT_BRANCH)|head -n1|cut -c1-6))
 BINUTILS_DISTBASE = binutils-mt-$(BINUTILS_GIT_HASH)
 BINUTILS_METASRC = $(META_SOURCES)/$(BINUTILS_DISTBASE)
 

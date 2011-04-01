@@ -8,7 +8,7 @@ include dist-common.mk
 
 GCC_GIT_BRANCH = master
 
-GCC_GIT_HASH := $(strip $(shell $(GIT) ls-remote $(GCC_REPO) $(GCC_GIT_BRANCH) | cut -c1-6))
+GCC_GIT_HASH := $(strip $(shell $(GIT) ls-remote $(GCC_REPO) $(GCC_GIT_BRANCH) | head -n1 | cut -c1-6))
 GCC_DISTBASE = gcc-mt-$(GCC_GIT_HASH)
 GCC_METASRC = $(META_SOURCES)/$(GCC_DISTBASE)
 

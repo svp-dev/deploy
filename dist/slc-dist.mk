@@ -8,7 +8,7 @@ include dist-common.mk
 
 SLC_GIT_BRANCH = master
 
-SLC_GIT_HASH := $(strip $(shell $(GIT) ls-remote $(SLC_REPO) $(SLC_GIT_BRANCH)|cut -c1-6))
+SLC_GIT_HASH := $(strip $(shell $(GIT) ls-remote $(SLC_REPO) $(SLC_GIT_BRANCH)|head -n1|cut -c1-6))
 SLC_DISTBASE = slc-$(SLC_GIT_HASH)
 SLC_METASRC = $(META_SOURCES)/$(SLC_DISTBASE)/slc
 

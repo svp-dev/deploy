@@ -8,7 +8,7 @@ include dist-common.mk
 
 M4_GIT_BRANCH = branch-1.6
 
-M4_GIT_HASH := $(strip $(shell $(GIT) ls-remote $(M4_REPO) $(M4_GIT_BRANCH)|cut -c1-6))
+M4_GIT_HASH := $(strip $(shell $(GIT) ls-remote $(M4_REPO) $(M4_GIT_BRANCH)|head -n1|cut -c1-6))
 M4_DISTBASE = m4-$(M4_GIT_HASH)
 M4_METASRC = $(META_SOURCES)/$(M4_DISTBASE)
 
