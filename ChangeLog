@@ -1,3 +1,17 @@
+2011-05-26  Raphael 'kena' Poss  <r.c.poss@uva.nl>
+
+	Update the installer for MGSim 3.1.
+
+	* installer/configure.ac: Check for SDL here.
+	
+	* installer/rules/mgsim.mk: Update to compile the simulator with
+	different compile flags. This is necessary since 3.1 does not
+	compile multiple binaries any more.
+
+	* installer/rules/mgsim.mk: Move the command that generates the
+	symbolic link to the target installation directory to...
+	* installer/Makefile.am: ...here.
+
 2011-04-01  Raphael 'kena' Poss  <r.c.poss@uva.nl>
 
 	Fix the installer to deal with pristine installs.

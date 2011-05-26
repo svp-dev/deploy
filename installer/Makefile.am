@@ -56,6 +56,9 @@ PARTS = $(REQPARTS) $(SLPARTS)
 	$(MKDIR_P) `dirname $@`
 	touch $@
 
+$(REQCURRENT): $(SLTAG)
+	cd $(DSTBASE) && rm -f slreqs-$(SLNAME) && $(LN_S) $(REQNAME) slreqs-$(SLNAME)
+
 .PRECIOUS: $(ARCHIVEDIR)/%
 $(ARCHIVEDIR)/%:
 	$(AM_V_at)$(MKDIR_P) $(ARCHIVEDIR)

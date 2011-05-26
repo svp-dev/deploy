@@ -101,6 +101,24 @@ AC_CACHE_CHECK([for Bourne-Again shell], [ac_cv_path_BASH],
 	[AC_MSG_ERROR([could not find bash])])])
 AC_SUBST([BASH], [$ac_cv_path_BASH])
 
+
+#
+# Try to find the SDL. If not found, the gfx version of the
+# simulator is not built.
+#
+AC_ARG_ENABLE([sdl],
+              [AC_HELP_STRING([--disable-sdl],  
+                              [disable support for graphics output using SDL (default is try to enable)])],
+              [], [enable_sdl=yes])
+if test "x$enable_sdl" = "xyes"; then
+  AM_PATH_SDL
+  if test "x$no_sdl" = xyes; then
+    AC_MSG_ERROR([SDL not found])
+    enable_sdl=no
+  fi
+fi
+AM_CONDITIONAL([ENABLE_SDL], [test "x$enable_sdl" = "xyes"])
+
 #
 # If MacPorts is installed, assume it should be used.
 # Also, fish for GNU getopt on MacOS X 10.5+.
