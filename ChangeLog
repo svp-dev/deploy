@@ -1,5 +1,11 @@
 2011-05-26  Raphael 'kena' Poss  <r.c.poss@uva.nl>
 
+	Update the packaging of MGSim to re-generate the ChangeLog.
+
+	* dist/mgsim-dist.mk: Do it.
+
+2011-05-26  Raphael 'kena' Poss  <r.c.poss@uva.nl>
+
 	Update the installer for MGSim 3.1.
 
 	* installer/configure.ac: Check for SDL here.
