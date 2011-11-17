@@ -1,5 +1,11 @@
 2011-11-17  Raphael 'kena' Poss  <r.c.poss@uva.nl>
 
+	Upgrade installer to 3.6.
+
+	* installer/build-aux/package_version: Do it.
+
+2011-11-17  Raphael 'kena' Poss  <r.c.poss@uva.nl>
+
 	Add support for ptl and hlsim in the installer.
 
 	* installer/rules/ptl.mk,
