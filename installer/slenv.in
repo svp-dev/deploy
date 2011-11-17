@@ -107,12 +107,14 @@ export PYTHONPATH=$sl_base/lib/sl-core:$sl_base/lib/python2.6/site-packages;
 export PATH=$sl_base/bin:$slreq_base/bin:\$PATH;
 export MANPATH=$sl_base/share/man:$slreq_base/share/man:\$MANPATH;
 export CC_ALPHA_OVERRIDE=$slreq_base/bin/alpha-linux-gnu-gcc;
+export CC_MTALPHA_OVERRIDE=$slreq_base/bin/mtalpha-linux-gnu-gcc;
 export UTCC_ALPHA_OVERRIDE=$slreq_base/bin/mtalpha-linux-gnu-gcc;
 export AR_MTALPHA_OVERRIDE=$slreq_base/bin/mtalpha-linux-gnu-ar;
 export RANLIB_MTALPHA_OVERRIDE=$slreq_base/bin/mtalpha-linux-gnu-ranlib;
-export CC_SPARC_OVERRIDE=$slreq_base/bin/sparc-leon-linux-gcc;
-export UTCC_SPARC_OVERRIDE=$slreq_base/bin/mtsparc-leon-linux-gcc;
-export AR_MTSPARC_OVERRIDE=$slreq_base/bin/mtsparc-leon-linux-ar;
-export RANLIB_MTSPARC_OVERRIDE=$slreq_base/bin/mtsparc-leon-linux-ranlib
+export CC_SPARC_OVERRIDE=$slreq_base/bin/sparc-linux-gnu-gcc;
+export CC_MTSPARC_OVERRIDE=$slreq_base/bin/mtsparc-linux-gnu-gcc;
+export UTCC_SPARC_OVERRIDE=$slreq_base/bin/mtsparc-linux-gnu-gcc;
+export AR_MTSPARC_OVERRIDE=$slreq_base/bin/mtsparc-linux-gnu-ar;
+export RANLIB_MTSPARC_OVERRIDE=$slreq_base/bin/mtsparc-linux-gnu-ranlib
 EOF
 

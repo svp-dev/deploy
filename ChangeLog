@@ -1,5 +1,21 @@
 2011-11-17  Raphael 'kena' Poss  <r.c.poss@uva.nl>
 
+	Clean up the installer.
+
+	* installer/configure.ac: Use `mkdir -p' explicitly because
+	`$MKDIR_P' seems to not work properly. Check for more variables
+	that may pollute the build.
+
+	* installer/rules/mgsim.mk,
+	* installer/rules/slc.mk: Always ensure that the target
+	installation directory exists.
+
+	* installer/slenv.in: Use `mtsparc-linux-gnu' instead of
+	`mtsparc-leon-linux' for the MT-SPARC tools. Also define
+	`CC_MTALPHA_OVERRIDE'.
+
+2011-11-17  Raphael 'kena' Poss  <r.c.poss@uva.nl>
+
 	New packaging makefiles for ptl and hlsim.
 
 	* dist/ptl-dist.mk,

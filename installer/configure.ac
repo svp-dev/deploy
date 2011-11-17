@@ -144,7 +144,7 @@ AC_ARG_WITH([tagfile],
 if ! test -r "$with_tagfile"; then
    # tag file not really there yet, try to fetch
    tagsource=$TAGS_SITE/$with_tagfile
-   $MKDIR_P tags
+   mkdir -p tags
    rm -f tags/"$with_tagfile"
    AC_MSG_NOTICE([trying to download $tagsource...])
    if ! ($FETCH "$tagsource" >tags/"$with_tagfile"); then
@@ -203,8 +203,8 @@ handle_package([slc], [sl-core])
 handle_package([m4])
 
 for v in SL_TAG SLREQS_TAG CC_ALPHA_OVERRIDE \
-   UTCC_ALPHA_OVERRIDE AR_MTALPHA_OVERRIDE RANLIB_MTALPHA_OVERRIDE \
-   CC_SPARC_OVERRIDE UTCC_SPARC_OVERRIDE AR_MTSPARC_OVERRIDE \
+   CC_MTALPHA_OVERRIDE UTCC_ALPHA_OVERRIDE AR_MTALPHA_OVERRIDE RANLIB_MTALPHA_OVERRIDE \
+   CC_MTSPARC_OVERRIDE CC_SPARC_OVERRIDE UTCC_SPARC_OVERRIDE AR_MTSPARC_OVERRIDE \
    RANLIB_MTSPARC_OVERRIDE SLC_DATADIR SLC_LIBDIR SLC_INCDIR \
    MGSIM_ALPHA MGSIM_SPARC; do
    val=`eval echo 'x$'$v`

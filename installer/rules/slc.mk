@@ -68,5 +68,6 @@ $(SLC_BUILD)/build_done: $(SLC_BUILD)/configure_done
 
 $(SLDIR)/.slc-installed: $(SLC_BUILD)/build_done
 	rm -f $@
+	$(MKDIR_P) $(SLDIR)
 	cd $(SLC_BUILD) && $(MAKE) install
 	touch $@

@@ -79,6 +79,7 @@ $(MGSIM_BUILD)-%/build_done: $(MGSIM_BUILD)-%/configure_done
 
 $(SLDIR)/.mgsim-installed-%: $(MGSIM_BUILD)-%/build_done
 	rm -f $@
+	$(MKDIR_P) $(SLDIR)
 	cd $(MGSIM_BUILD)-$* && $(MAKE) install
 	touch $@
 
