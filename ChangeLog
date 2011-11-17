@@ -1,5 +1,14 @@
 2011-11-17  Raphael 'kena' Poss  <r.c.poss@uva.nl>
 
+	Minor packaging fix.
+
+	* installer/rules/gcc.mk,
+	* installer/rules/binutils.mk,
+	* installer/rules/hlsimcore.mk: Force a rebuild if installing to a
+	new target installation tree.
+
+2011-11-17  Raphael 'kena' Poss  <r.c.poss@uva.nl>
+
 	Upgrade installer to 3.6.
 
 	* installer/build-aux/package_version: Do it.

@@ -49,6 +49,7 @@ $(BINUTILS_BUILD)-%/configure_done: $(BINUTILS_SRC)/configure $(REQTAG)
 	                  LDFLAGS="$(CFLAGS) $(LDFLAGS)" \
 			   --disable-werror \
 	                   --prefix=$(REQDIR)
+	cd $(BINUTILS_BUILD)-$* && make clean
 	touch $@
 
 $(BINUTILS_BUILD)-%/build_done: $(BINUTILS_BUILD)-%/configure_done
