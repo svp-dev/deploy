@@ -30,10 +30,6 @@ $(MGSIM_METASRC)/bootstrap_done: $(MGSIM_METASRC)/download_done
 	cd $(MGSIM_METASRC) && bash -e ./bootstrap
 	touch $@
 
-# rather hackish: in order to make an archive for mgsim,
-# we need to generate the man pages, which in turn require
-# to build the programs, which in turn require a properly 
-# built systemc. This needs to be present on the system already!
 $(MGSIM_METASRC)/configure_done: $(MGSIM_METASRC)/bootstrap_done
 	rm -f $@
 	cd $(MGSIM_METASRC) && ./configure --target=mtalpha CPPFLAGS="$$CPPFLAGS" LDFLAGS="$$LDFLAGS"

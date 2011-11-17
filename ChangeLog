@@ -1,3 +1,14 @@
+2011-11-17  Raphael 'kena' Poss  <r.c.poss@uva.nl>
+
+	New packaging makefiles for ptl and hlsim.
+
+	* dist/ptl-dist.mk,
+	* dist/hlsim-core-dist.mk: New.
+	* dist/common.mk,
+	* dist/dist-common.mk: Update to mention ptl and hlsim.	
+
+	* dist/mgsim-dist.mk: Clean up an unnecessary comment.
+
 2011-05-27  Raphael 'kena' Poss  <r.c.poss@uva.nl>
 
 	Upgrade installer to 3.5.
