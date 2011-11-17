@@ -24,11 +24,12 @@ MTS =
 endif
 
 REQBASENAME = b$(BINUTILS_VERSION)-u$(MGGCC_VERSION)-g$(GCC_VERSION)-m$(M4_VERSION)
+
 REQNAME = slreqs-$(REQBASENAME)
 REQDIR = $(DSTBASE)/$(REQNAME)
 REQTAG = $(REQDIR)/.tag
 
-SLBASENAME = s$(MGSIM_VERSION)-c$(SLC_VERSION)$(MTA)$(MTS)
+SLBASENAME = s$(MGSIM_VERSION)-c$(SLC_VERSION)$(MTA)$(MTS)-p$(PTL_VERSION)-h$(HLSIM_VERSION)
 SLNAME = sl-$(SLBASENAME)
 SLDIR = $(DSTBASE)/$(SLNAME)
 SLTAG = $(SLDIR)/.tag
@@ -42,6 +43,9 @@ BLDBASE = build
 
 REQPARTS = 
 SLPARTS = 
+if ENABLE_PTL
+SLPARTS += ptl hlsim
+endif
 if ENABLE_MT
 REQPARTS += binutils gcc
 SLPARTS += mgsim
@@ -84,7 +88,7 @@ help:
 	@echo
 	@echo "Parts:"
 	@echo "   m4 binutils gcc"
-	@echo "   mgsim slc slenv"
+	@echo "   mgsim ptl hlsim slc slenv"
 
 RULE_DONE = @echo "*** $@: done. ***"; echo
 UNTAR = do_extract() { \
@@ -99,7 +103,9 @@ include $(srcdir)/build-aux/version.mk
 include $(srcdir)/rules/binutils.mk
 include $(srcdir)/rules/gcc.mk
 include $(srcdir)/rules/m4.mk
+include $(srcdir)/rules/ptl.mk
 include $(srcdir)/rules/mgsim.mk
+include $(srcdir)/rules/hlsimcore.mk
 include $(srcdir)/rules/slc.mk
 include $(srcdir)/rules/slenv.mk
 
@@ -107,7 +113,9 @@ EXTRA_DIST += \
 	rules/binutils.mk \
 	rules/gcc.mk \
 	rules/m4.mk \
+	rules/ptl.mk \
 	rules/mgsim.mk \
+	rules/hlsimcore.mk \
 	rules/slc.mk \
 	rules/slenv.mk \
 	latest.dist
@@ -152,6 +160,8 @@ tags/.installed: Makefile
 	 echo "gcc:$(GCC_VERSION)"; \
 	 echo "binutils:$(BINUTILS_VERSION)"; \
 	 echo "mgsim:$(MGSIM_VERSION)"; \
+	 echo "ptl:$(PTL_VERSION)"; \
+	 echo "hlsim:$(HLSIM_VERSION)"; \
 	 echo "slc:$(SLC_VERSION)"; \
 	 echo "reqtag:$(REQBASENAME)"; \
 	 echo "sltag:$(SLBASENAME)" ) >$@

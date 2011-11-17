@@ -29,6 +29,11 @@ SLC_TARGET_SELECT += --enable-mtsparc
 else
 SLC_TARGET_SELECT += --disable-mtsparc
 endif
+if ENABLE_PTL
+SLC_TARGET_SELECT += --enable-ptl --enable-hlsim --with-ptl-includedir=$(SLDIR)/include --with-ptl-libdir=$(SLDIR)/lib
+else
+SLC_TARGET_SELECT += --disable-ptl --disable-hlsim 
+endif
 
 .PRECIOUS: $(SLC_ARCHIVE) $(SLC_CFG_TARGETS) $(SLC_BUILD_TARGETS) $(SLC_INST_TARGETS)
 
@@ -47,7 +52,8 @@ $(SLC_BUILD)/configure_done: $(SLC_SRC)/configure \
 		$(GCC_INST_TARGETS) \
 		$(MGGCC_INST_TARGETS) \
 		$(M4_INST_TARGETS) \
-		$(MGSIM_INST_TARGETS)
+		$(MGSIM_INST_TARGETS) \
+	        $(HLSIM_INST_TARGETS)
 	rm -f $@
 	$(MKDIR_P) $(SLC_BUILD)
 	SRC=$$(cd $(SLC_SRC) && pwd) && \

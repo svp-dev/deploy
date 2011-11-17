@@ -198,7 +198,9 @@ AC_SUBST(m4_toupper($1)_ARCHIVE)
 
 handle_package([binutils])
 handle_package([gcc])
+handle_package([ptl])
 handle_package([mgsim])
+handle_package([hlsim], [hlsim-core])
 handle_package([slc], [sl-core])
 handle_package([m4])
 
@@ -227,6 +229,12 @@ AM_CONDITIONAL([ENABLE_MTSPARC], [test "x$enable_mtsparc" = "xyes"])
 
 AM_CONDITIONAL([ENABLE_MT], [test "x$enable_mtsparc" = "xyes" -o "x$enable_mtalpha" = "xyes"])
 
+AC_ARG_ENABLE([ptl],
+              [AC_HELP_STRING([--disable-ptl],
+                              [disable support for the utc-ptl library])],
+              [], [enable_ptl=yes])
+AM_CONDITIONAL([ENABLE_PTL], [test "x$enable_ptl" = "xyes"])
+
 AC_CONFIG_FILES([Makefile slenv deslenv slversion])
 AC_OUTPUT
 
@@ -243,9 +251,13 @@ echo "*"
 echo "* mg-binutils:        $BINUTILS_ARCHIVE ($BINUTILS_VERSION)"
 echo "* GCC (patched):      $GCC_ARCHIVE ($GCC_VERSION)"
 echo "* m4 (patched):       $M4_ARCHIVE ($M4_VERSION)"
+echo "*"
 echo "* mgsim:              $MGSIM_ARCHIVE ($MGSIM_VERSION)"
+echo "* ptl:                $PTL_ARCHIVE ($PTL_VERSION)"
+echo "* hlsim:              $HLSIM_ARCHIVE ($HLSIM_VERSION)"
 echo "* slc:                $SLC_ARCHIVE ($SLC_VERSION)"
 echo "*"
+echo "* Support for ptl:      $enable_ptl"
 echo "* Support for MT-Sparc: $enable_mtsparc"
 echo "* Support for MT-Alpha: $enable_mtalpha"
 echo "*"

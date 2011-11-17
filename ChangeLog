@@ -1,5 +1,17 @@
 2011-11-17  Raphael 'kena' Poss  <r.c.poss@uva.nl>
 
+	Add support for ptl and hlsim in the installer.
+
+	* installer/rules/ptl.mk,
+	* installer/rules/hlsimcore.mk: New.
+
+	* installer/rules/slc.mk: Depend on them.
+
+	* installer/configure.ac,
+	* installer/Makefile.am: Add rules for them.
+
+2011-11-17  Raphael 'kena' Poss  <r.c.poss@uva.nl>
+
 	Clean up the installer.
 
 	* installer/configure.ac: Use `mkdir -p' explicitly because
