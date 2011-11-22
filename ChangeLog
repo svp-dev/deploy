@@ -1,3 +1,10 @@
+2011-11-22  Raphael 'kena' Poss  <r.c.poss@uva.nl>
+
+	Fix `deslenv'.
+
+	* installer/deslenv.in: Synchronize the list of variables with
+	`slenv'.
+
 2011-11-17  Raphael 'kena' Poss  <r.c.poss@uva.nl>
 
 	Minor packaging fix.
