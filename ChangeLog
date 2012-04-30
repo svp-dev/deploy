@@ -1,3 +1,10 @@
+2012-04-30  Raphael 'kena' Poss  <r.c.poss@uva.nl>
+
+	Update rules after migration of MGSim to git.
+
+	* dist/dist-common.mk: Update repository name.
+	* dist/mgsim-dist.mk: Update fetch rules.
+
 2011-11-22  Raphael 'kena' Poss  <r.c.poss@uva.nl>
 
 	Fix `deslenv'.

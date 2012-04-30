@@ -6,23 +6,17 @@
 include common.mk
 include dist-common.mk
 
-MGSIM_DIST_SVNBRANCH = trunk
-MGSIM_DIST_REV = latest
+MGSIM_GIT_BRANCH = master
 
-MGSIM_BASEBRANCH := $(strip $(shell basename $(MGSIM_DIST_SVNBRANCH)))
-MGSIM_SVN_REV := $(strip $(if $(filter latest, $(MGSIM_DIST_REV)), \
-	          $(shell $(SVN) info $(MGSIM_REPO)/$(MGSIM_DIST_SVNBRANCH) | \
-	                  grep 'Last Changed Rev' | \
-	                  cut -d: -f2), $(MGSIM_DIST_REV)))
-
-MGSIM_DIST_VERSION = $(MGSIM_SVN_REV)-$(MGSIM_BASEBRANCH)
-MGSIM_DISTBASE = mgsim-$(MGSIM_DIST_VERSION)
+MGSIM_GIT_HASH := $(strip $(shell $(GIT) ls-remote $(MGSIM_REPO) $(MGSIM_GIT_BRANCH)|head -n1|cut -c1-6))
+MGSIM_DISTBASE = mgsim-$(MGSIM_GIT_HASH)
 MGSIM_METASRC = $(META_SOURCES)/$(MGSIM_DISTBASE)
 
 $(MGSIM_METASRC)/download_done:
 	rm -f $@
 	$(MKDIR_P) $(META_SOURCES)
-	cd $(META_SOURCES) && $(SVN) checkout -r$(MGSIM_SVN_REV) $(MGSIM_REPO)/$(MGSIM_DIST_SVNBRANCH) $(MGSIM_DISTBASE)
+	cd $(META_SOURCES) && $(GIT) clone $(MGSIM_REPO) $(MGSIM_DISTBASE)
+	cd $(MGSIM_METASRC) && $(GIT) checkout origin/$(MGSIM_GIT_BRANCH)
 	touch $@
 
 $(MGSIM_METASRC)/bootstrap_done: $(MGSIM_METASRC)/download_done
