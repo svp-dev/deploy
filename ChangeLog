@@ -1,5 +1,37 @@
 2012-04-30  Raphael 'kena' Poss  <r.c.poss@uva.nl>
 
+	Update licensing and copyright information.
+
+	* dist/README,
+	* dist/binutils-dist.mk,
+	* dist/common.mk,
+	* dist/dist-common.mk,
+	* dist/gcc-dist.mk,
+	* dist/hlsim-core-dist.mk,
+	* dist/m4-dist.mk,
+	* dist/mgsim-dist.mk,
+	* dist/ptl-dist.mk,
+	* dist/slc-dist.mk,
+	* installer/Makefile.am,
+	* installer/README,
+	* installer/configure.ac,
+	* installer/deslenv.in,
+	* installer/rules/binutils.mk,
+	* installer/rules/gcc.mk,
+	* installer/rules/hlsimcore.mk,
+	* installer/rules/m4.mk,
+	* installer/rules/mgsim.mk,
+	* installer/rules/ptl.mk,
+	* installer/rules/slc.mk,
+	* installer/rules/slenv.mk,
+	* installer/slenv.in,
+	* installer/slversion.in: Do it.
+
+	* README: Rename to...
+	* README.rst: ...here.
+
+2012-04-30  Raphael 'kena' Poss  <r.c.poss@uva.nl>
+
 	Update rules after migration of MGSim to git.
 
 	* dist/dist-common.mk: Update repository name.
