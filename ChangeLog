@@ -1,3 +1,11 @@
+2012-05-25  Raphael 'kena' Poss  <r.c.poss@uva.nl>
+
+	Increase portability of the installer.
+
+	* installer/rules/hlsimcore.mk,
+	* installer/rules/gcc.mk,
+	* installer/rules/binutils.mk: Use `$(MAKE)' instead of `make'.
+
 2012-04-30  Raphael 'kena' Poss  <r.c.poss@uva.nl>
 
 	Update licensing and copyright information.
