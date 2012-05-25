@@ -13,9 +13,9 @@
 AC_PREREQ([2.65])
 AC_INIT([sl-installer], 
         m4_esyscmd([(pre=; if test -d ../.git -a ! -d .git; then pre=$PWD/; cd ..; fi; \
-                    ${pre}build-aux/version-gen \
+                    ${pre}build-aux/git-version-gen \
                     ${pre}build-aux/tarball-version \
-                    ${pre}build-aux/package-version)]), 
+                    s/sl-installer-/v/ sl-installer)]), 
         [sl-users@svp-home.org])
 AC_CONFIG_AUX_DIR([build-aux])
 

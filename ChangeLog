@@ -1,5 +1,13 @@
 2012-05-25  Raphael 'kena' Poss  <r.c.poss@uva.nl>
 
+	Fix version number generation for the installer.
+
+	* installer/configure.ac: Use `git-version-gen'.
+	* installer/build-aux/package-version: Remove, as is not necessary
+	any more.
+
+2012-05-25  Raphael 'kena' Poss  <r.c.poss@uva.nl>
+
 	Increase portability of the installer.
 
 	* installer/rules/hlsimcore.mk,
