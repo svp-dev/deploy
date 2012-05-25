@@ -48,7 +48,7 @@ $(HLSIM_BUILD)-%/configure_done: $(HLSIM_SRC)/configure $(PTL_INST_TARGETS)
 			  CFLAGS="$(CFLAGS)" CXXFLAGS="$(CXXFLAGS)" \
 	                  LDFLAGS="$(LDFLAGS)" \
 	                   --with-ptl-includedir="$(SLDIR)/include/$*" --with-ptl-libdir="$(SLDIR)/lib/$*"
-	cd $(HLSIM_BUILD)-$* && make clean
+	cd $(HLSIM_BUILD)-$* && $(MAKE) clean
 	touch $@
 
 $(HLSIM_BUILD)-%/build_done: $(HLSIM_BUILD)-%/configure_done

@@ -56,7 +56,7 @@ $(GCC_BUILD)-%/configure_done: $(GCC_SRC)/configure $(REQDIR)/.binutils-installe
 	                       $(GCC_CONFIG_FLAGS) && \
 	  $(GREP) -v 'maybe-[a-z]*-target-\(libgcc\|libiberty\|libgomp\|zlib\)' <Makefile >Makefile.tmp && \
 	  mv -f Makefile.tmp Makefile
-	cd $(GCC_BUILD)-$* && make clean
+	cd $(GCC_BUILD)-$* && $(MAKE) clean
 	touch $@
 
 $(GCC_BUILD)-%/build_done: $(GCC_BUILD)-%/configure_done
