@@ -1,5 +1,19 @@
 2012-11-07  Raphael 'kena' Poss  <r.poss@uva.nl>
 
+	Avoid installation bugs with shells where `CDPATH' is defined.
+
+	* installer/Makefile.am,
+	* installer/rules/binutils.ml,
+	* installer/rules/gcc.mk,
+	* installer/rules/m4.mk,
+	* installer/rules/ptl.mk,
+	* installer/rules/hlsimcore.mk,
+	* installer/rules/slc.mk: Use `$(am__cd)' instead of `cd'
+	directly, as it will reset `CDPATH'. Also use paths relative to
+	`.' to avoid `CDPATH'-related resolution.
+
+2012-11-07  Raphael 'kena' Poss  <r.poss@uva.nl>
+
 	Packaging fix.
 
 	* installer/configure.ac: Ensure that the subdirectory `tags' is

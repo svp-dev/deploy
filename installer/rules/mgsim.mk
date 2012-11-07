@@ -62,8 +62,8 @@ $(MGSIM_BUILD)-%/configure_done: $(MGSIM_SRC)/configure $(SLTAG) $(BINUTILS_INST
 	  *-sdl) program_suffix=$$program_suffix.gfx ;; \
 	  *-nosdl) mgsim_conf_flags="$$mgsim_conf_flags --disable-sdl" ;; \
 	esac && \
-	SRC=$$(cd $(MGSIM_SRC) && pwd) && \
-	   cd $(MGSIM_BUILD)-$* && \
+	SRC=$$($(am__cd) $(MGSIM_SRC) && pwd) && \
+	   $(am__cd) $(MGSIM_BUILD)-$* && \
 	   PATH=$(REQCURRENT)/bin:$$PATH $$SRC/configure --prefix=$(SLDIR) \
 			  CC="$(CC)" CXX="$(CXX)" \
 	                  CPPFLAGS="$(CPPFLAGS)" \
@@ -78,12 +78,12 @@ $(MGSIM_BUILD)-%/configure_done: $(MGSIM_SRC)/configure $(SLTAG) $(BINUTILS_INST
 
 $(MGSIM_BUILD)-%/build_done: $(MGSIM_BUILD)-%/configure_done
 	rm -f $@
-	cd $(MGSIM_BUILD)-$* && $(MAKE) all
+	$(am__cd) $(MGSIM_BUILD)-$* && $(MAKE) all
 	touch $@
 
 $(SLDIR)/.mgsim-installed-%: $(MGSIM_BUILD)-%/build_done
 	rm -f $@
 	$(MKDIR_P) $(SLDIR)
-	cd $(MGSIM_BUILD)-$* && $(MAKE) install
+	$(am__cd) $(MGSIM_BUILD)-$* && $(MAKE) install
 	touch $@
 

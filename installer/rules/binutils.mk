@@ -43,8 +43,8 @@ $(BINUTILS_SRC)/configure: $(BINUTILS_ARCHIVE)
 $(BINUTILS_BUILD)-%/configure_done: $(BINUTILS_SRC)/configure $(REQTAG)
 	rm -f $@
 	$(MKDIR_P) $(BINUTILS_BUILD)-$*
-	SRC=$$(cd $(BINUTILS_SRC) && pwd) && \
-           cd $(BINUTILS_BUILD)-$* && \
+	SRC=$$($(am__cd) $(BINUTILS_SRC) && pwd) && \
+           $(am__cd) $(BINUTILS_BUILD)-$* && \
 	   find . -name config.cache -exec rm '{}' \; && \
 	   $$SRC/configure --target=$* \
 			  CC="$(CC)" \
@@ -52,15 +52,15 @@ $(BINUTILS_BUILD)-%/configure_done: $(BINUTILS_SRC)/configure $(REQTAG)
 	                  LDFLAGS="$(CFLAGS) $(LDFLAGS)" \
 			   --disable-werror \
 	                   --prefix=$(REQDIR)
-	cd $(BINUTILS_BUILD)-$* && $(MAKE) clean
+	$(am__cd) $(BINUTILS_BUILD)-$* && $(MAKE) clean
 	touch $@
 
 $(BINUTILS_BUILD)-%/build_done: $(BINUTILS_BUILD)-%/configure_done
 	rm -f $@
-	cd $(BINUTILS_BUILD)-$* && $(MAKE) 
+	$(am__cd) $(BINUTILS_BUILD)-$* && $(MAKE) 
 	touch $@
 
 $(REQDIR)/.binutils-installed-%: $(BINUTILS_BUILD)-%/build_done
 	rm -f $@
-	cd $(BINUTILS_BUILD)-$* && $(MAKE) -j1 install
+	$(am__cd) $(BINUTILS_BUILD)-$* && $(MAKE) -j1 install
 	touch $@

@@ -40,29 +40,29 @@ $(HLSIM_SRC)/configure: $(HLSIM_ARCHIVE)
 $(HLSIM_BUILD)-%/configure_done: $(HLSIM_SRC)/configure $(PTL_INST_TARGETS)
 	rm -f $@
 	$(MKDIR_P) $(HLSIM_BUILD)-$*
-	SRC=$$(cd $(HLSIM_SRC) && pwd) && \
-	   cd $(HLSIM_BUILD)-$* && \
+	SRC=$$($(am__cd) $(HLSIM_SRC) && pwd) && \
+	   $(am__cd) $(HLSIM_BUILD)-$* && \
 	   $$SRC/configure --includedir="$(SLDIR)/include/$*" --libdir="$(SLDIR)/lib/$*" \
 			  CC="$(CC)" CXX="$(CXX)" \
 	                  CPPFLAGS="$(CPPFLAGS)" \
 			  CFLAGS="$(CFLAGS)" CXXFLAGS="$(CXXFLAGS)" \
 	                  LDFLAGS="$(LDFLAGS)" \
 	                   --with-ptl-includedir="$(SLDIR)/include/$*" --with-ptl-libdir="$(SLDIR)/lib/$*"
-	cd $(HLSIM_BUILD)-$* && $(MAKE) clean
+	$(am__cd) $(HLSIM_BUILD)-$* && $(MAKE) clean
 	touch $@
 
 $(HLSIM_BUILD)-%/build_done: $(HLSIM_BUILD)-%/configure_done
 	rm -f $@
-	cd $(HLSIM_BUILD)-$* && $(MAKE) all
+	$(am__cd) $(HLSIM_BUILD)-$* && $(MAKE) all
 	touch $@
 
 $(HLSIM_BUILD)-%/check_done: $(HLSIM_BUILD)-%/build_done
 	rm -f $@
-	cd $(HLSIM_BUILD)-$* && $(MAKE) check
+	$(am__cd) $(HLSIM_BUILD)-$* && $(MAKE) check
 	touch $@
 
 $(SLDIR)/.hlsim-core-installed-%: $(HLSIM_BUILD)-%/check_done
 	rm -f $@
 	$(MKDIR_P) $(SLDIR)
-	cd $(HLSIM_BUILD)-$* && $(MAKE) install
+	$(am__cd) $(HLSIM_BUILD)-$* && $(MAKE) install
 	touch $@

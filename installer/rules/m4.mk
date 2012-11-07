@@ -31,8 +31,8 @@ $(M4_SRC)/configure: $(M4_ARCHIVE)
 $(M4_BUILD)/build_done: $(M4_SRC)/configure $(REQTAG)
 	rm -f $@
 	$(MKDIR_P) $(M4_BUILD)
-	SRC=$$(cd $(M4_SRC) && pwd) && \
-	  cd $(M4_BUILD) && \
+	SRC=$$($(am__cd) $(M4_SRC) && pwd) && \
+	  $(am__cd) $(M4_BUILD) && \
 	  find . -name config.cache -exec rm '{}' \; && \
 	  $$SRC/configure --prefix=$(REQDIR) \
 			  CC="$(CC)" \
@@ -51,5 +51,5 @@ $(M4_BUILD)/build_done: $(M4_SRC)/configure $(REQTAG)
 
 $(REQDIR)/.m4-installed: $(M4_BUILD)/build_done
 	rm -f $@
-	cd $(M4_BUILD) && $(MAKE) install
+	$(am__cd) $(M4_BUILD) && $(MAKE) install
 	touch $@
