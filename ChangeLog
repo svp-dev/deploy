@@ -1,5 +1,14 @@
 2012-11-07  Raphael 'kena' Poss  <r.poss@uva.nl>
 
+	Minor packaging improvements.
+
+	* installer/configure.ac: Bump requirements to the latest Autotool
+	versions.
+	* installer/bootstrap: Do not force Automake 1.11, since 1.12 is
+	out now.
+
+2012-11-07  Raphael 'kena' Poss  <r.poss@uva.nl>
+
 	Add support for the MIPSel targets.
 
 	* installer/configure.ac: New flags --enable-mipsel/--disable-mipsel.
