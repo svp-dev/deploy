@@ -1,5 +1,13 @@
 2012-11-07  Raphael 'kena' Poss  <r.poss@uva.nl>
 
+	Packaging fix.
+
+	* installer/configure.ac: Ensure that the subdirectory `tags' is
+	created when `--with-tagfile' is used at the first invocation of
+	`configure'.
+
+2012-11-07  Raphael 'kena' Poss  <r.poss@uva.nl>
+
 	Improve compatibility with Python 2.7.
 
 	* installer/slenv.in: Also provision for python2.7 in PYTHONPATH.

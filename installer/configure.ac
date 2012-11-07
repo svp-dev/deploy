@@ -162,6 +162,7 @@ if ! test -r "$with_tagfile"; then
    fi
 else
    AC_MSG_NOTICE([$with_tagfile -> tags/$with_tagfile])
+   mkdir -p tags
    cp -f "$with_tagfile" tags/"$with_tagfile"
 fi
 
