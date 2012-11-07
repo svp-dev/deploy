@@ -26,6 +26,9 @@ endif
 if ENABLE_MTSPARC
 MGSIM_TARGETS += $(foreach T,$(MGSIM_TARGETS_BASE),mtsparc-$(T))
 endif
+if ENABLE_MIPSEL
+MGSIM_TARGETS += $(foreach T,$(MGSIM_TARGETS_BASE),mipsel-$(T))
+endif
 
 MGSIM_CFG_TARGETS = $(foreach T,$(MGSIM_TARGETS),$(MGSIM_BUILD)-$(T)/configure_done)
 MGSIM_BUILD_TARGETS = $(foreach T,$(MGSIM_TARGETS),$(MGSIM_BUILD)-$(T)/build_done)

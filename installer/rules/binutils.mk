@@ -20,6 +20,9 @@ endif
 if ENABLE_MTSPARC
 BINUTILS_TARGETS += mtsparc-linux-gnu
 endif
+if ENABLE_MIPSEL
+BINUTILS_TARGETS += mipsel-linux-gnu
+endif
 
 BINUTILS_CFG_TARGETS = $(foreach T,$(BINUTILS_TARGETS),$(BINUTILS_BUILD)-$(T)/configure_done)
 BINUTILS_BUILD_TARGETS = $(foreach T,$(BINUTILS_TARGETS),$(BINUTILS_BUILD)-$(T)/build_done)

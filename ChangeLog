@@ -1,3 +1,15 @@
+2012-11-07  Raphael 'kena' Poss  <r.poss@uva.nl>
+
+	Add support for the MIPSel targets.
+
+	* installer/configure.ac: New flags --enable-mipsel/--disable-mipsel.
+	* installer/Makefile.am: Identify support for MIPSel in the version tag.
+	* installer/slenv.in,
+	* installer/deslenv.in: Set/unset the MIPSel-related environment variables.
+	* installer/rules/binutils.mk,
+	* installer/rules/gcc.mk,
+	* installer/rules/mgsim.mk: Also compile for MIPSel.
+
 2012-05-25  Raphael 'kena' Poss  <r.c.poss@uva.nl>
 
 	Fix version number generation for the installer.

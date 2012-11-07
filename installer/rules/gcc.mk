@@ -20,6 +20,9 @@ endif
 if ENABLE_MTSPARC
 GCC_TARGETS += mtsparc-linux-gnu
 endif
+if ENABLE_MIPSEL
+GCC_TARGETS += mipsel-linux-gnu
+endif
 
 GCC_CFG_TARGETS = $(foreach T,$(GCC_TARGETS),$(GCC_BUILD)-$(T)/configure_done)
 GCC_BUILD_TARGETS = $(foreach T,$(GCC_TARGETS),$(GCC_BUILD)-$(T)/build_done)
