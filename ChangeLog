@@ -1,5 +1,11 @@
 2012-11-07  Raphael 'kena' Poss  <r.poss@uva.nl>
 
+	Improve compatibility with Python 2.7.
+
+	* installer/slenv.in: Also provision for python2.7 in PYTHONPATH.
+
+2012-11-07  Raphael 'kena' Poss  <r.poss@uva.nl>
+
 	Upgrade the naming of the MGSim executables.
 
 	* installer/rules/mgsim.mk: Adopt the MGSim standard naming of
