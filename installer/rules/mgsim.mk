@@ -51,7 +51,7 @@ $(MGSIM_SRC)/configure: $(MGSIM_ARCHIVE)
 $(MGSIM_BUILD)-%/configure_done: $(MGSIM_SRC)/configure $(SLTAG) $(BINUTILS_INST_TARGETS) $(REQCURRENT)
 	rm -f $@
 	$(MKDIR_P) $(MGSIM_BUILD)-$*
-	mgsim_target=`echo $*|cut -d- -f1` && program_suffix=-`echo $$mgsim_target|cut -c3-` && \
+	mgsim_target=`echo $*|cut -d- -f1` && program_suffix= && \
 	mgsim_conf_flags=--target=$$mgsim_target && \
 	more_cflags= && \
 	case $* in \
@@ -70,6 +70,7 @@ $(MGSIM_BUILD)-%/configure_done: $(MGSIM_SRC)/configure $(SLTAG) $(BINUTILS_INST
 			  CFLAGS="$(CFLAGS) $$more_cflags" CXXFLAGS="$(CXXFLAGS) $$more_cflags" \
 	                  LDFLAGS="$(LDFLAGS)" \
 	                  $(MGSIM_CONFIG_FLAGS) \
+	                  --program-prefix=$$mgsim_target- \
 	                  --program-suffix=$$program_suffix \
 	                  $$mgsim_conf_flags
 	rm -f $(MGSIM_BUILD)-$*/src/*main.o

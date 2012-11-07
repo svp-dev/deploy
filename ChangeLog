@@ -1,5 +1,13 @@
 2012-11-07  Raphael 'kena' Poss  <r.poss@uva.nl>
 
+	Upgrade the naming of the MGSim executables.
+
+	* installer/rules/mgsim.mk: Adopt the MGSim standard naming of
+	program names, using the target core architecture as executable
+	prefix (instead of suffix as previously).
+
+2012-11-07  Raphael 'kena' Poss  <r.poss@uva.nl>
+
 	Minor packaging improvements.
 
 	* installer/configure.ac: Bump requirements to the latest Autotool
