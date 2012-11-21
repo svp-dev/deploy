@@ -2,13 +2,6 @@
 
 set -ex
 
-# Some systems ship both the latest Automake and
-# an older version, and default to the older. Try
-# to detect this.
-automake-1.11 --version >/dev/null 2>/dev/null \
-  && export AUTOMAKE=automake-1.11 \
-  && export ACLOCAL=aclocal-1.11
-
 if [ "$#" -eq "1" ]; then
   AUTORECONF=$1
   echo "Using \`$1' instead of \`autoreconf' command"

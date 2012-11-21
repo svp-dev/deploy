@@ -26,6 +26,9 @@ endif
 if ENABLE_MTSPARC
 MGSIM_TARGETS += $(foreach T,$(MGSIM_TARGETS_BASE),mtsparc-$(T))
 endif
+if ENABLE_MIPSEL
+MGSIM_TARGETS += $(foreach T,$(MGSIM_TARGETS_BASE),mipsel-$(T))
+endif
 
 MGSIM_CFG_TARGETS = $(foreach T,$(MGSIM_TARGETS),$(MGSIM_BUILD)-$(T)/configure_done)
 MGSIM_BUILD_TARGETS = $(foreach T,$(MGSIM_TARGETS),$(MGSIM_BUILD)-$(T)/build_done)
@@ -48,7 +51,7 @@ $(MGSIM_SRC)/configure: $(MGSIM_ARCHIVE)
 $(MGSIM_BUILD)-%/configure_done: $(MGSIM_SRC)/configure $(SLTAG) $(BINUTILS_INST_TARGETS) $(REQCURRENT)
 	rm -f $@
 	$(MKDIR_P) $(MGSIM_BUILD)-$*
-	mgsim_target=`echo $*|cut -d- -f1` && program_suffix=-`echo $$mgsim_target|cut -c3-` && \
+	mgsim_target=`echo $*|cut -d- -f1` && program_suffix= && \
 	mgsim_conf_flags=--target=$$mgsim_target && \
 	more_cflags= && \
 	case $* in \
@@ -59,14 +62,15 @@ $(MGSIM_BUILD)-%/configure_done: $(MGSIM_SRC)/configure $(SLTAG) $(BINUTILS_INST
 	  *-sdl) program_suffix=$$program_suffix.gfx ;; \
 	  *-nosdl) mgsim_conf_flags="$$mgsim_conf_flags --disable-sdl" ;; \
 	esac && \
-	SRC=$$(cd $(MGSIM_SRC) && pwd) && \
-	   cd $(MGSIM_BUILD)-$* && \
+	SRC=$$($(am__cd) $(MGSIM_SRC) && pwd) && \
+	   $(am__cd) $(MGSIM_BUILD)-$* && \
 	   PATH=$(REQCURRENT)/bin:$$PATH $$SRC/configure --prefix=$(SLDIR) \
 			  CC="$(CC)" CXX="$(CXX)" \
 	                  CPPFLAGS="$(CPPFLAGS)" \
 			  CFLAGS="$(CFLAGS) $$more_cflags" CXXFLAGS="$(CXXFLAGS) $$more_cflags" \
 	                  LDFLAGS="$(LDFLAGS)" \
 	                  $(MGSIM_CONFIG_FLAGS) \
+	                  --program-prefix=$$mgsim_target- \
 	                  --program-suffix=$$program_suffix \
 	                  $$mgsim_conf_flags
 	rm -f $(MGSIM_BUILD)-$*/src/*main.o
@@ -74,12 +78,12 @@ $(MGSIM_BUILD)-%/configure_done: $(MGSIM_SRC)/configure $(SLTAG) $(BINUTILS_INST
 
 $(MGSIM_BUILD)-%/build_done: $(MGSIM_BUILD)-%/configure_done
 	rm -f $@
-	cd $(MGSIM_BUILD)-$* && $(MAKE) all
+	$(am__cd) $(MGSIM_BUILD)-$* && $(MAKE) all
 	touch $@
 
 $(SLDIR)/.mgsim-installed-%: $(MGSIM_BUILD)-%/build_done
 	rm -f $@
 	$(MKDIR_P) $(SLDIR)
-	cd $(MGSIM_BUILD)-$* && $(MAKE) install
+	$(am__cd) $(MGSIM_BUILD)-$* && $(MAKE) install
 	touch $@
 
