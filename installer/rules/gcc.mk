@@ -20,6 +20,9 @@ endif
 if ENABLE_MTSPARC
 GCC_TARGETS += mtsparc-linux-gnu
 endif
+if ENABLE_MIPSEL
+GCC_TARGETS += mipsel-linux-gnu
+endif
 
 GCC_CFG_TARGETS = $(foreach T,$(GCC_TARGETS),$(GCC_BUILD)-$(T)/configure_done)
 GCC_BUILD_TARGETS = $(foreach T,$(GCC_TARGETS),$(GCC_BUILD)-$(T)/build_done)
@@ -45,8 +48,8 @@ $(GCC_SRC)/configure: $(GCC_ARCHIVE)
 $(GCC_BUILD)-%/configure_done: $(GCC_SRC)/configure $(REQDIR)/.binutils-installed-%
 	rm -f $@
 	$(MKDIR_P) $(GCC_BUILD)-$*
-	SRC=$$(cd $(GCC_SRC) && pwd) && \
-           cd $(GCC_BUILD)-$* && \
+	SRC=$$($(am__cd) $(GCC_SRC) && pwd) && \
+           $(am__cd) $(GCC_BUILD)-$* && \
 	   find . -name config.cache -exec rm '{}' \; && \
 	   $$SRC/configure --target=$* \
 			   --prefix=$(REQDIR) \
@@ -56,12 +59,12 @@ $(GCC_BUILD)-%/configure_done: $(GCC_SRC)/configure $(REQDIR)/.binutils-installe
 	                       $(GCC_CONFIG_FLAGS) && \
 	  $(GREP) -v 'maybe-[a-z]*-target-\(libgcc\|libiberty\|libgomp\|zlib\)' <Makefile >Makefile.tmp && \
 	  mv -f Makefile.tmp Makefile
-	cd $(GCC_BUILD)-$* && $(MAKE) clean
+	$(am__cd) $(GCC_BUILD)-$* && $(MAKE) clean
 	touch $@
 
 $(GCC_BUILD)-%/build_done: $(GCC_BUILD)-%/configure_done
 	rm -f $@
-	cd $(GCC_BUILD)-$* && \
+	$(am__cd) $(GCC_BUILD)-$* && \
 	  if ! $(MAKE) ; then \
 	    $(SED) -e 's|^LIBICONV .*|LIBICONV = -L/usr/lib -liconv|g' <gcc/Makefile >gcc/Makefile.tmp && \
 	    mv -f gcc/Makefile.tmp gcc/Makefile && \
@@ -71,7 +74,7 @@ $(GCC_BUILD)-%/build_done: $(GCC_BUILD)-%/configure_done
 
 $(REQDIR)/.gcc-installed-%: $(GCC_BUILD)-%/build_done
 	rm -f $*
-	cd $(GCC_BUILD)-$* && $(MAKE) -j1 install
+	$(am__cd) $(GCC_BUILD)-$* && $(MAKE) -j1 install
 	touch $@
 
 

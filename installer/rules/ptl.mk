@@ -48,8 +48,8 @@ $(PTL_BUILD)-%/configure_done: $(PTL_SRC)/configure $(SLTAG)
 	case $* in \
 	  ptln-*) more_cppflags="-DUSE_PLAIN_PTL" ;; \
 	esac && \
-	SRC=$$(cd $(PTL_SRC) && pwd) && \
-	   cd $(PTL_BUILD)-$* && \
+	SRC=$$($(am__cd) $(PTL_SRC) && pwd) && \
+	   $(am__cd) $(PTL_BUILD)-$* && \
 	   $$SRC/configure --includedir="$(SLDIR)/include/$*" --libdir="$(SLDIR)/lib/$*" \
 			  CC="$(CC)" CXX="$(CXX)" \
 	                  CPPFLAGS="$(CPPFLAGS) $$more_cppflags" \
@@ -59,11 +59,11 @@ $(PTL_BUILD)-%/configure_done: $(PTL_SRC)/configure $(SLTAG)
 
 $(PTL_BUILD)-%/build_done: $(PTL_BUILD)-%/configure_done
 	rm -f $@
-	cd $(PTL_BUILD)-$* && $(MAKE) all
+	$(am__cd) $(PTL_BUILD)-$* && $(MAKE) all
 	touch $@
 
 $(SLDIR)/.ptl-installed-%: $(PTL_BUILD)-%/build_done
 	rm -f $@
 	$(MKDIR_P) $(SLDIR)
-	cd $(PTL_BUILD)-$* && $(MAKE) install
+	$(am__cd) $(PTL_BUILD)-$* && $(MAKE) install
 	touch $@

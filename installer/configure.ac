@@ -10,12 +10,12 @@
 ## The complete GNU General Public Licence Notice can be found as the
 ## `COPYING' file in the root directory.
 ##
-AC_PREREQ([2.65])
+AC_PREREQ([2.68])
 AC_INIT([sl-installer], 
         m4_esyscmd([(pre=; if test -d ../.git -a ! -d .git; then pre=$PWD/; cd ..; fi; \
-                    ${pre}build-aux/version-gen \
+                    ${pre}build-aux/git-version-gen \
                     ${pre}build-aux/tarball-version \
-                    ${pre}build-aux/package-version)]), 
+                    s/sl-installer-/v/ sl-installer)]), 
         [sl-users@svp-home.org])
 AC_CONFIG_AUX_DIR([build-aux])
 
@@ -88,7 +88,7 @@ fi
 AC_SUBST([MAKE], [$ac_cv_path_MAKE])
 
 # The following should appear *after* checking for GNU make above.
-AM_INIT_AUTOMAKE([1.11 foreign dist-bzip2 silent-rules])
+AM_INIT_AUTOMAKE([1.12 foreign dist-bzip2 silent-rules])
 AM_SILENT_RULES([yes])
 
 AC_PROG_CC
@@ -162,6 +162,7 @@ if ! test -r "$with_tagfile"; then
    fi
 else
    AC_MSG_NOTICE([$with_tagfile -> tags/$with_tagfile])
+   mkdir -p tags
    cp -f "$with_tagfile" tags/"$with_tagfile"
 fi
 
@@ -204,11 +205,12 @@ handle_package([hlsim], [hlsim-core])
 handle_package([slc], [sl-core])
 handle_package([m4])
 
-for v in SL_TAG SLREQS_TAG CC_ALPHA_OVERRIDE \
-   CC_MTALPHA_OVERRIDE UTCC_ALPHA_OVERRIDE AR_MTALPHA_OVERRIDE RANLIB_MTALPHA_OVERRIDE \
-   CC_MTSPARC_OVERRIDE CC_SPARC_OVERRIDE UTCC_SPARC_OVERRIDE AR_MTSPARC_OVERRIDE \
-   RANLIB_MTSPARC_OVERRIDE SLC_DATADIR SLC_LIBDIR SLC_INCDIR \
-   MGSIM_ALPHA MGSIM_SPARC; do
+for v in SL_TAG SLREQS_TAG \
+   CC_ALPHA_OVERRIDE CC_MTALPHA_OVERRIDE UTCC_ALPHA_OVERRIDE AR_MTALPHA_OVERRIDE RANLIB_MTALPHA_OVERRIDE \
+   CC_SPARC_OVERRIDE CC_MTSPARC_OVERRIDE UTCC_SPARC_OVERRIDE AR_MTSPARC_OVERRIDE RANLIB_MTSPARC_OVERRIDE \
+   CC_MIPSEL_OVERRIDE AR_MIPSEL_OVERRIDE RANLIB_MIPSEL_OVERRIDE \
+   SLC_DATADIR SLC_LIBDIR SLC_INCDIR \
+   MGSIM_ALPHA MGSIM_SPARC MGSIM_MIPSEL; do
    val=`eval echo 'x$'$v`
    if test "$val" != x; then
        AC_MSG_ERROR([Variable $v is set. Please unset (or deslenv) before running configure again.])
@@ -227,7 +229,13 @@ AC_ARG_ENABLE([mtsparc],
               [], [enable_mtsparc=yes])
 AM_CONDITIONAL([ENABLE_MTSPARC], [test "x$enable_mtsparc" = "xyes"])
 
-AM_CONDITIONAL([ENABLE_MT], [test "x$enable_mtsparc" = "xyes" -o "x$enable_mtalpha" = "xyes"])
+AC_ARG_ENABLE([mipsel],
+              [AC_HELP_STRING([--disable-mipsel],
+                              [disable support for MIPSel targets])],
+              [], [enable_mipsel=yes])
+AM_CONDITIONAL([ENABLE_MIPSEL], [test "x$enable_mipsel" = "xyes"])
+
+AM_CONDITIONAL([ENABLE_MT], [test "x$enable_mtsparc" = "xyes" -o "x$enable_mtalpha" = "xyes" -o "x$enable_mipsel"])
 
 AC_ARG_ENABLE([ptl],
               [AC_HELP_STRING([--disable-ptl],
@@ -260,6 +268,7 @@ echo "*"
 echo "* Support for ptl:      $enable_ptl"
 echo "* Support for MT-Sparc: $enable_mtsparc"
 echo "* Support for MT-Alpha: $enable_mtalpha"
+echo "* Support for MIPSel:   $enable_mipsel"
 echo "*"
 echo "Now run:"
 echo 

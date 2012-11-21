@@ -103,7 +103,7 @@ cat <<EOF
 : Tool locations ;
 export SL_TAG=$sl_sel;
 export SLREQS_TAG=$slreq_sel;
-export PYTHONPATH=$sl_base/lib/sl-core:$sl_base/lib/python2.6/site-packages;
+export PYTHONPATH=$sl_base/lib/sl-core:$sl_base/lib/python2.6/site-packages:$sl_base/lib/python2.7/site-packages;
 export PATH=$sl_base/bin:$slreq_base/bin:\$PATH;
 export MANPATH=$sl_base/share/man:$slreq_base/share/man:\$MANPATH;
 export CC_ALPHA_OVERRIDE=$slreq_base/bin/alpha-linux-gnu-gcc;
@@ -115,6 +115,9 @@ export CC_SPARC_OVERRIDE=$slreq_base/bin/sparc-linux-gnu-gcc;
 export CC_MTSPARC_OVERRIDE=$slreq_base/bin/mtsparc-linux-gnu-gcc;
 export UTCC_SPARC_OVERRIDE=$slreq_base/bin/mtsparc-linux-gnu-gcc;
 export AR_MTSPARC_OVERRIDE=$slreq_base/bin/mtsparc-linux-gnu-ar;
-export RANLIB_MTSPARC_OVERRIDE=$slreq_base/bin/mtsparc-linux-gnu-ranlib
+export RANLIB_MTSPARC_OVERRIDE=$slreq_base/bin/mtsparc-linux-gnu-ranlib;
+export CC_MIPSEL_OVERRIDE=$slreq_base/bin/mipsel-linux-gnu-gcc;
+export AR_MIPSEL_OVERRIDE=$slreq_base/bin/mipsel-linux-gnu-ar;
+export RANLIB_MIPSEL_OVERRIDE=$slreq_base/bin/mipsel-linux-gnu-ranlib
 EOF
 

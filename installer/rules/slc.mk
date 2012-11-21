@@ -56,8 +56,8 @@ $(SLC_BUILD)/configure_done: $(SLC_SRC)/configure \
 	        $(HLSIM_INST_TARGETS)
 	rm -f $@
 	$(MKDIR_P) $(SLC_BUILD)
-	SRC=$$(cd $(SLC_SRC) && pwd) && \
-	   cd $(SLC_BUILD) && \
+	SRC=$$($(am__cd) $(SLC_SRC) && pwd) && \
+	   $(am__cd) $(SLC_BUILD) && \
 	   PATH=$(SLCURRENT)/bin:$(REQCURRENT)/bin:$$PATH \
 	     $$SRC/configure --prefix=$(SLDIR) \
 			  CC="$(CC)" CXX="$(CXX)" \
@@ -69,11 +69,11 @@ $(SLC_BUILD)/configure_done: $(SLC_SRC)/configure \
 
 $(SLC_BUILD)/build_done: $(SLC_BUILD)/configure_done
 	rm -f $@
-	cd $(SLC_BUILD) && $(MAKE) all
+	$(am__cd) $(SLC_BUILD) && $(MAKE) all
 	touch $@
 
 $(SLDIR)/.slc-installed: $(SLC_BUILD)/build_done
 	rm -f $@
 	$(MKDIR_P) $(SLDIR)
-	cd $(SLC_BUILD) && $(MAKE) install
+	$(am__cd) $(SLC_BUILD) && $(MAKE) install
 	touch $@

@@ -22,6 +22,11 @@ MTS = -mts
 else
 MTS =
 endif
+if ENABLE_MIPSEL
+MIPS = -mips
+else
+MIPS =
+endif
 
 REQBASENAME = b$(BINUTILS_VERSION)-u$(MGGCC_VERSION)-g$(GCC_VERSION)-m$(M4_VERSION)
 
@@ -29,7 +34,7 @@ REQNAME = slreqs-$(REQBASENAME)
 REQDIR = $(DSTBASE)/$(REQNAME)
 REQTAG = $(REQDIR)/.tag
 
-SLBASENAME = s$(MGSIM_VERSION)-c$(SLC_VERSION)$(MTA)$(MTS)-p$(PTL_VERSION)-h$(HLSIM_VERSION)
+SLBASENAME = s$(MGSIM_VERSION)-c$(SLC_VERSION)$(MTA)$(MTS)$(MIPS)-p$(PTL_VERSION)-h$(HLSIM_VERSION)
 SLNAME = sl-$(SLBASENAME)
 SLDIR = $(DSTBASE)/$(SLNAME)
 SLTAG = $(SLDIR)/.tag
@@ -37,9 +42,9 @@ SLTAG = $(SLDIR)/.tag
 REQCURRENT = $(DSTBASE)/slreqs-$(SLNAME)
 SLCURRENT = $(DSTBASE)/$(SLNAME)
 
-ARCHIVEDIR = distfiles
-SRCBASE = sources
-BLDBASE = build
+ARCHIVEDIR = ./distfiles
+SRCBASE = ./sources
+BLDBASE = ./build
 
 REQPARTS = 
 SLPARTS = 
@@ -61,7 +66,7 @@ PARTS = $(REQPARTS) $(SLPARTS)
 	touch $@
 
 $(REQCURRENT): $(SLTAG)
-	cd $(DSTBASE) && rm -f slreqs-$(SLNAME) && $(LN_S) $(REQNAME) slreqs-$(SLNAME)
+	$(am__cd) $(DSTBASE) && rm -f slreqs-$(SLNAME) && $(LN_S) $(REQNAME) slreqs-$(SLNAME)
 
 .PRECIOUS: $(ARCHIVEDIR)/%
 $(ARCHIVEDIR)/%:
@@ -94,8 +99,8 @@ RULE_DONE = @echo "*** $@: done. ***"; echo
 UNTAR = do_extract() { \
      $(MKDIR_P) "$$1" && \
      case "$$2" in \
-        *.tar.gz|*.tgz) GZIP=$(GZIP_ENV) gzip -dc "$$2" | ( cd "$$1" && $(am__untar) ) ;; \
-	*.tar.bz2*|*.tbz) bzip2 -dc "$$2" | ( cd "$$1" && $(am__untar) ) ;; \
+        *.tar.gz|*.tgz) GZIP=$(GZIP_ENV) gzip -dc "$$2" | ( $(am__cd) "$$1" && $(am__untar) ) ;; \
+	*.tar.bz2*|*.tbz) bzip2 -dc "$$2" | ( $(am__cd) "$$1" && $(am__untar) ) ;; \
      esac; }; do_extract
 
 include $(srcdir)/build-aux/version.mk

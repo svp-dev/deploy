@@ -1,3 +1,68 @@
+2012-11-07  Raphael 'kena' Poss  <r.poss@uva.nl>
+
+	Avoid installation bugs with shells where `CDPATH' is defined.
+
+	* installer/Makefile.am,
+	* installer/rules/binutils.ml,
+	* installer/rules/gcc.mk,
+	* installer/rules/m4.mk,
+	* installer/rules/ptl.mk,
+	* installer/rules/hlsimcore.mk,
+	* installer/rules/slc.mk: Use `$(am__cd)' instead of `cd'
+	directly, as it will reset `CDPATH'. Also use paths relative to
+	`.' to avoid `CDPATH'-related resolution.
+
+2012-11-07  Raphael 'kena' Poss  <r.poss@uva.nl>
+
+	Packaging fix.
+
+	* installer/configure.ac: Ensure that the subdirectory `tags' is
+	created when `--with-tagfile' is used at the first invocation of
+	`configure'.
+
+2012-11-07  Raphael 'kena' Poss  <r.poss@uva.nl>
+
+	Improve compatibility with Python 2.7.
+
+	* installer/slenv.in: Also provision for python2.7 in PYTHONPATH.
+
+2012-11-07  Raphael 'kena' Poss  <r.poss@uva.nl>
+
+	Upgrade the naming of the MGSim executables.
+
+	* installer/rules/mgsim.mk: Adopt the MGSim standard naming of
+	program names, using the target core architecture as executable
+	prefix (instead of suffix as previously).
+
+2012-11-07  Raphael 'kena' Poss  <r.poss@uva.nl>
+
+	Minor packaging improvements.
+
+	* installer/configure.ac: Bump requirements to the latest Autotool
+	versions.
+	* installer/bootstrap: Do not force Automake 1.11, since 1.12 is
+	out now.
+
+2012-11-07  Raphael 'kena' Poss  <r.poss@uva.nl>
+
+	Add support for the MIPSel targets.
+
+	* installer/configure.ac: New flags --enable-mipsel/--disable-mipsel.
+	* installer/Makefile.am: Identify support for MIPSel in the version tag.
+	* installer/slenv.in,
+	* installer/deslenv.in: Set/unset the MIPSel-related environment variables.
+	* installer/rules/binutils.mk,
+	* installer/rules/gcc.mk,
+	* installer/rules/mgsim.mk: Also compile for MIPSel.
+
+2012-05-25  Raphael 'kena' Poss  <r.c.poss@uva.nl>
+
+	Fix version number generation for the installer.
+
+	* installer/configure.ac: Use `git-version-gen'.
+	* installer/build-aux/package-version: Remove, as is not necessary
+	any more.
+
 2012-05-25  Raphael 'kena' Poss  <r.c.poss@uva.nl>
 
 	Increase portability of the installer.
