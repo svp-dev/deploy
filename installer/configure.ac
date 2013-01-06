@@ -186,7 +186,7 @@ AC_ARG_WITH([$1-archive],
 
 the_dir=`dirname "$with_$1_archive"`
 mkdir -p "$the_dir" || true
-the_dir=`(cd "$the_dir" && pwd)`
+the_dir=`(unset CDPATH; cd "$the_dir" && pwd)`
 the_name=$the_dir/`basename "$with_$1_archive"`
 the_name=`echo "$the_name" | sed -e 's|^'"$PWD"'/||'`
 with_$1_archive=$the_name
