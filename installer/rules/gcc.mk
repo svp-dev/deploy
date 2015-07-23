@@ -56,6 +56,7 @@ $(GCC_BUILD)-%/configure_done: $(GCC_SRC)/configure $(REQDIR)/.binutils-installe
 			       CC="$(CC)" \
 			       CFLAGS="$(CPPFLAGS) $(CFLAGS)" \
 	                       LDFLAGS="$(CFLAGS) $(LDFLAGS)" \
+			       MAKEINFO=/bin/true \
 	                       $(GCC_CONFIG_FLAGS) && \
 	  $(GREP) -v 'maybe-[a-z]*-target-\(libgcc\|libiberty\|libgomp\|zlib\)' <Makefile >Makefile.tmp && \
 	  mv -f Makefile.tmp Makefile
@@ -64,12 +65,7 @@ $(GCC_BUILD)-%/configure_done: $(GCC_SRC)/configure $(REQDIR)/.binutils-installe
 
 $(GCC_BUILD)-%/build_done: $(GCC_BUILD)-%/configure_done
 	rm -f $@
-	$(am__cd) $(GCC_BUILD)-$* && \
-	  if ! $(MAKE) ; then \
-	    $(SED) -e 's|^LIBICONV .*|LIBICONV = -L/usr/lib -liconv|g' <gcc/Makefile >gcc/Makefile.tmp && \
-	    mv -f gcc/Makefile.tmp gcc/Makefile && \
-	    $(MAKE) ; \
-          fi
+	$(am__cd) $(GCC_BUILD)-$* && $(MAKE)
 	touch $@
 
 $(REQDIR)/.gcc-installed-%: $(GCC_BUILD)-%/build_done

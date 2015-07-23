@@ -1,5 +1,17 @@
 2015-07-23  Raphael 'kena' Poss  <r.poss@uva.nl>
 
+	Fix the installation rules for `gcc' on recent systems.
+
+	* installer/rules/gcc.mk (configure_done): Force disable the
+	detection of `makeinfo', since .texi files in pre-4.6 GCC are
+	incompatible with makeinfo 5+.
+
+	* installer/rules.gcc.mk (build_done): Do not restart the build
+	with `LIBICONV' forced, as this is not needed any more in recent
+	systems.
+
+2015-07-23  Raphael 'kena' Poss  <r.poss@uva.nl>
+
 	Improve compatibility with Autoconf 2.69.
 
 	* installer/configure.ac: Use `$GREP' instead of `$ac_path_GREP'
