@@ -77,11 +77,11 @@ fi
 #
 AC_ARG_VAR([MAKE], [path to GNU make])
 AC_CACHE_CHECK([for GNU make], [ac_cv_path_MAKE],
-[if ${MAKE-make} --version 2>/dev/null | $ac_path_GREP GNU >/dev/null; then
+[if ${MAKE-make} --version 2>/dev/null | $GREP GNU >/dev/null; then
   ac_cv_path_MAKE=${MAKE-make}
 else
   AC_PATH_PROGS_FEATURE_CHECK([MAKE], [make gmake gnumake],
-    [[$ac_path_MAKE --version 2>/dev/null | $ac_path_GREP GNU >/dev/null && ac_cv_path_MAKE=$ac_path_MAKE ac_path_MAKE_found=:]],
+    [[$ac_path_MAKE --version 2>/dev/null | $GREP GNU >/dev/null && ac_cv_path_MAKE=$ac_path_MAKE ac_path_MAKE_found=:]],
     [AC_MSG_ERROR([could not find GNU make])])
 fi
 ])

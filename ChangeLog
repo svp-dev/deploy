@@ -1,3 +1,11 @@
+2015-07-23  Raphael 'kena' Poss  <r.poss@uva.nl>
+
+	Improve compatibility with Autoconf 2.69.
+
+	* installer/configure.ac: Use `$GREP' instead of `$ac_path_GREP'
+	since the latter is not set any more by `AC_PROG_GREP' in recent
+	Autoconf versions.
+
 2013-01-06  Raphael 'kena' Poss  <r.poss@uva.nl>
 
 	Fetch sources from GitHub by default when building distributable packages.
