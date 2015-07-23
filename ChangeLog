@@ -1,3 +1,36 @@
+2015-07-23  Raphael 'kena' Poss  <r.poss@uva.nl>
+
+	Fix the installation rules for `gcc' on recent systems.
+
+	* installer/rules/gcc.mk (configure_done): Force disable the
+	detection of `makeinfo', since .texi files in pre-4.6 GCC are
+	incompatible with makeinfo 5+.
+
+	* installer/rules.gcc.mk (build_done): Do not restart the build
+	with `LIBICONV' forced, as this is not needed any more in recent
+	systems.
+
+2015-07-23  Raphael 'kena' Poss  <r.poss@uva.nl>
+
+	Improve compatibility with Autoconf 2.69.
+
+	* installer/configure.ac: Use `$GREP' instead of `$ac_path_GREP'
+	since the latter is not set any more by `AC_PROG_GREP' in recent
+	Autoconf versions.
+
+2013-01-06  Raphael 'kena' Poss  <r.poss@uva.nl>
+
+	Fetch sources from GitHub by default when building distributable packages.
+
+	* dist/dist-common.mk (BASE_REPO): Do it.
+
+2013-01-06  Raphael 'kena' Poss  <r.poss@uva.nl>
+
+	Fix `configure' for use on shells where `CDPATH' is defined.
+
+	* installer/configure.ac: Compute the `configure' base directory
+	with `CDPATH' unset.
+
 2012-11-07  Raphael 'kena' Poss  <r.poss@uva.nl>
 
 	Avoid installation bugs with shells where `CDPATH' is defined.

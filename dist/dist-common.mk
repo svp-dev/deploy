@@ -8,7 +8,7 @@ GIT = git
 FETCH = wget
 MKDIR_P = mkdir -p
 
-BASE_REPO = https://git.svp-home.org
+BASE_REPO = https://github.com/svp-dev
 MGSIM_REPO = $(BASE_REPO)/mgsim.git
 SLC_REPO = $(BASE_REPO)/slcore.git
 BINUTILS_REPO = $(BASE_REPO)/binutils.git
