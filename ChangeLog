@@ -1,3 +1,12 @@
+2015-07-26  Raphael 'kena' Poss  <r.poss@uva.nl>
+
+	Upgrade the boostrapping rule for binutils packages.
+
+	* dist/binutils-dist.mk: Do not force Autoconf 2.63 any more. As
+	of this writing it is becoming difficult to reconfigure binutils
+	2.18 using recent Autotools. So far success with AC 2.69 and AM
+	1.11.6. AM 1.15 fails.
+
 2015-07-23  Raphael 'kena' Poss  <r.poss@uva.nl>
 
 	Fix the installation rules for `gcc' on recent systems.
@@ -200,7 +209,7 @@
 	* dist/ptl-dist.mk,
 	* dist/hlsim-core-dist.mk: New.
 	* dist/common.mk,
-	* dist/dist-common.mk: Update to mention ptl and hlsim.	
+	* dist/dist-common.mk: Update to mention ptl and hlsim.
 
 	* dist/mgsim-dist.mk: Clean up an unnecessary comment.
 
@@ -221,7 +230,7 @@
 	Update the installer for MGSim 3.1.
 
 	* installer/configure.ac: Check for SDL here.
-	
+
 	* installer/rules/mgsim.mk: Update to compile the simulator with
 	different compile flags. This is necessary since 3.1 does not
 	compile multiple binaries any more.
@@ -270,7 +279,7 @@
 	* installer/rules/gcc.mk,
 	* installer/rules/slc.mk,
 	* installer/rules/mgsim.mk: Use the conditionals.
-	
+
 2011-03-17  Raphael 'kena' Poss  <r.c.poss@uva.nl>
 
 	Update repository URL in packager.
@@ -281,7 +290,7 @@
 2011-03-07  Raphael 'kena' Poss  <r.c.poss@uva.nl>
 
 	Fix detection of version number.
-	
+
 	* installer/configure.ac: Fix relative path to SCM root (git).
 
 2011-03-07  Raphael 'kena' Poss  <r.c.poss@uva.nl>
@@ -303,7 +312,7 @@
 	* dist/m4-dist.mk,
 	* dist/mgsim-dist.mk,
 	* dist/slc-dist.mk: Add copyright notices.
-	
+
 2011-03-07  Raphael 'kena' Poss  <r.c.poss@uva.nl>
 
 	License the installer.
@@ -311,7 +320,7 @@
 	* installer/COPYING: New.
 
 	* installer/README: Document the license.
-	
+
 	* installer/Makefile.am,
 	* installer/bootstrap,
 	* installer/configure.ac,
@@ -334,7 +343,7 @@
 2011-03-07  Raphael 'kena' Poss  <r.c.poss@uva.nl>
 
 	Remove obsolete file.
-	
+
 	* deploy/installer/versions.m4: Remove. This was made obsolete
 	earlier by the automatic download of version files.
 
@@ -375,7 +384,7 @@
 2011-03-06  Raphael 'kena' Poss  <r.c.poss@uva.nl>
 
 	Do not check for alternate binary during MGSim distribution.
-	
+
 	* deploy/dist/mgsim-dist.mk: Remove check on configure output.
 
 2011-03-06  Raphael 'kena' Poss  <r.c.poss@uva.nl>
@@ -386,7 +395,7 @@
 
 	* deploy/installer/configure.ac: Remove the tests on
 	`libgnugetopt'.
-	
+
 2011-03-06  Raphael 'kena' Poss  <r.c.poss@uva.nl>
 
 	Do not install SystemC any more.
@@ -397,7 +406,7 @@
 	* deploy/installer/rules/sc.mk: Remove.
 
 	* deploy/installer/Makefile.am: Do not mention SystemC any more.
-	
+
 	* deploy/installer/rules/mgsim.mk: Do not fish for `include' and
 	`lib' in the requirements tree.
 
@@ -434,10 +443,10 @@
 	requirement for both the ÂµTC core compiler and the
 	'alpha-linux-gnu' binutils targets. Additionally, development on
 	the custom binutils was also moved to a dedicated repository.
-	
+
 	* deploy/dist/common.mk,
 	* deploy/dist/dist-common.mk: Forget about `mggcc'.
-	
+
 	* deploy/dist/mggcc-dist.mk: Remove.
 
 	* deploy/dist/dist-common.mk,

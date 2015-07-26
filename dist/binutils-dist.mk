@@ -1,6 +1,6 @@
 ## binutils-dist.mk: this file is part of the SL packager.
 ## 
-## Copyright (C) 2010,2011,2012 The SL project.
+## Copyright (C) 2010-2015 The SL project.
 ## All rights reserved. 
 
 include common.mk
@@ -21,7 +21,7 @@ $(BINUTILS_METASRC)/download_done:
 
 $(BINUTILS_METASRC)/bootstrap_done: $(BINUTILS_METASRC)/download_done
 	rm -f $@
-	cd $(BINUTILS_METASRC)/src && AUTORECONF=autoreconf263 ./bootstrap
+	cd $(BINUTILS_METASRC)/src && ./bootstrap
 	touch $@
 
 .PHONY: binutils-dist
