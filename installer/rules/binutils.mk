@@ -1,6 +1,6 @@
 ## binutils.mk: this file is part of the SL tool chain installer.
 ## 
-## Copyright (C) 2010,2011,2012 The SL project.
+## Copyright (C) 2010-2015 The SL project.
 ##
 ## This program is free software; you can redistribute it and/or
 ## modify it under the terms of the GNU General Public License
@@ -57,7 +57,11 @@ $(BINUTILS_BUILD)-%/configure_done: $(BINUTILS_SRC)/configure $(REQTAG)
 
 $(BINUTILS_BUILD)-%/build_done: $(BINUTILS_BUILD)-%/configure_done
 	rm -f $@
-	$(am__cd) $(BINUTILS_BUILD)-$* && $(MAKE) 
+	$(am__cd) $(BINUTILS_BUILD)-$* && if $(MAKE); then true; else true; fi
+	$(am__cd) $(BINUTILS_BUILD)-$* && \
+	    $(GREP) -v '^ld_TEXINFOS =' ld/Makefile >ld/Makefile.tmp && mv -f ld/Makefile.tmp ld/Makefile && \
+	   $(SED) -e 's/^install-html:.*/install-html:/g' <bfd/Makefile >bfd/Makefile.tmp && mv -f bfd/Makefile.tmp bfd/Makefile && \
+	   $(MAKE)
 	touch $@
 
 $(REQDIR)/.binutils-installed-%: $(BINUTILS_BUILD)-%/build_done

@@ -1,5 +1,13 @@
 2015-07-26  Raphael 'kena' Poss  <r.poss@uva.nl>
 
+	Fix the installation rules for `binutils' on recent systems.
+
+	* installer/rules/binutils.ml: Force disable the rules that
+	require `makeinfo', since .texi files in 2.18 are incompatible
+	with makeinfo 5+.
+
+2015-07-26  Raphael 'kena' Poss  <r.poss@uva.nl>
+
 	Upgrade the boostrapping rule for binutils packages.
 
 	* dist/binutils-dist.mk: Do not force Autoconf 2.63 any more. As
