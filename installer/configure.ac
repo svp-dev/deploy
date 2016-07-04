@@ -198,7 +198,9 @@ AC_SUBST(m4_toupper($1)_ARCHIVE)
 ])
 
 handle_package([binutils])
+handle_package([binutilsng], [binutils])
 handle_package([gcc])
+handle_package([gcc5], [gcc])
 handle_package([ptl])
 handle_package([mgsim])
 handle_package([hlsim], [hlsim-core])
@@ -229,13 +231,21 @@ AC_ARG_ENABLE([mtsparc],
               [], [enable_mtsparc=yes])
 AM_CONDITIONAL([ENABLE_MTSPARC], [test "x$enable_mtsparc" = "xyes"])
 
+AC_ARG_ENABLE([leon2mt],
+              [AC_HELP_STRING([--disable-leon2mt],
+                              [disable support for LEON2-MT targets])],
+              [], [enable_leon2mt=yes])
+AM_CONDITIONAL([ENABLE_LEON2MT], [test "x$enable_leon2mt" = "xyes"])
+
 AC_ARG_ENABLE([mipsel],
               [AC_HELP_STRING([--disable-mipsel],
                               [disable support for MIPSel targets])],
               [], [enable_mipsel=yes])
 AM_CONDITIONAL([ENABLE_MIPSEL], [test "x$enable_mipsel" = "xyes"])
 
-AM_CONDITIONAL([ENABLE_MT], [test "x$enable_mtsparc" = "xyes" -o "x$enable_mtalpha" = "xyes" -o "x$enable_mipsel"])
+AM_CONDITIONAL([ENABLE_MT], [test "x$enable_mtsparc" = "xyes" -o "x$enable_mtalpha" = "xyes" -o "x$enable_mipsel" = "xyes"])
+
+AM_CONDITIONAL([ENABLE_NEO], [test "x$enable_leon2mt" = "xyes"])
 
 AC_ARG_ENABLE([ptl],
               [AC_HELP_STRING([--disable-ptl],
@@ -257,7 +267,9 @@ echo "* C compiler:         $CC $CPPFLAGS $CFLAGS $LDFLAGS"
 echo "* C++ compiler:       $CXX $CPPFLAGS $CXXFLAGS $LDFLAGS"
 echo "*"
 echo "* mg-binutils:        $BINUTILS_ARCHIVE ($BINUTILS_VERSION)"
+echo "* binutils-ng:        $BINUTILSNG_ARCHIVE ($BINUTILSNG_VERSION)"
 echo "* GCC (patched):      $GCC_ARCHIVE ($GCC_VERSION)"
+echo "* GCC5:               $GCC5_ARCHIVE ($GCC5_VERSION)"
 echo "* m4 (patched):       $M4_ARCHIVE ($M4_VERSION)"
 echo "*"
 echo "* mgsim:              $MGSIM_ARCHIVE ($MGSIM_VERSION)"
@@ -266,9 +278,10 @@ echo "* hlsim:              $HLSIM_ARCHIVE ($HLSIM_VERSION)"
 echo "* slc:                $SLC_ARCHIVE ($SLC_VERSION)"
 echo "*"
 echo "* Support for ptl:      $enable_ptl"
-echo "* Support for MT-Sparc: $enable_mtsparc"
+echo "* Support for MT-SPARC: $enable_mtsparc"
 echo "* Support for MT-Alpha: $enable_mtalpha"
 echo "* Support for MIPSel:   $enable_mipsel"
+echo "* Support for LEON2-MT: $enable_leon2mt"
 echo "*"
 echo "Now run:"
 echo 

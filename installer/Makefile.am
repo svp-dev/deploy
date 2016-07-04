@@ -28,13 +28,19 @@ else
 MIPS =
 endif
 
-REQBASENAME = b$(BINUTILS_VERSION)-u$(MGGCC_VERSION)-g$(GCC_VERSION)-m$(M4_VERSION)
+if ENABLE_LEON2MT
+L2MT = -l2mt
+else
+L2MT =
+endif
+
+REQBASENAME = b$(BINUTILS_VERSION)..$(BINUTILSNG_VERSION)-u$(MGGCC_VERSION)-g$(GCC_VERSION)..$(GCC5_VERSION)-m$(M4_VERSION)
 
 REQNAME = slreqs-$(REQBASENAME)
 REQDIR = $(DSTBASE)/$(REQNAME)
 REQTAG = $(REQDIR)/.tag
 
-SLBASENAME = s$(MGSIM_VERSION)-c$(SLC_VERSION)$(MTA)$(MTS)$(MIPS)-p$(PTL_VERSION)-h$(HLSIM_VERSION)
+SLBASENAME = s$(MGSIM_VERSION)-c$(SLC_VERSION)$(MTA)$(MTS)$(MIPS)$(L2MT)-p$(PTL_VERSION)-h$(HLSIM_VERSION)
 SLNAME = sl-$(SLBASENAME)
 SLDIR = $(DSTBASE)/$(SLNAME)
 SLTAG = $(SLDIR)/.tag
@@ -54,6 +60,9 @@ endif
 if ENABLE_MT
 REQPARTS += binutils gcc
 SLPARTS += mgsim
+endif
+if ENABLE_NEO
+REQPARTS += binutilsng gcc5
 endif
 REQPARTS += m4 slenv
 SLPARTS += slc
@@ -92,7 +101,7 @@ help:
 	@echo "   XXX-install    install part XXX"
 	@echo
 	@echo "Parts:"
-	@echo "   m4 binutils gcc"
+	@echo "   m4 binutils gcc binutilsng gcc5"
 	@echo "   mgsim ptl hlsim slc slenv"
 
 RULE_DONE = @echo "*** $@: done. ***"; echo
@@ -107,6 +116,8 @@ include $(srcdir)/build-aux/version.mk
 
 include $(srcdir)/rules/binutils.mk
 include $(srcdir)/rules/gcc.mk
+include $(srcdir)/rules/binutilsng.mk
+include $(srcdir)/rules/gcc5.mk
 include $(srcdir)/rules/m4.mk
 include $(srcdir)/rules/ptl.mk
 include $(srcdir)/rules/mgsim.mk
@@ -115,8 +126,12 @@ include $(srcdir)/rules/slc.mk
 include $(srcdir)/rules/slenv.mk
 
 EXTRA_DIST += \
+	patches/gcc-patch-5.1.0.patch \
+	patches/gcc-patch-5.4.0.patch \
 	rules/binutils.mk \
 	rules/gcc.mk \
+	rules/binutilsng.mk \
+	rules/gcc5.mk \
 	rules/m4.mk \
 	rules/ptl.mk \
 	rules/mgsim.mk \
@@ -164,6 +179,8 @@ tags/.installed: Makefile
 	 echo "m4:$(M4_VERSION)"; \
 	 echo "gcc:$(GCC_VERSION)"; \
 	 echo "binutils:$(BINUTILS_VERSION)"; \
+	 echo "gcc5:$(GCC5_VERSION)"; \
+	 echo "binutilsng:$(BINUTILSNG_VERSION)"; \
 	 echo "mgsim:$(MGSIM_VERSION)"; \
 	 echo "ptl:$(PTL_VERSION)"; \
 	 echo "hlsim:$(HLSIM_VERSION)"; \

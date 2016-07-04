@@ -12,6 +12,7 @@ BASE_REPO = https://github.com/svp-dev
 MGSIM_REPO = $(BASE_REPO)/mgsim.git
 SLC_REPO = $(BASE_REPO)/slcore.git
 BINUTILS_REPO = $(BASE_REPO)/binutils.git
+BINUTILSNG_REPO = $(BASE_REPO)/binutils-ng.git
 DEPLOY_REPO = $(BASE_REPO)/deploy.git
 GCC_REPO = $(BASE_REPO)/gcc.git
 

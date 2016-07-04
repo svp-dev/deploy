@@ -19,6 +19,7 @@ SLC_BUILD_TARGETS = $(SLC_BUILD)/build_done
 SLC_INST_TARGETS = $(SLDIR)/.slc-installed
 
 SLC_TARGET_SELECT =
+
 if ENABLE_MTALPHA
 SLC_TARGET_SELECT += --enable-mtalpha
 else
@@ -28,6 +29,11 @@ if ENABLE_MTSPARC
 SLC_TARGET_SELECT += --enable-mtsparc
 else
 SLC_TARGET_SELECT += --disable-mtsparc
+endif
+if ENABLE_LEON2MT
+SLC_TARGET_SELECT += --enable-leon2mt
+else
+SLC_TARGET_SELECT += --disable-leon2mt
 endif
 if ENABLE_PTL
 SLC_TARGET_SELECT += --enable-ptl --enable-hlsim --with-ptl-includedir=$(SLDIR)/include --with-ptl-libdir=$(SLDIR)/lib
@@ -50,6 +56,8 @@ $(SLC_SRC)/configure: $(SLC_ARCHIVE)
 $(SLC_BUILD)/configure_done: $(SLC_SRC)/configure \
 		$(BINUTILS_INST_TARGETS) \
 		$(GCC_INST_TARGETS) \
+		$(BINUTILSNG_INST_TARGETS) \
+		$(GCC5_INST_TARGETS) \
 		$(MGGCC_INST_TARGETS) \
 		$(M4_INST_TARGETS) \
 		$(MGSIM_INST_TARGETS) \

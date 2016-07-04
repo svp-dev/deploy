@@ -1,3 +1,22 @@
+2016-07-04  Raphael 'kena' Poss  <r.poss@uva.nl>
+
+	Introduce support for LEON2-MT.
+
+	* dist/binutilsng-dist.mk: New.
+	* dist/common.mk,
+	* dist/dist-common.mk: New dist target for `binutilsng'.
+
+	* installer/configure.ac: New targets for LEON2-MT; new Makefile
+	conditional ENABLE_NEO. New targets for `binutilsng' and `gcc4'.
+
+	* installer/rules/slc.mk: Conditionally pass --enable-leon2mt.
+
+	* installer/patches/gcc-patch-5.1.0.patch,
+	* installer/patches/gcc-patch-5.4.0.patch,
+	* installer/rules/gcc5.mk,
+	* installer/rules/binutilsmg.mk: New.
+	* installer/Makefile.am: Use them when ENABLE_NEO is set.
+
 2015-07-26  Raphael 'kena' Poss  <r.poss@uva.nl>
 
 	Fix the installation rules for `binutils' on recent systems.

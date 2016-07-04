@@ -1,0 +1,113 @@
+--- gcc-5.1.0/gcc/config/sparc/sparc.opt.old	2015-05-11 13:24:12.468986384 +0200
++++ gcc-5.1.0/gcc/config/sparc/sparc.opt	2015-05-11 13:24:22.278986388 +0200
+@@ -101,6 +101,12 @@
+ Target Report RejectNegative InverseMask(64BIT)
+ Use 32-bit ABI
+ 
++; BEGIN LEON2-MT
++masync-y
++Target Report Mask(ASYNC_Y)
++Avoid reading %y before mul/div operation is complete
++; END LEON2-MT
++
+ mstack-bias
+ Target Report Mask(STACK_BIAS)
+ Use stack bias
+--- gcc-5.1.0/gcc/config/sparc/sparc.md.old	2015-05-11 13:24:17.478986386 +0200
++++ gcc-5.1.0/gcc/config/sparc/sparc.md	2015-05-11 13:24:22.278986388 +0200
+@@ -4155,7 +4155,9 @@
+ {
+   return TARGET_SPARCLET
+          ? "smuld\t%1, %2, %L0"
+-         : "smul\t%1, %2, %L0\n\trd\t%%y, %H0";
++         : (TARGET_ASYNC_Y 
++	 ? "smul\t%1, %2, %L0\n\tmov\t%L0, %L0\n\trd\t%%y, %H0"
++	 : "smul\t%1, %2, %L0\n\trd\t%%y, %H0");
+ }
+   [(set (attr "type")
+ 	(if_then_else (eq_attr "isa" "sparclet")
+@@ -4183,7 +4185,9 @@
+ {
+   return TARGET_SPARCLET
+          ? "smuld\t%1, %2, %L0"
+-         : "smul\t%1, %2, %L0\n\trd\t%%y, %H0";
++	 : (TARGET_ASYNC_Y
++	 ? "smul\t%1, %2, %L0\n\tmov\t%L0, %L0\n\trd\t%%y, %H0"
++         : "smul\t%1, %2, %L0\n\trd\t%%y, %H0");
+ }
+   [(set (attr "type")
+ 	(if_then_else (eq_attr "isa" "sparclet")
+@@ -4285,7 +4289,11 @@
+ 			       (sign_extend:DI (match_operand:SI 2 "register_operand" "r")))
+ 		      (const_int 32))))]
+   "TARGET_HARD_MUL32"
+-  "smul\t%1, %2, %%g0\n\trd\t%%y, %0"
++{
++  return TARGET_ASYNC_Y
++         ? "smul\t%1, %2, %0\n\tmov\t%0, %0\n\trd\t%%y, %0"
++         : "smul\t%1, %2, %%g0\n\trd\t%%y, %0";
++}
+   [(set_attr "type" "multi")
+    (set_attr "length" "2")])
+ 
+@@ -4297,7 +4305,11 @@
+ 			       (match_operand:DI 2 "small_int_operand" "i"))
+ 		      (const_int 32))))]
+   "TARGET_HARD_MUL32"
+-  "smul\t%1, %2, %%g0\n\trd\t%%y, %0"
++{
++  return TARGET_ASYNC_Y
++         ? "smul\t%1, %2, %0\n\tmov\t%0, %0\n\trd\t%%y, %0"
++	 : "smul\t%1, %2, %%g0\n\trd\t%%y, %0";
++}
+   [(set_attr "type" "multi")
+    (set_attr "length" "2")])
+ 
+@@ -4349,7 +4361,9 @@
+ {
+   return TARGET_SPARCLET
+          ? "umuld\t%1, %2, %L0"
+-         : "umul\t%1, %2, %L0\n\trd\t%%y, %H0";
++         : (TARGET_ASYNC_Y
++	    ? "umul\t%1, %2, %L0\n\tmov\t%L0, %L0\n\trd\t%%y, %H0"
++	    : "umul\t%1, %2, %L0\n\trd\t%%y, %H0");
+ }
+   [(set (attr "type")
+         (if_then_else (eq_attr "isa" "sparclet")
+@@ -4377,7 +4391,9 @@
+ {
+   return TARGET_SPARCLET
+          ? "umuld\t%1, %s2, %L0"
+-         : "umul\t%1, %s2, %L0\n\trd\t%%y, %H0";
++         : (TARGET_ASYNC_Y
++	    ? "umul\t%1, %s2, %L0\n\tmov\t%L0, %L0\n\trd\t%%y, %H0"
++	    : "umul\t%1, %s2, %L0\n\trd\t%%y, %H0");
+ }
+   [(set (attr "type")
+ 	(if_then_else (eq_attr "isa" "sparclet")
+@@ -4474,7 +4490,11 @@
+ 			       (zero_extend:DI (match_operand:SI 2 "register_operand" "r")))
+ 		      (const_int 32))))]
+   "TARGET_HARD_MUL32"
+-  "umul\t%1, %2, %%g0\n\trd\t%%y, %0"
++{
++  return TARGET_ASYNC_Y
++         ? "umul\t%1, %2, %0\n\tmov\t%0, %0\n\trd\t%%y, %0"
++	 : "umul\t%1, %2, %%g0\n\trd\t%%y, %0";
++}
+   [(set_attr "type" "multi")
+    (set_attr "length" "2")])
+ 
+@@ -4486,7 +4506,11 @@
+ 			       (match_operand:DI 2 "uns_small_int_operand" ""))
+ 		      (const_int 32))))]
+   "TARGET_HARD_MUL32"
+-  "umul\t%1, %s2, %%g0\n\trd\t%%y, %0"
++{
++  return TARGET_ASYNC_Y
++         ? "umul\t%1, %s2, %0\n\tmov\t%0, %0\n\trd\t%%y, %0"
++	 : "umul\t%1, %s2, %%g0\n\trd\t%%y, %0";
++}
+   [(set_attr "type" "multi")
+    (set_attr "length" "2")])
+ 
