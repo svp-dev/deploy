@@ -1,5 +1,13 @@
 2016-07-05  Raphael 'kena' Poss  <r.poss@uva.nl>
 
+	Fix a logic error.
+
+	* installer/rules/slc.mk ($(SLC_BUILD)/configure_done): Ensure
+	$(REQCURRENT) is also depended here, otherwise it only gets
+	created when MGSim is installed.
+
+2016-07-05  Raphael 'kena' Poss  <r.poss@uva.nl>
+
 	Packaging fix.
 
 	* installer/rules/gcc5.mk (GCC5_INST_TARGETS): depend on

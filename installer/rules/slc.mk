@@ -53,7 +53,7 @@ $(SLC_SRC)/configure: $(SLC_ARCHIVE)
 	$(UNTAR) $(SRCBASE) $(SLC_ARCHIVE)
 	touch $@
 
-$(SLC_BUILD)/configure_done: $(SLC_SRC)/configure \
+$(SLC_BUILD)/configure_done: $(SLC_SRC)/configure $(REQCURRENT) \
 		$(BINUTILS_INST_TARGETS) \
 		$(GCC_INST_TARGETS) \
 		$(BINUTILSNG_INST_TARGETS) \
