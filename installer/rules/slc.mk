@@ -30,6 +30,11 @@ SLC_TARGET_SELECT += --enable-mtsparc
 else
 SLC_TARGET_SELECT += --disable-mtsparc
 endif
+if ENABLE_MIPSEL
+SLC_TARGET_SELECT += --enable-mipsel
+else
+SLC_TARGET_SELECT += --disable-mipsel
+endif
 if ENABLE_LEON2MT
 SLC_TARGET_SELECT += --enable-leon2mt
 else
