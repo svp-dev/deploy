@@ -21,7 +21,7 @@ endif
 
 GCC5_CFG_TARGETS = $(foreach T,$(GCC5_TARGETS),$(GCC5_BUILD)-$(T)/configure_done)
 GCC5_BUILD_TARGETS = $(foreach T,$(GCC5_TARGETS),$(GCC5_BUILD)-$(T)/build_done)
-GCC5_INST_TARGETS = $(foreach T,$(GCC5_TARGETS),$(REQDIR)/.gcc-installed-$(T))
+GCC5_INST_TARGETS = $(foreach T,$(GCC5_TARGETS),$(REQDIR)/.gcc5-installed-$(T))
 
 GCC5_CONFIG_FLAGS = \
    --disable-bootstrap --disable-libmudflap --disable-libssp \
@@ -68,7 +68,7 @@ $(GCC5_BUILD)-%/build_done: $(GCC5_BUILD)-%/configure_done
 	$(am__cd) $(GCC5_BUILD)-$* && $(MAKE)
 	touch $@
 
-$(REQDIR)/.gcc-installed-%: $(GCC5_BUILD)-%/build_done
+$(REQDIR)/.gcc5-installed-%: $(GCC5_BUILD)-%/build_done
 	rm -f $*
 	$(am__cd) $(GCC5_BUILD)-$* && $(MAKE) -j1 install
 	touch $@

@@ -1,3 +1,12 @@
+2016-07-05  Raphael 'kena' Poss  <r.poss@uva.nl>
+
+	Packaging fix.
+
+	* installer/rules/gcc5.mk (GCC5_INST_TARGETS): depend on
+	`gcc5-installed-*', not `gcc-installed'.
+ 	* installer/rules/gcc5.mk ($(REQDIR)/.gcc5-installed-%): Generate
+	`gcc5-installed', not `gcc-installed'.
+
 2016-07-04  Raphael 'kena' Poss  <r.poss@uva.nl>
 
 	Introduce support for LEON2-MT.
