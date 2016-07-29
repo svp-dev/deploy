@@ -12,6 +12,7 @@
 ##
 
 GCC5_PATCH = patches/gcc-patch-$(GCC5_VERSION).patch
+GCC5_PATCH_INTDIV = patches/gcc-patch-intdiv-$(GCC5_VERSION).patch
 GCC5_SRC = $(SRCBASE)/gcc-$(GCC5_VERSION)
 GCC5_BUILD = $(BLDBASE)/gcc-$(GCC5_VERSION)
 GCC5_TARGETS = 
@@ -45,7 +46,14 @@ $(GCC5_SRC).patch_done: $(GCC5_SRC)/configure $(GCC5_PATCH)
 	$(am__cd) $(GCC5_SRC) && patch -p1 <$(abs_top_srcdir)/$(GCC5_PATCH)
 	touch $@
 
-$(GCC5_BUILD)-%/configure_done: $(GCC5_SRC).patch_done $(REQDIR)/.binutilsng-installed-%
+$(GCC5_SRC).intdiv_patch_done: $(GCC5_SRC)/configure $(GCC5_PATCH_INTDIV) $(GCC5_SRC).patch_done
+	if [ -f $(GCC5_PATCH_INTDIV) ]; then \
+		rm -f $@ \
+		$(am__cd) $(GCC5_SRC) && patch -p2 <$(abs_top_srcdir)/$(GCC5_PATCH_INTDIV) ; \
+	fi
+	touch $@
+
+$(GCC5_BUILD)-%/configure_done: $(GCC5_SRC).intdiv_patch_done $(REQDIR)/.binutilsng-installed-%
 	rm -f $@
 	$(MKDIR_P) $(GCC5_BUILD)-$*
 	SRC=$$($(am__cd) $(GCC5_SRC) && pwd) && \

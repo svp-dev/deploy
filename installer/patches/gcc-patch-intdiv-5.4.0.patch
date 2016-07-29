@@ -1,0 +1,95 @@
+diff -ur orig/gcc-5.4.0/gcc/config/sparc/sparc.c sources/gcc-5.4.0/gcc/config/sparc/sparc.c
+--- orig/gcc-5.4.0/gcc/config/sparc/sparc.c	2016-04-12 22:55:33.000000000 +0200
++++ sources/gcc-5.4.0/gcc/config/sparc/sparc.c	2016-07-14 16:18:41.894912292 +0200
+@@ -10011,15 +10011,20 @@
+ {
+   if (TARGET_ARCH32)
+     {
+-      /* Use the subroutines that Sun's library provides for integer
+-	 multiply and divide.  The `*' prevents an underscore from
+-	 being prepended by the compiler. .umul is a little faster
+-	 than .mul.  */
+-      set_optab_libfunc (smul_optab, SImode, "*.umul");
+-      set_optab_libfunc (sdiv_optab, SImode, "*.div");
+-      set_optab_libfunc (udiv_optab, SImode, "*.udiv");
+-      set_optab_libfunc (smod_optab, SImode, "*.rem");
+-      set_optab_libfunc (umod_optab, SImode, "*.urem");
++      if (TARGET_LIB_DIV) {
++        set_optab_libfunc (sdiv_optab, SImode, "__divsi3");
++        set_optab_libfunc (udiv_optab, SImode, "__udivsi3");
++      } else {
++        /* Use the subroutines that Sun's library provides for integer
++	   multiply and divide.  The `*' prevents an underscore from
++	   being prepended by the compiler. .umul is a little faster
++	   than .mul.  */
++        set_optab_libfunc (smul_optab, SImode, "*.umul");
++        set_optab_libfunc (sdiv_optab, SImode, "*.div");
++        set_optab_libfunc (udiv_optab, SImode, "*.udiv");
++        set_optab_libfunc (smod_optab, SImode, "*.rem");
++        set_optab_libfunc (umod_optab, SImode, "*.urem");
++      }
+ 
+       /* TFmode arithmetic.  These names are part of the SPARC 32bit ABI.  */
+       set_optab_libfunc (add_optab, TFmode, "_Q_add");
+diff -ur orig/gcc-5.4.0/gcc/config/sparc/sparc.md sources/gcc-5.4.0/gcc/config/sparc/sparc.md
+--- orig/gcc-5.4.0/gcc/config/sparc/sparc.md	2016-07-29 09:38:28.976238680 +0200
++++ sources/gcc-5.4.0/gcc/config/sparc/sparc.md	2016-07-14 15:40:28.785656178 +0200
+@@ -4499,7 +4499,7 @@
+ 		   (div:SI (match_operand:SI 1 "register_operand" "")
+ 			   (match_operand:SI 2 "input_operand" "")))
+ 	      (clobber (match_scratch:SI 3 ""))])]
+-  "TARGET_V8 || TARGET_DEPRECATED_V8_INSNS"
++  "(TARGET_V8 || TARGET_DEPRECATED_V8_INSNS) && (!TARGET_LIB_DIV)"
+ {
+   if (TARGET_ARCH64)
+     {
+@@ -4577,7 +4577,7 @@
+    (set (match_operand:SI 0 "register_operand" "=r")
+ 	(div:SI (match_dup 1) (match_dup 2)))
+    (clobber (match_scratch:SI 3 "=&r"))]
+-  "TARGET_V8 || TARGET_DEPRECATED_V8_INSNS"
++  "(TARGET_V8 || TARGET_DEPRECATED_V8_INSNS) && (!TARGET_LIB_DIV)"
+ {
+   output_asm_insn ("sra\t%1, 31, %3", operands);
+   output_asm_insn ("wr\t%3, 0, %%y", operands);
+@@ -4597,7 +4597,7 @@
+   [(set (match_operand:SI 0 "register_operand" "")
+ 	(udiv:SI (match_operand:SI 1 "nonimmediate_operand" "")
+ 		 (match_operand:SI 2 "input_operand" "")))]
+-  "TARGET_V8 || TARGET_DEPRECATED_V8_INSNS"
++  "(TARGET_V8 || TARGET_DEPRECATED_V8_INSNS) && (!TARGET_LIB_DIV)"
+   "")
+ 
+ ;; The V8 architecture specifies that there must be at least 3 instructions
+@@ -4608,7 +4608,7 @@
+   [(set (match_operand:SI 0 "register_operand" "=r,&r,&r,&r")
+ 	(udiv:SI (match_operand:SI 1 "nonimmediate_operand" "r,r,r,m")
+ 		 (match_operand:SI 2 "input_operand" "rI,K,m,r")))]
+-  "(TARGET_V8 || TARGET_DEPRECATED_V8_INSNS) && TARGET_ARCH32"
++  "(TARGET_V8 || TARGET_DEPRECATED_V8_INSNS) && TARGET_ARCH32 && (!TARGET_LIB_DIV)"
+ {
+   output_asm_insn ("wr\t%%g0, 0, %%y", operands);
+ 
+@@ -4667,7 +4667,7 @@
+ 		    (const_int 0)))
+    (set (match_operand:SI 0 "register_operand" "=r")
+ 	(udiv:SI (match_dup 1) (match_dup 2)))]
+-  "TARGET_V8 || TARGET_DEPRECATED_V8_INSNS"
++  "(TARGET_V8 || TARGET_DEPRECATED_V8_INSNS) && (!TARGET_LIB_DIV)"
+ {
+   output_asm_insn ("wr\t%%g0, 0, %%y", operands);
+ 
+diff -ur orig/gcc-5.4.0/gcc/config/sparc/sparc.opt sources/gcc-5.4.0/gcc/config/sparc/sparc.opt
+--- orig/gcc-5.4.0/gcc/config/sparc/sparc.opt	2016-07-29 09:38:28.972238627 +0200
++++ sources/gcc-5.4.0/gcc/config/sparc/sparc.opt	2016-07-14 15:50:47.650599568 +0200
+@@ -105,6 +105,10 @@
+ masync-y
+ Target Report Mask(ASYNC_Y)
+ Avoid reading %y before mul/div operation is complete
++
++malways-lib-div
++Target Report Mask(LIB_DIV)
++Don't generate hw instructions for divides
+ ; END LEON2-MT
+ 
+ mstack-bias

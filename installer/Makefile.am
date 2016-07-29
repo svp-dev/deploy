@@ -128,6 +128,7 @@ include $(srcdir)/rules/slenv.mk
 EXTRA_DIST += \
 	patches/gcc-patch-5.1.0.patch \
 	patches/gcc-patch-5.4.0.patch \
+	patches/gcc-patch-5.4.0-intdiv.patch \
 	rules/binutils.mk \
 	rules/gcc.mk \
 	rules/binutilsng.mk \
