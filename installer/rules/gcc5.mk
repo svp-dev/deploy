@@ -41,19 +41,13 @@ $(GCC5_SRC)/configure: $(GCC5_ARCHIVE)
 	$(UNTAR) $(SRCBASE) $(GCC5_ARCHIVE)
 	touch $@
 
-$(GCC5_SRC).patch_done: $(GCC5_SRC)/configure $(GCC5_PATCH)
+$(GCC5_SRC).patch_done: $(GCC5_SRC)/configure $(GCC5_PATCH) $(GCC5_PATCH_INTDIV)
 	rm -f $@
 	$(am__cd) $(GCC5_SRC) && patch -p1 <$(abs_top_srcdir)/$(GCC5_PATCH)
+	$(am__cd) $(GCC5_SRC) && patch -p2 <$(abs_top_srcdir)/$(GCC5_PATCH_INTDIV)
 	touch $@
 
-$(GCC5_SRC).intdiv_patch_done: $(GCC5_SRC)/configure $(GCC5_PATCH_INTDIV) $(GCC5_SRC).patch_done
-	if [ -f $(GCC5_PATCH_INTDIV) ]; then \
-		rm -f $@ \
-		$(am__cd) $(GCC5_SRC) && patch -p2 <$(abs_top_srcdir)/$(GCC5_PATCH_INTDIV) ; \
-	fi
-	touch $@
-
-$(GCC5_BUILD)-%/configure_done: $(GCC5_SRC).intdiv_patch_done $(REQDIR)/.binutilsng-installed-%
+$(GCC5_BUILD)-%/configure_done: $(GCC5_SRC).patch_done $(REQDIR)/.binutilsng-installed-%
 	rm -f $@
 	$(MKDIR_P) $(GCC5_BUILD)-$*
 	SRC=$$($(am__cd) $(GCC5_SRC) && pwd) && \

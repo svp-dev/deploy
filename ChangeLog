@@ -1,3 +1,9 @@
+2016-08-24  Raphael 'kena' Poss  <r.poss@uva.nl>
+
+	Fix the patch application for gcc 5.
+
+	* installer/rules/gcc5.mk: Group the patching rules.
+
 2016-07-29  Alyssa Milburn  <amilburn@zall.org>
 
 	Allow disabling generation of hardware division instructions,
