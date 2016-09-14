@@ -1,3 +1,9 @@
+2016-09-14  Raphael 'kena' Poss  <knz@thaumogen.net>
+
+	Minor packaging fix.
+
+	* installer/Makefile.am: Fix the name of a patch.
+
 2016-08-24  Raphael 'kena' Poss  <r.poss@uva.nl>
 
 	Fix the patch application for gcc 5.
