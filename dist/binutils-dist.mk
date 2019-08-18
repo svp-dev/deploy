@@ -21,7 +21,7 @@ $(BINUTILS_METASRC)/download_done:
 
 $(BINUTILS_METASRC)/bootstrap_done: $(BINUTILS_METASRC)/download_done
 	rm -f $@
-	cd $(BINUTILS_METASRC)/src && ./bootstrap
+	#cd $(BINUTILS_METASRC)/src && ./bootstrap
 	touch $@
 
 .PHONY: binutils-dist
