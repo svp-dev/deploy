@@ -55,7 +55,9 @@ $(GCC5_BUILD)-%/configure_done: $(GCC5_SRC).patch_done $(REQDIR)/.binutilsng-ins
 	   find . -name config.cache -exec rm '{}' \; && \
 	   $$SRC/configure --target=$* \
 			   --prefix=$(REQDIR) \
+			       CXX="$(CXX)" \
 			       CC="$(CC)" \
+			       CXXFLAGS="$(CPPFLAGS) $(CXXFLAGS)" \
 			       CFLAGS="$(CPPFLAGS) $(CFLAGS)" \
 	                       LDFLAGS="$(CFLAGS) $(LDFLAGS)" \
 			       MAKEINFO=/bin/true \
