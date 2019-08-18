@@ -13,6 +13,7 @@
 
 GCC5_PATCH = patches/gcc-patch-$(GCC5_VERSION).patch
 GCC5_PATCH_INTDIV = patches/gcc-patch-intdiv-$(GCC5_VERSION).patch
+GCC5_PATCH_FORMATS = patches/gcc-patch-formats-$(GCC5_VERSION).patch
 GCC5_SRC = $(SRCBASE)/gcc-$(GCC5_VERSION)
 GCC5_BUILD = $(BLDBASE)/gcc-$(GCC5_VERSION)
 GCC5_TARGETS = 
@@ -41,10 +42,11 @@ $(GCC5_SRC)/configure: $(GCC5_ARCHIVE)
 	$(UNTAR) $(SRCBASE) $(GCC5_ARCHIVE)
 	touch $@
 
-$(GCC5_SRC).patch_done: $(GCC5_SRC)/configure $(GCC5_PATCH) $(GCC5_PATCH_INTDIV)
+$(GCC5_SRC).patch_done: $(GCC5_SRC)/configure $(GCC5_PATCH) $(GCC5_PATCH_INTDIV) $(GCC5_PATCH_FORMATS)
 	rm -f $@
 	$(am__cd) $(GCC5_SRC) && patch -p1 <$(abs_top_srcdir)/$(GCC5_PATCH)
 	$(am__cd) $(GCC5_SRC) && patch -p2 <$(abs_top_srcdir)/$(GCC5_PATCH_INTDIV)
+	$(am__cd) $(GCC5_SRC) && patch -p2 <$(abs_top_srcdir)/$(GCC5_PATCH_FORMATS)
 	touch $@
 
 $(GCC5_BUILD)-%/configure_done: $(GCC5_SRC).patch_done $(REQDIR)/.binutilsng-installed-%
