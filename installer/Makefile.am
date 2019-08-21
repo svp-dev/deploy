@@ -130,6 +130,7 @@ EXTRA_DIST += \
 	patches/gcc-patch-5.4.0.patch \
 	patches/gcc-patch-intdiv-5.4.0.patch \
 	patches/gcc-patch-formats-5.4.0.patch \
+	patches/m4-patch-gnulib.patch \
 	rules/binutils.mk \
 	rules/gcc.mk \
 	rules/binutilsng.mk \

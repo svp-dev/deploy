@@ -1,0 +1,16 @@
+diff -uNr m4-1.5.89a.166-ea03c-dirty.orig/lib/stdio.in.h m4-1.5.89a.166-ea03c-dirty/lib/stdio.in.h
+--- m4-1.5.89a.166-ea03c-dirty.orig/lib/stdio.in.h	2019-08-21 10:34:45.537842000 +0200
++++ m4-1.5.89a.166-ea03c-dirty/lib/stdio.in.h	2019-08-21 10:35:26.667052000 +0200
+@@ -137,12 +137,6 @@
+                  "use gnulib module fflush for portable POSIX compliance");
+ #endif
+ 
+-/* It is very rare that the developer ever has full control of stdin,
+-   so any use of gets warrants an unconditional warning.  Assume it is
+-   always declared, since it is required by C89.  */
+-#undef gets
+-_GL_WARN_ON_USE (gets, "gets is a security hole - use fgets instead");
+-
+ #if @GNULIB_FOPEN@
+ # if @REPLACE_FOPEN@
+ #  if !(defined __cplusplus && defined GNULIB_NAMESPACE)

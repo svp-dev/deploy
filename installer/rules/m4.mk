@@ -15,6 +15,7 @@ M4_SRC = $(SRCBASE)/m4-$(M4_VERSION)
 M4_BUILD = $(BLDBASE)/m4-$(M4_VERSION)
 M4_BUILD_TARGETS = $(M4_BUILD)/build_done
 M4_INST_TARGETS = $(REQDIR)/.m4-installed
+M4_PATCH = patches/m4-patch-gnulib.patch
 
 .PRECIOUS: $(M4_ARCHIVE) $(M4_BUILD_TARGETS) $(M4_INST_TARGETS)
 
@@ -28,7 +29,12 @@ $(M4_SRC)/configure: $(M4_ARCHIVE)
 	$(UNTAR) $(SRCBASE) $(M4_ARCHIVE)
 	touch $@
 
-$(M4_BUILD)/build_done: $(M4_SRC)/configure $(REQTAG)
+$(M4_BUILD)/patch_done: $(M4_SRC)/configure $(M4_PATCH)
+	rm -f $@
+	$(am__cd) $(M4_SRC) && patch -p1 <$(abs_top_srcdir)/$(M4_PATCH)
+	touch $@
+
+$(M4_BUILD)/build_done: $(M4_BUILD)/patch_done $(REQTAG)
 	rm -f $@
 	$(MKDIR_P) $(M4_BUILD)
 	SRC=$$($(am__cd) $(M4_SRC) && pwd) && \
