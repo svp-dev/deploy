@@ -1,0 +1,2050 @@
+diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/checks/204.location m4-1.4.18/checks/204.location
+--- m4-1.4.18.orig/checks/204.location	2016-12-31 23:36:45.000000000 +0100
++++ m4-1.4.18/checks/204.location	2019-08-22 15:32:06.675156999 +0200
+@@ -1,4 +1,4 @@
+-dnl @ ../doc/m4.texi:6995: Origin of test
++dnl @ ../doc/m4.texi:6996: Origin of test
+ dnl @ expected status: 0
+ dnl @ extra options: 
+ dnl @ Copyright (C) 2006, 2007, 2008, 2009 Free Software
+diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/checks/205.location m4-1.4.18/checks/205.location
+--- m4-1.4.18.orig/checks/205.location	2016-12-31 23:36:45.000000000 +0100
++++ m4-1.4.18/checks/205.location	2019-08-22 15:32:06.675156999 +0200
+@@ -1,4 +1,4 @@
+-dnl @ ../doc/m4.texi:7016: Origin of test
++dnl @ ../doc/m4.texi:7017: Origin of test
+ dnl @ expected status: 0
+ dnl @ extra options: 
+ dnl @ Copyright (C) 2006, 2007, 2008, 2009 Free Software
+diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/checks/206.location m4-1.4.18/checks/206.location
+--- m4-1.4.18.orig/checks/206.location	1970-01-01 01:00:00.000000000 +0100
++++ m4-1.4.18/checks/206.location	2019-08-22 15:32:06.675156999 +0200
+@@ -0,0 +1,22 @@
++dnl @ ../doc/m4.texi:7059: Origin of test
++dnl @ expected status: 0
++dnl @ extra options:  -s
++dnl @ Copyright (C) 2006, 2007, 2008, 2009 Free Software
++dnl @ Foundation, Inc.
++dnl @ This file is free software; the Free Software Foundation
++dnl @ gives unlimited permission to copy and/or distribute it
++dnl @ with or without modifications, as long as this notice
++dnl @ is preserved.
++foo __line__(42)bar __line__
++baz __line__
++__line__
++dnl @result{}#line 1 "stdin"
++dnl @result{}foo bar 42
++dnl @result{}#line 43
++dnl @result{}baz 43
++dnl @result{}44
++foo __file__(`newname')bar __file__
++baz __file__
++dnl @result{}foo bar newname
++dnl @result{}#line 46 "newname"
++dnl @result{}baz newname
+diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/checks/206.m4exit m4-1.4.18/checks/206.m4exit
+--- m4-1.4.18.orig/checks/206.m4exit	2016-12-31 23:36:45.000000000 +0100
++++ m4-1.4.18/checks/206.m4exit	1970-01-01 01:00:00.000000000 +0100
+@@ -1,15 +0,0 @@
+-dnl @ ../doc/m4.texi:7073: Origin of test
+-dnl @ expected status: 0
+-dnl @ extra options: 
+-dnl @ Copyright (C) 2006, 2007, 2008, 2009 Free Software
+-dnl @ Foundation, Inc.
+-dnl @ This file is free software; the Free Software Foundation
+-dnl @ gives unlimited permission to copy and/or distribute it
+-dnl @ with or without modifications, as long as this notice
+-dnl @ is preserved.
+-m4wrap(`This text is lost due to `m4exit'.')
+-dnl @result{}
+-divert(`1') So is this.
+-divert
+-dnl @result{}
+-m4exit And this is never read.
+diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/checks/207.m4exit m4-1.4.18/checks/207.m4exit
+--- m4-1.4.18.orig/checks/207.m4exit	2016-12-31 23:36:45.000000000 +0100
++++ m4-1.4.18/checks/207.m4exit	2019-08-22 15:32:06.679157056 +0200
+@@ -1,5 +1,5 @@
+-dnl @ ../doc/m4.texi:7091: Origin of test
+-dnl @ expected status: 1
++dnl @ ../doc/m4.texi:7102: Origin of test
++dnl @ expected status: 0
+ dnl @ extra options: 
+ dnl @ Copyright (C) 2006, 2007, 2008, 2009 Free Software
+ dnl @ Foundation, Inc.
+@@ -7,9 +7,9 @@
+ dnl @ gives unlimited permission to copy and/or distribute it
+ dnl @ with or without modifications, as long as this notice
+ dnl @ is preserved.
+-define(`fatal_error',
+-       `errprint(__program__:__file__:__line__`: fatal error: $*
+-')m4exit(`1')')
++m4wrap(`This text is lost due to `m4exit'.')
+ dnl @result{}
+-fatal_error(`this is a BAD one, buster')
+-dnl @error{}m4:stdin:4: fatal error: this is a BAD one, buster
++divert(`1') So is this.
++divert
++dnl @result{}
++m4exit And this is never read.
+diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/checks/208.m4exit m4-1.4.18/checks/208.m4exit
+--- m4-1.4.18.orig/checks/208.m4exit	1970-01-01 01:00:00.000000000 +0100
++++ m4-1.4.18/checks/208.m4exit	2019-08-22 15:32:06.679157056 +0200
+@@ -0,0 +1,15 @@
++dnl @ ../doc/m4.texi:7120: Origin of test
++dnl @ expected status: 1
++dnl @ extra options: 
++dnl @ Copyright (C) 2006, 2007, 2008, 2009 Free Software
++dnl @ Foundation, Inc.
++dnl @ This file is free software; the Free Software Foundation
++dnl @ gives unlimited permission to copy and/or distribute it
++dnl @ with or without modifications, as long as this notice
++dnl @ is preserved.
++define(`fatal_error',
++       `errprint(__program__:__file__:__line__`: fatal error: $*
++')m4exit(`1')')
++dnl @result{}
++fatal_error(`this is a BAD one, buster')
++dnl @error{}m4:stdin:4: fatal error: this is a BAD one, buster
+diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/checks/208.using_froz m4-1.4.18/checks/208.using_froz
+--- m4-1.4.18.orig/checks/208.using_froz	2016-12-31 23:36:45.000000000 +0100
++++ m4-1.4.18/checks/208.using_froz	1970-01-01 01:00:00.000000000 +0100
+@@ -1,10 +0,0 @@
+-dnl @ ../doc/m4.texi:7227: Origin of test
+-dnl @ expected status: 0
+-dnl @ extra options:  -F /dev/null
+-dnl @ Copyright (C) 2006, 2007, 2008, 2009 Free Software
+-dnl @ Foundation, Inc.
+-dnl @ This file is free software; the Free Software Foundation
+-dnl @ gives unlimited permission to copy and/or distribute it
+-dnl @ with or without modifications, as long as this notice
+-dnl @ is preserved.
+-traceon(`undefined')dnl
+diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/checks/209.using_froz m4-1.4.18/checks/209.using_froz
+--- m4-1.4.18.orig/checks/209.using_froz	2016-12-31 23:36:45.000000000 +0100
++++ m4-1.4.18/checks/209.using_froz	2019-08-22 15:32:06.679157056 +0200
+@@ -1,20 +1,10 @@
+-dnl @ ../doc/m4.texi:7233: Origin of test
++dnl @ ../doc/m4.texi:7256: Origin of test
+ dnl @ expected status: 0
+-dnl @ extra options: 
++dnl @ extra options:  -F /dev/null
+ dnl @ Copyright (C) 2006, 2007, 2008, 2009 Free Software
+ dnl @ Foundation, Inc.
+ dnl @ This file is free software; the Free Software Foundation
+ dnl @ gives unlimited permission to copy and/or distribute it
+ dnl @ with or without modifications, as long as this notice
+ dnl @ is preserved.
+-ifdef(`__unix__', ,
+-      `errprint(` skipping: syscmd does not have unix semantics
+-')m4exit(`77')')dnl
+-changequote(`[', `]')dnl
+-syscmd([echo 'changequote([,])pushdef([divnum],[hi])dnl' \
+-       | ']__program__[' -F in.m4f \
+-     && echo 'divnum popdef([divnum])divnum' \
+-       | ']__program__[' -R in.m4f \
+-     && rm in.m4f])status sysval
+-dnl @result{}hi 0
+-dnl @result{}status 0
++traceon(`undefined')dnl
+diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/checks/210.using_froz m4-1.4.18/checks/210.using_froz
+--- m4-1.4.18.orig/checks/210.using_froz	2016-12-31 23:36:45.000000000 +0100
++++ m4-1.4.18/checks/210.using_froz	2019-08-22 15:32:06.679157056 +0200
+@@ -1,11 +1,20 @@
+-dnl @ ../doc/m4.texi:7253: Origin of test
+-dnl @ expected status: 1
+-dnl @ extra options:  -F /none/such
++dnl @ ../doc/m4.texi:7262: Origin of test
++dnl @ expected status: 0
++dnl @ extra options: 
+ dnl @ Copyright (C) 2006, 2007, 2008, 2009 Free Software
+ dnl @ Foundation, Inc.
+ dnl @ This file is free software; the Free Software Foundation
+ dnl @ gives unlimited permission to copy and/or distribute it
+ dnl @ with or without modifications, as long as this notice
+ dnl @ is preserved.
+-dnl @ expected error: ignore
+-dnl @error{}m4: cannot open `/none/such': No such file or directory
++ifdef(`__unix__', ,
++      `errprint(` skipping: syscmd does not have unix semantics
++')m4exit(`77')')dnl
++changequote(`[', `]')dnl
++syscmd([echo 'changequote([,])pushdef([divnum],[hi])dnl' \
++       | ']__program__[' -F in.m4f \
++     && echo 'divnum popdef([divnum])divnum' \
++       | ']__program__[' -R in.m4f \
++     && rm in.m4f])status sysval
++dnl @result{}hi 0
++dnl @result{}status 0
+diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/checks/211.extensions m4-1.4.18/checks/211.extensions
+--- m4-1.4.18.orig/checks/211.extensions	2016-12-31 23:36:45.000000000 +0100
++++ m4-1.4.18/checks/211.extensions	1970-01-01 01:00:00.000000000 +0100
+@@ -1,26 +0,0 @@
+-dnl @ ../doc/m4.texi:7389: Origin of test
+-dnl @ expected status: 0
+-dnl @ extra options: 
+-dnl @ Copyright (C) 2006, 2007, 2008, 2009 Free Software
+-dnl @ Foundation, Inc.
+-dnl @ This file is free software; the Free Software Foundation
+-dnl @ gives unlimited permission to copy and/or distribute it
+-dnl @ with or without modifications, as long as this notice
+-dnl @ is preserved.
+-define(`a1', `A1')
+-dnl @result{}
+-dnl First argument, concatenated with 1
+-define(`_1', `$1')define(`first1', `_1($@)1')
+-dnl @result{}
+-dnl Eleventh argument, portable
+-define(`_9', `$9')define(`eleventh', `_9(shift(shift($@)))')
+-dnl @result{}
+-dnl Eleventh argument, GNU style
+-define(`Eleventh', `$11')
+-dnl @result{}
+-first1(`a', `b', `c', `d', `e', `f', `g', `h', `i', `j', `k')
+-dnl @result{}A1
+-eleventh(`a', `b', `c', `d', `e', `f', `g', `h', `i', `j', `k')
+-dnl @result{}k
+-Eleventh(`a', `b', `c', `d', `e', `f', `g', `h', `i', `j', `k')
+-dnl @result{}k
+diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/checks/211.using_froz m4-1.4.18/checks/211.using_froz
+--- m4-1.4.18.orig/checks/211.using_froz	1970-01-01 01:00:00.000000000 +0100
++++ m4-1.4.18/checks/211.using_froz	2019-08-22 15:32:06.679157056 +0200
+@@ -0,0 +1,11 @@
++dnl @ ../doc/m4.texi:7282: Origin of test
++dnl @ expected status: 1
++dnl @ extra options:  -F /none/such
++dnl @ Copyright (C) 2006, 2007, 2008, 2009 Free Software
++dnl @ Foundation, Inc.
++dnl @ This file is free software; the Free Software Foundation
++dnl @ gives unlimited permission to copy and/or distribute it
++dnl @ with or without modifications, as long as this notice
++dnl @ is preserved.
++dnl @ expected error: ignore
++dnl @error{}m4: cannot open `/none/such': No such file or directory
+diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/checks/212.extensions m4-1.4.18/checks/212.extensions
+--- m4-1.4.18.orig/checks/212.extensions	1970-01-01 01:00:00.000000000 +0100
++++ m4-1.4.18/checks/212.extensions	2019-08-22 15:32:06.679157056 +0200
+@@ -0,0 +1,26 @@
++dnl @ ../doc/m4.texi:7418: Origin of test
++dnl @ expected status: 0
++dnl @ extra options: 
++dnl @ Copyright (C) 2006, 2007, 2008, 2009 Free Software
++dnl @ Foundation, Inc.
++dnl @ This file is free software; the Free Software Foundation
++dnl @ gives unlimited permission to copy and/or distribute it
++dnl @ with or without modifications, as long as this notice
++dnl @ is preserved.
++define(`a1', `A1')
++dnl @result{}
++dnl First argument, concatenated with 1
++define(`_1', `$1')define(`first1', `_1($@)1')
++dnl @result{}
++dnl Eleventh argument, portable
++define(`_9', `$9')define(`eleventh', `_9(shift(shift($@)))')
++dnl @result{}
++dnl Eleventh argument, GNU style
++define(`Eleventh', `$11')
++dnl @result{}
++first1(`a', `b', `c', `d', `e', `f', `g', `h', `i', `j', `k')
++dnl @result{}A1
++eleventh(`a', `b', `c', `d', `e', `f', `g', `h', `i', `j', `k')
++dnl @result{}k
++Eleventh(`a', `b', `c', `d', `e', `f', `g', `h', `i', `j', `k')
++dnl @result{}k
+diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/checks/212.other_inco m4-1.4.18/checks/212.other_inco
+--- m4-1.4.18.orig/checks/212.other_inco	2016-12-31 23:36:45.000000000 +0100
++++ m4-1.4.18/checks/212.other_inco	1970-01-01 01:00:00.000000000 +0100
+@@ -1,18 +0,0 @@
+-dnl @ ../doc/m4.texi:7683: Origin of test
+-dnl @ expected status: 0
+-dnl @ extra options:  -s
+-dnl @ Copyright (C) 2006, 2007, 2008, 2009 Free Software
+-dnl @ Foundation, Inc.
+-dnl @ This file is free software; the Free Software Foundation
+-dnl @ gives unlimited permission to copy and/or distribute it
+-dnl @ with or without modifications, as long as this notice
+-dnl @ is preserved.
+-divert(2)2
+-divert(1)1
+-divert`'0
+-dnl @result{}#line 3 "stdin"
+-dnl @result{}0
+-dnl @result{}#line 2 "stdin"
+-dnl @result{}1
+-dnl @result{}#line 1 "stdin"
+-dnl @result{}2
+diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/checks/213.other_inco m4-1.4.18/checks/213.other_inco
+--- m4-1.4.18.orig/checks/213.other_inco	2016-12-31 23:36:45.000000000 +0100
++++ m4-1.4.18/checks/213.other_inco	2019-08-22 15:32:06.679157056 +0200
+@@ -1,13 +1,18 @@
+-dnl @ ../doc/m4.texi:7708: Origin of test
++dnl @ ../doc/m4.texi:7712: Origin of test
+ dnl @ expected status: 0
+-dnl @ extra options: 
++dnl @ extra options:  -s
+ dnl @ Copyright (C) 2006, 2007, 2008, 2009 Free Software
+ dnl @ Foundation, Inc.
+ dnl @ This file is free software; the Free Software Foundation
+ dnl @ gives unlimited permission to copy and/or distribute it
+ dnl @ with or without modifications, as long as this notice
+ dnl @ is preserved.
+-define(`x', `x')
+-dnl @result{}
+-define(`x', `x ')
+-dnl @result{}
++divert(2)2
++divert(1)1
++divert`'0
++dnl @result{}#line 3 "stdin"
++dnl @result{}0
++dnl @result{}#line 2 "stdin"
++dnl @result{}1
++dnl @result{}#line 1 "stdin"
++dnl @result{}2
+diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/checks/214.improved_e m4-1.4.18/checks/214.improved_e
+--- m4-1.4.18.orig/checks/214.improved_e	2016-12-31 23:36:45.000000000 +0100
++++ m4-1.4.18/checks/214.improved_e	1970-01-01 01:00:00.000000000 +0100
+@@ -1,15 +0,0 @@
+-dnl @ ../doc/m4.texi:7762: Origin of test
+-dnl @ expected status: 0
+-dnl @ extra options: 
+-dnl @ Copyright (C) 2006, 2007, 2008, 2009 Free Software
+-dnl @ Foundation, Inc.
+-dnl @ This file is free software; the Free Software Foundation
+-dnl @ gives unlimited permission to copy and/or distribute it
+-dnl @ with or without modifications, as long as this notice
+-dnl @ is preserved.
+-define(`exch', ``$2', `$1'')
+-dnl @result{}
+-define(exch(`expansion text', `macro'))
+-dnl @result{}
+-macro
+-dnl @result{}expansion text
+diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/checks/214.other_inco m4-1.4.18/checks/214.other_inco
+--- m4-1.4.18.orig/checks/214.other_inco	1970-01-01 01:00:00.000000000 +0100
++++ m4-1.4.18/checks/214.other_inco	2019-08-22 15:32:06.679157056 +0200
+@@ -0,0 +1,13 @@
++dnl @ ../doc/m4.texi:7737: Origin of test
++dnl @ expected status: 0
++dnl @ extra options: 
++dnl @ Copyright (C) 2006, 2007, 2008, 2009 Free Software
++dnl @ Foundation, Inc.
++dnl @ This file is free software; the Free Software Foundation
++dnl @ gives unlimited permission to copy and/or distribute it
++dnl @ with or without modifications, as long as this notice
++dnl @ is preserved.
++define(`x', `x')
++dnl @result{}
++define(`x', `x ')
++dnl @result{}
+diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/checks/215.improved_e m4-1.4.18/checks/215.improved_e
+--- m4-1.4.18.orig/checks/215.improved_e	1970-01-01 01:00:00.000000000 +0100
++++ m4-1.4.18/checks/215.improved_e	2019-08-22 15:32:06.679157056 +0200
+@@ -0,0 +1,15 @@
++dnl @ ../doc/m4.texi:7791: Origin of test
++dnl @ expected status: 0
++dnl @ extra options: 
++dnl @ Copyright (C) 2006, 2007, 2008, 2009 Free Software
++dnl @ Foundation, Inc.
++dnl @ This file is free software; the Free Software Foundation
++dnl @ gives unlimited permission to copy and/or distribute it
++dnl @ with or without modifications, as long as this notice
++dnl @ is preserved.
++define(`exch', ``$2', `$1'')
++dnl @result{}
++define(exch(`expansion text', `macro'))
++dnl @result{}
++macro
++dnl @result{}expansion text
+diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/checks/215.improved_f m4-1.4.18/checks/215.improved_f
+--- m4-1.4.18.orig/checks/215.improved_f	2016-12-31 23:36:45.000000000 +0100
++++ m4-1.4.18/checks/215.improved_f	1970-01-01 01:00:00.000000000 +0100
+@@ -1,33 +0,0 @@
+-dnl @ ../doc/m4.texi:7784: Origin of test
+-dnl @ expected status: 0
+-dnl @ extra options: 
+-dnl @ Copyright (C) 2006, 2007, 2008, 2009 Free Software
+-dnl @ Foundation, Inc.
+-dnl @ This file is free software; the Free Software Foundation
+-dnl @ gives unlimited permission to copy and/or distribute it
+-dnl @ with or without modifications, as long as this notice
+-dnl @ is preserved.
+-undivert(`forloop2.m4')dnl
+-dnl @result{}divert(`-1')
+-dnl @result{}# forloop(var, from, to, stmt) - improved version:
+-dnl @result{}#   works even if VAR is not a strict macro name
+-dnl @result{}#   performs sanity check that FROM is larger than TO
+-dnl @result{}#   allows complex numerical expressions in TO and FROM
+-dnl @result{}define(`forloop', `ifelse(eval(`($2) <= ($3)'), `1',
+-dnl @result{}  `pushdef(`$1')_$0(`$1', eval(`$2'),
+-dnl @result{}    eval(`$3'), `$4')popdef(`$1')')')
+-dnl @result{}define(`_forloop',
+-dnl @result{}  `define(`$1', `$2')$4`'ifelse(`$2', `$3', `',
+-dnl @result{}    `$0(`$1', incr(`$2'), `$3', `$4')')')
+-dnl @result{}divert`'dnl
+-include(`forloop2.m4')
+-dnl @result{}
+-forloop(`i', `2', `1', `no iteration occurs')
+-dnl @result{}
+-forloop(`', `1', `2', ` odd iterator name')
+-dnl @result{} odd iterator name odd iterator name
+-forloop(`i', `5 + 5', `0xc', ` 0x`'eval(i, `16')')
+-dnl @result{} 0xa 0xb 0xc
+-forloop(`i', `a', `b', `non-numeric bounds')
+-dnl @error{}m4:stdin:6: bad expression in eval (bad input): (a) <= (b)
+-dnl @result{}
+diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/checks/216.improved_f m4-1.4.18/checks/216.improved_f
+--- m4-1.4.18.orig/checks/216.improved_f	2016-12-31 23:36:45.000000000 +0100
++++ m4-1.4.18/checks/216.improved_f	2019-08-22 15:32:06.679157056 +0200
+@@ -1,34 +1,33 @@
+-dnl @ ../doc/m4.texi:7825: Origin of test
+-dnl @ expected status: 1
+-dnl @ extra options:  -L9
++dnl @ ../doc/m4.texi:7813: Origin of test
++dnl @ expected status: 0
++dnl @ extra options: 
+ dnl @ Copyright (C) 2006, 2007, 2008, 2009 Free Software
+ dnl @ Foundation, Inc.
+ dnl @ This file is free software; the Free Software Foundation
+ dnl @ gives unlimited permission to copy and/or distribute it
+ dnl @ with or without modifications, as long as this notice
+ dnl @ is preserved.
+-define(`arg1', `$1')include(`forloop2.m4')include(`quote.m4')
++undivert(`forloop2.m4')dnl
++dnl @result{}divert(`-1')
++dnl @result{}# forloop(var, from, to, stmt) - improved version:
++dnl @result{}#   works even if VAR is not a strict macro name
++dnl @result{}#   performs sanity check that FROM is larger than TO
++dnl @result{}#   allows complex numerical expressions in TO and FROM
++dnl @result{}define(`forloop', `ifelse(eval(`($2) <= ($3)'), `1',
++dnl @result{}  `pushdef(`$1')_$0(`$1', eval(`$2'),
++dnl @result{}    eval(`$3'), `$4')popdef(`$1')')')
++dnl @result{}define(`_forloop',
++dnl @result{}  `define(`$1', `$2')$4`'ifelse(`$2', `$3', `',
++dnl @result{}    `$0(`$1', incr(`$2'), `$3', `$4')')')
++dnl @result{}divert`'dnl
++include(`forloop2.m4')
++dnl @result{}
++forloop(`i', `2', `1', `no iteration occurs')
++dnl @result{}
++forloop(`', `1', `2', ` odd iterator name')
++dnl @result{} odd iterator name odd iterator name
++forloop(`i', `5 + 5', `0xc', ` 0x`'eval(i, `16')')
++dnl @result{} 0xa 0xb 0xc
++forloop(`i', `a', `b', `non-numeric bounds')
++dnl @error{}m4:stdin:6: bad expression in eval (bad input): (a) <= (b)
+ dnl @result{}
+-define(`double', `define(`$1'`2',
+-  arg1(patsubst(dquote(defn(`$1')), `[`']', `\&\&')))')
+-dnl @result{}
+-double(`forloop')double(`_forloop')defn(`forloop2')
+-dnl @result{}ifelse(eval(``($2) <= ($3)''), ``1'',
+-dnl @result{}  ``pushdef(``$1'')_$0(``$1'', eval(``$2''),
+-dnl @result{}    eval(``$3''), ``$4'')popdef(``$1'')'')
+-forloop(i, 1, 5, `ifelse(')forloop(i, 1, 5, `)')
+-dnl @result{}
+-changequote(`[', `]')changequote([``], [''])
+-dnl @result{}
+-forloop2(i, 1, 5, ``ifelse('')forloop2(i, 1, 5, ``)'')
+-dnl @result{}
+-changequote`'include(`forloop.m4')
+-dnl @result{}
+-double(`forloop')double(`_forloop')defn(`forloop2')
+-dnl @result{}pushdef(``$1'', ``$2'')_forloop($@)popdef(``$1'')
+-forloop(i, 1, 5, `ifelse(')forloop(i, 1, 5, `)')
+-dnl @result{}
+-changequote(`[', `]')changequote([``], [''])
+-dnl @result{}
+-forloop2(i, 1, 5, ``ifelse('')forloop2(i, 1, 5, ``)'')
+-dnl @error{}m4:stdin:12: recursion limit of 9 exceeded, use -L<N> to change it
+diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/checks/217.improved_f m4-1.4.18/checks/217.improved_f
+--- m4-1.4.18.orig/checks/217.improved_f	2016-12-31 23:36:45.000000000 +0100
++++ m4-1.4.18/checks/217.improved_f	2019-08-22 15:32:06.679157056 +0200
+@@ -1,43 +1,34 @@
+-dnl @ ../doc/m4.texi:7868: Origin of test
+-dnl @ expected status: 0
+-dnl @ extra options: 
++dnl @ ../doc/m4.texi:7854: Origin of test
++dnl @ expected status: 1
++dnl @ extra options:  -L9
+ dnl @ Copyright (C) 2006, 2007, 2008, 2009 Free Software
+ dnl @ Foundation, Inc.
+ dnl @ This file is free software; the Free Software Foundation
+ dnl @ gives unlimited permission to copy and/or distribute it
+ dnl @ with or without modifications, as long as this notice
+ dnl @ is preserved.
+-include(`forloop3.m4')
++define(`arg1', `$1')include(`forloop2.m4')include(`quote.m4')
+ dnl @result{}
+-undivert(`forloop3.m4')dnl
+-dnl @result{}divert(`-1')
+-dnl @result{}# forloop_arg(from, to, macro) - invoke MACRO(value) for
+-dnl @result{}#   each value between FROM and TO, without define overhead
+-dnl @result{}define(`forloop_arg', `ifelse(eval(`($1) <= ($2)'), `1',
+-dnl @result{}  `_forloop(`$1', eval(`$2'), `$3(', `)')')')
+-dnl @result{}# forloop(var, from, to, stmt) - refactored to share code
+-dnl @result{}define(`forloop', `ifelse(eval(`($2) <= ($3)'), `1',
+-dnl @result{}  `pushdef(`$1')_forloop(eval(`$2'), eval(`$3'),
+-dnl @result{}    `define(`$1',', `)$4')popdef(`$1')')')
+-dnl @result{}define(`_forloop',
+-dnl @result{}  `$3`$1'$4`'ifelse(`$1', `$2', `',
+-dnl @result{}    `$0(incr(`$1'), `$2', `$3', `$4')')')
+-dnl @result{}divert`'dnl
+-forloop(`i', `1', `3', ` i')
+-dnl @result{} 1 2 3
+-define(`echo', `$@')
+-dnl @result{}
+-forloop_arg(`1', `3', ` echo')
+-dnl @result{} 1 2 3
+-include(`curry.m4')
+-dnl @result{}
+-forloop_arg(`1', `3', `curry(`pushdef', `a')')
+-dnl @result{}
+-a
+-dnl @result{}3
+-popdef(`a')a
+-dnl @result{}2
+-popdef(`a')a
+-dnl @result{}1
+-popdef(`a')a
+-dnl @result{}a
++define(`double', `define(`$1'`2',
++  arg1(patsubst(dquote(defn(`$1')), `[`']', `\&\&')))')
++dnl @result{}
++double(`forloop')double(`_forloop')defn(`forloop2')
++dnl @result{}ifelse(eval(``($2) <= ($3)''), ``1'',
++dnl @result{}  ``pushdef(``$1'')_$0(``$1'', eval(``$2''),
++dnl @result{}    eval(``$3''), ``$4'')popdef(``$1'')'')
++forloop(i, 1, 5, `ifelse(')forloop(i, 1, 5, `)')
++dnl @result{}
++changequote(`[', `]')changequote([``], [''])
++dnl @result{}
++forloop2(i, 1, 5, ``ifelse('')forloop2(i, 1, 5, ``)'')
++dnl @result{}
++changequote`'include(`forloop.m4')
++dnl @result{}
++double(`forloop')double(`_forloop')defn(`forloop2')
++dnl @result{}pushdef(``$1'', ``$2'')_forloop($@)popdef(``$1'')
++forloop(i, 1, 5, `ifelse(')forloop(i, 1, 5, `)')
++dnl @result{}
++changequote(`[', `]')changequote([``], [''])
++dnl @result{}
++forloop2(i, 1, 5, ``ifelse('')forloop2(i, 1, 5, ``)'')
++dnl @error{}m4:stdin:12: recursion limit of 9 exceeded, use -L<N> to change it
+diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/checks/218.improved_f m4-1.4.18/checks/218.improved_f
+--- m4-1.4.18.orig/checks/218.improved_f	2016-12-31 23:36:45.000000000 +0100
++++ m4-1.4.18/checks/218.improved_f	2019-08-22 15:32:06.679157056 +0200
+@@ -1,4 +1,4 @@
+-dnl @ ../doc/m4.texi:7919: Origin of test
++dnl @ ../doc/m4.texi:7897: Origin of test
+ dnl @ expected status: 0
+ dnl @ extra options: 
+ dnl @ Copyright (C) 2006, 2007, 2008, 2009 Free Software
+@@ -7,29 +7,37 @@
+ dnl @ gives unlimited permission to copy and/or distribute it
+ dnl @ with or without modifications, as long as this notice
+ dnl @ is preserved.
+-include(`foreachq.m4')
++include(`forloop3.m4')
+ dnl @result{}
+-traceon(`shift')debugmode(`aq')
++undivert(`forloop3.m4')dnl
++dnl @result{}divert(`-1')
++dnl @result{}# forloop_arg(from, to, macro) - invoke MACRO(value) for
++dnl @result{}#   each value between FROM and TO, without define overhead
++dnl @result{}define(`forloop_arg', `ifelse(eval(`($1) <= ($2)'), `1',
++dnl @result{}  `_forloop(`$1', eval(`$2'), `$3(', `)')')')
++dnl @result{}# forloop(var, from, to, stmt) - refactored to share code
++dnl @result{}define(`forloop', `ifelse(eval(`($2) <= ($3)'), `1',
++dnl @result{}  `pushdef(`$1')_forloop(eval(`$2'), eval(`$3'),
++dnl @result{}    `define(`$1',', `)$4')popdef(`$1')')')
++dnl @result{}define(`_forloop',
++dnl @result{}  `$3`$1'$4`'ifelse(`$1', `$2', `',
++dnl @result{}    `$0(incr(`$1'), `$2', `$3', `$4')')')
++dnl @result{}divert`'dnl
++forloop(`i', `1', `3', ` i')
++dnl @result{} 1 2 3
++define(`echo', `$@')
+ dnl @result{}
+-foreachq(`x', ``1', `2', `3', `4'', `x
+-')dnl
+-dnl @result{}1
+-dnl @error{}m4trace: -3- shift(`1', `2', `3', `4')
+-dnl @error{}m4trace: -2- shift(`1', `2', `3', `4')
+-dnl @result{}2
+-dnl @error{}m4trace: -4- shift(`1', `2', `3', `4')
+-dnl @error{}m4trace: -3- shift(`2', `3', `4')
+-dnl @error{}m4trace: -3- shift(`1', `2', `3', `4')
+-dnl @error{}m4trace: -2- shift(`2', `3', `4')
++forloop_arg(`1', `3', ` echo')
++dnl @result{} 1 2 3
++include(`curry.m4')
++dnl @result{}
++forloop_arg(`1', `3', `curry(`pushdef', `a')')
++dnl @result{}
++a
+ dnl @result{}3
+-dnl @error{}m4trace: -5- shift(`1', `2', `3', `4')
+-dnl @error{}m4trace: -4- shift(`2', `3', `4')
+-dnl @error{}m4trace: -3- shift(`3', `4')
+-dnl @error{}m4trace: -4- shift(`1', `2', `3', `4')
+-dnl @error{}m4trace: -3- shift(`2', `3', `4')
+-dnl @error{}m4trace: -2- shift(`3', `4')
+-dnl @result{}4
+-dnl @error{}m4trace: -6- shift(`1', `2', `3', `4')
+-dnl @error{}m4trace: -5- shift(`2', `3', `4')
+-dnl @error{}m4trace: -4- shift(`3', `4')
+-dnl @error{}m4trace: -3- shift(`4')
++popdef(`a')a
++dnl @result{}2
++popdef(`a')a
++dnl @result{}1
++popdef(`a')a
++dnl @result{}a
+diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/checks/219.improved_f m4-1.4.18/checks/219.improved_f
+--- m4-1.4.18.orig/checks/219.improved_f	2016-12-31 23:36:45.000000000 +0100
++++ m4-1.4.18/checks/219.improved_f	2019-08-22 15:32:06.679157056 +0200
+@@ -1,4 +1,4 @@
+-dnl @ ../doc/m4.texi:7961: Origin of test
++dnl @ ../doc/m4.texi:7948: Origin of test
+ dnl @ expected status: 0
+ dnl @ extra options: 
+ dnl @ Copyright (C) 2006, 2007, 2008, 2009 Free Software
+@@ -7,27 +7,29 @@
+ dnl @ gives unlimited permission to copy and/or distribute it
+ dnl @ with or without modifications, as long as this notice
+ dnl @ is preserved.
+-include(`foreachq2.m4')
++include(`foreachq.m4')
+ dnl @result{}
+-undivert(`foreachq2.m4')dnl
+-dnl @result{}include(`quote.m4')dnl
+-dnl @result{}divert(`-1')
+-dnl @result{}# foreachq(x, `item_1, item_2, ..., item_n', stmt)
+-dnl @result{}#   quoted list, improved version
+-dnl @result{}define(`foreachq', `pushdef(`$1')_$0($@)popdef(`$1')')
+-dnl @result{}define(`_arg1q', ``$1'')
+-dnl @result{}define(`_rest', `ifelse(`$#', `1', `', `dquote(shift($@))')')
+-dnl @result{}define(`_foreachq', `ifelse(`$2', `', `',
+-dnl @result{}  `define(`$1', _arg1q($2))$3`'$0(`$1', _rest($2), `$3')')')
+-dnl @result{}divert`'dnl
+ traceon(`shift')debugmode(`aq')
+ dnl @result{}
+ foreachq(`x', ``1', `2', `3', `4'', `x
+ ')dnl
+ dnl @result{}1
+ dnl @error{}m4trace: -3- shift(`1', `2', `3', `4')
++dnl @error{}m4trace: -2- shift(`1', `2', `3', `4')
+ dnl @result{}2
++dnl @error{}m4trace: -4- shift(`1', `2', `3', `4')
+ dnl @error{}m4trace: -3- shift(`2', `3', `4')
++dnl @error{}m4trace: -3- shift(`1', `2', `3', `4')
++dnl @error{}m4trace: -2- shift(`2', `3', `4')
+ dnl @result{}3
++dnl @error{}m4trace: -5- shift(`1', `2', `3', `4')
++dnl @error{}m4trace: -4- shift(`2', `3', `4')
+ dnl @error{}m4trace: -3- shift(`3', `4')
++dnl @error{}m4trace: -4- shift(`1', `2', `3', `4')
++dnl @error{}m4trace: -3- shift(`2', `3', `4')
++dnl @error{}m4trace: -2- shift(`3', `4')
+ dnl @result{}4
++dnl @error{}m4trace: -6- shift(`1', `2', `3', `4')
++dnl @error{}m4trace: -5- shift(`2', `3', `4')
++dnl @error{}m4trace: -4- shift(`3', `4')
++dnl @error{}m4trace: -3- shift(`4')
+diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/checks/220.improved_f m4-1.4.18/checks/220.improved_f
+--- m4-1.4.18.orig/checks/220.improved_f	2016-12-31 23:36:45.000000000 +0100
++++ m4-1.4.18/checks/220.improved_f	2019-08-22 15:32:06.679157056 +0200
+@@ -1,4 +1,4 @@
+-dnl @ ../doc/m4.texi:8014: Origin of test
++dnl @ ../doc/m4.texi:7990: Origin of test
+ dnl @ expected status: 0
+ dnl @ extra options: 
+ dnl @ Copyright (C) 2006, 2007, 2008, 2009 Free Software
+@@ -7,43 +7,27 @@
+ dnl @ gives unlimited permission to copy and/or distribute it
+ dnl @ with or without modifications, as long as this notice
+ dnl @ is preserved.
+-include(`foreachq3.m4')
++include(`foreachq2.m4')
+ dnl @result{}
+-undivert(`foreachq3.m4')dnl
++undivert(`foreachq2.m4')dnl
++dnl @result{}include(`quote.m4')dnl
+ dnl @result{}divert(`-1')
+ dnl @result{}# foreachq(x, `item_1, item_2, ..., item_n', stmt)
+-dnl @result{}#   quoted list, alternate improved version
+-dnl @result{}define(`foreachq', `ifelse(`$2', `', `',
+-dnl @result{}  `pushdef(`$1')_$0(`$1', `$3', `', $2)popdef(`$1')')')
+-dnl @result{}define(`_foreachq', `ifelse(`$#', `3', `',
+-dnl @result{}  `define(`$1', `$4')$2`'$0(`$1', `$2',
+-dnl @result{}    shift(shift(shift($@))))')')
++dnl @result{}#   quoted list, improved version
++dnl @result{}define(`foreachq', `pushdef(`$1')_$0($@)popdef(`$1')')
++dnl @result{}define(`_arg1q', ``$1'')
++dnl @result{}define(`_rest', `ifelse(`$#', `1', `', `dquote(shift($@))')')
++dnl @result{}define(`_foreachq', `ifelse(`$2', `', `',
++dnl @result{}  `define(`$1', _arg1q($2))$3`'$0(`$1', _rest($2), `$3')')')
+ dnl @result{}divert`'dnl
+ traceon(`shift')debugmode(`aq')
+ dnl @result{}
+ foreachq(`x', ``1', `2', `3', `4'', `x
+ ')dnl
+ dnl @result{}1
+-dnl @error{}m4trace: -4- shift(`x', `x
+-dnl @error{}', `', `1', `2', `3', `4')
+-dnl @error{}m4trace: -3- shift(`x
+-dnl @error{}', `', `1', `2', `3', `4')
+-dnl @error{}m4trace: -2- shift(`', `1', `2', `3', `4')
++dnl @error{}m4trace: -3- shift(`1', `2', `3', `4')
+ dnl @result{}2
+-dnl @error{}m4trace: -4- shift(`x', `x
+-dnl @error{}', `1', `2', `3', `4')
+-dnl @error{}m4trace: -3- shift(`x
+-dnl @error{}', `1', `2', `3', `4')
+-dnl @error{}m4trace: -2- shift(`1', `2', `3', `4')
++dnl @error{}m4trace: -3- shift(`2', `3', `4')
+ dnl @result{}3
+-dnl @error{}m4trace: -4- shift(`x', `x
+-dnl @error{}', `2', `3', `4')
+-dnl @error{}m4trace: -3- shift(`x
+-dnl @error{}', `2', `3', `4')
+-dnl @error{}m4trace: -2- shift(`2', `3', `4')
++dnl @error{}m4trace: -3- shift(`3', `4')
+ dnl @result{}4
+-dnl @error{}m4trace: -4- shift(`x', `x
+-dnl @error{}', `3', `4')
+-dnl @error{}m4trace: -3- shift(`x
+-dnl @error{}', `3', `4')
+-dnl @error{}m4trace: -2- shift(`3', `4')
+diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/checks/221.improved_f m4-1.4.18/checks/221.improved_f
+--- m4-1.4.18.orig/checks/221.improved_f	2016-12-31 23:36:45.000000000 +0100
++++ m4-1.4.18/checks/221.improved_f	2019-08-22 15:32:06.679157056 +0200
+@@ -1,4 +1,4 @@
+-dnl @ ../doc/m4.texi:8101: Origin of test
++dnl @ ../doc/m4.texi:8043: Origin of test
+ dnl @ expected status: 0
+ dnl @ extra options: 
+ dnl @ Copyright (C) 2006, 2007, 2008, 2009 Free Software
+@@ -7,27 +7,43 @@
+ dnl @ gives unlimited permission to copy and/or distribute it
+ dnl @ with or without modifications, as long as this notice
+ dnl @ is preserved.
+-include(`foreachq4.m4')
++include(`foreachq3.m4')
+ dnl @result{}
+-undivert(`foreachq4.m4')dnl
+-dnl @result{}include(`forloop2.m4')dnl
++undivert(`foreachq3.m4')dnl
+ dnl @result{}divert(`-1')
+ dnl @result{}# foreachq(x, `item_1, item_2, ..., item_n', stmt)
+-dnl @result{}#   quoted list, version based on forloop
+-dnl @result{}define(`foreachq',
+-dnl @result{}`ifelse(`$2', `', `', `_$0(`$1', `$3', $2)')')
+-dnl @result{}define(`_foreachq',
+-dnl @result{}`pushdef(`$1', forloop(`$1', `3', `$#',
+-dnl @result{}  `$0_(`1', `2', indir(`$1'))')`popdef(
+-dnl @result{}    `$1')')indir(`$1', $@)')
+-dnl @result{}define(`_foreachq_',
+-dnl @result{}``define(`$$1', `$$3')$$2`''')
++dnl @result{}#   quoted list, alternate improved version
++dnl @result{}define(`foreachq', `ifelse(`$2', `', `',
++dnl @result{}  `pushdef(`$1')_$0(`$1', `$3', `', $2)popdef(`$1')')')
++dnl @result{}define(`_foreachq', `ifelse(`$#', `3', `',
++dnl @result{}  `define(`$1', `$4')$2`'$0(`$1', `$2',
++dnl @result{}    shift(shift(shift($@))))')')
+ dnl @result{}divert`'dnl
+ traceon(`shift')debugmode(`aq')
+ dnl @result{}
+ foreachq(`x', ``1', `2', `3', `4'', `x
+ ')dnl
+ dnl @result{}1
++dnl @error{}m4trace: -4- shift(`x', `x
++dnl @error{}', `', `1', `2', `3', `4')
++dnl @error{}m4trace: -3- shift(`x
++dnl @error{}', `', `1', `2', `3', `4')
++dnl @error{}m4trace: -2- shift(`', `1', `2', `3', `4')
+ dnl @result{}2
++dnl @error{}m4trace: -4- shift(`x', `x
++dnl @error{}', `1', `2', `3', `4')
++dnl @error{}m4trace: -3- shift(`x
++dnl @error{}', `1', `2', `3', `4')
++dnl @error{}m4trace: -2- shift(`1', `2', `3', `4')
+ dnl @result{}3
++dnl @error{}m4trace: -4- shift(`x', `x
++dnl @error{}', `2', `3', `4')
++dnl @error{}m4trace: -3- shift(`x
++dnl @error{}', `2', `3', `4')
++dnl @error{}m4trace: -2- shift(`2', `3', `4')
+ dnl @result{}4
++dnl @error{}m4trace: -4- shift(`x', `x
++dnl @error{}', `3', `4')
++dnl @error{}m4trace: -3- shift(`x
++dnl @error{}', `3', `4')
++dnl @error{}m4trace: -2- shift(`3', `4')
+diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/checks/222.improved_f m4-1.4.18/checks/222.improved_f
+--- m4-1.4.18.orig/checks/222.improved_f	2016-12-31 23:36:45.000000000 +0100
++++ m4-1.4.18/checks/222.improved_f	2019-08-22 15:32:06.679157056 +0200
+@@ -1,4 +1,4 @@
+-dnl @ ../doc/m4.texi:8137: Origin of test
++dnl @ ../doc/m4.texi:8130: Origin of test
+ dnl @ expected status: 0
+ dnl @ extra options: 
+ dnl @ Copyright (C) 2006, 2007, 2008, 2009 Free Software
+@@ -7,31 +7,27 @@
+ dnl @ gives unlimited permission to copy and/or distribute it
+ dnl @ with or without modifications, as long as this notice
+ dnl @ is preserved.
+-include(`foreach2.m4')
++include(`foreachq4.m4')
+ dnl @result{}
+-undivert(`foreach2.m4')dnl
+-dnl @result{}include(`quote.m4')dnl
++undivert(`foreachq4.m4')dnl
++dnl @result{}include(`forloop2.m4')dnl
+ dnl @result{}divert(`-1')
+-dnl @result{}# foreach(x, (item_1, item_2, ..., item_n), stmt)
+-dnl @result{}#   parenthesized list, improved version
+-dnl @result{}define(`foreach', `pushdef(`$1')_$0(`$1',
+-dnl @result{}  (dquote(dquote_elt$2)), `$3')popdef(`$1')')
+-dnl @result{}define(`_arg1', `$1')
+-dnl @result{}define(`_foreach', `ifelse(`$2', `(`')', `',
+-dnl @result{}  `define(`$1', _arg1$2)$3`'$0(`$1', (dquote(shift$2)), `$3')')')
++dnl @result{}# foreachq(x, `item_1, item_2, ..., item_n', stmt)
++dnl @result{}#   quoted list, version based on forloop
++dnl @result{}define(`foreachq',
++dnl @result{}`ifelse(`$2', `', `', `_$0(`$1', `$3', $2)')')
++dnl @result{}define(`_foreachq',
++dnl @result{}`pushdef(`$1', forloop(`$1', `3', `$#',
++dnl @result{}  `$0_(`1', `2', indir(`$1'))')`popdef(
++dnl @result{}    `$1')')indir(`$1', $@)')
++dnl @result{}define(`_foreachq_',
++dnl @result{}``define(`$$1', `$$3')$$2`''')
+ dnl @result{}divert`'dnl
+ traceon(`shift')debugmode(`aq')
+ dnl @result{}
+-foreach(`x', `(`1', `2', `3', `4')', `x
++foreachq(`x', ``1', `2', `3', `4'', `x
+ ')dnl
+-dnl @error{}m4trace: -4- shift(`1', `2', `3', `4')
+-dnl @error{}m4trace: -4- shift(`2', `3', `4')
+-dnl @error{}m4trace: -4- shift(`3', `4')
+ dnl @result{}1
+-dnl @error{}m4trace: -3- shift(``1'', ``2'', ``3'', ``4'')
+ dnl @result{}2
+-dnl @error{}m4trace: -3- shift(``2'', ``3'', ``4'')
+ dnl @result{}3
+-dnl @error{}m4trace: -3- shift(``3'', ``4'')
+ dnl @result{}4
+-dnl @error{}m4trace: -3- shift(``4'')
+diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/checks/223.improved_f m4-1.4.18/checks/223.improved_f
+--- m4-1.4.18.orig/checks/223.improved_f	2016-12-31 23:36:45.000000000 +0100
++++ m4-1.4.18/checks/223.improved_f	2019-08-22 15:32:06.679157056 +0200
+@@ -1,4 +1,4 @@
+-dnl @ ../doc/m4.texi:8191: Origin of test
++dnl @ ../doc/m4.texi:8166: Origin of test
+ dnl @ expected status: 0
+ dnl @ extra options: 
+ dnl @ Copyright (C) 2006, 2007, 2008, 2009 Free Software
+@@ -9,69 +9,29 @@
+ dnl @ is preserved.
+ include(`foreach2.m4')
+ dnl @result{}
+-include(`foreachq2.m4')
++undivert(`foreach2.m4')dnl
++dnl @result{}include(`quote.m4')dnl
++dnl @result{}divert(`-1')
++dnl @result{}# foreach(x, (item_1, item_2, ..., item_n), stmt)
++dnl @result{}#   parenthesized list, improved version
++dnl @result{}define(`foreach', `pushdef(`$1')_$0(`$1',
++dnl @result{}  (dquote(dquote_elt$2)), `$3')popdef(`$1')')
++dnl @result{}define(`_arg1', `$1')
++dnl @result{}define(`_foreach', `ifelse(`$2', `(`')', `',
++dnl @result{}  `define(`$1', _arg1$2)$3`'$0(`$1', (dquote(shift$2)), `$3')')')
++dnl @result{}divert`'dnl
++traceon(`shift')debugmode(`aq')
+ dnl @result{}
+-dnl 0-element list:
+-foreach(`x', `', `<x>') / foreachq(`x', `', `<x>')
+-dnl @result{} / 
+-dnl 1-element list of empty element
+-foreach(`x', `()', `<x>') / foreachq(`x', ``'', `<x>')
+-dnl @result{}<> / <>
+-dnl 2-element list of empty elements
+-foreach(`x', `(`',`')', `<x>') / foreachq(`x', ``',`'', `<x>')
+-dnl @result{}<><> / <><>
+-dnl 1-element list of a comma
+-foreach(`x', `(`,')', `<x>') / foreachq(`x', ``,'', `<x>')
+-dnl @result{}<,> / <,>
+-dnl 2-element list of unbalanced parentheses
+-foreach(`x', `(`(', `)')', `<x>') / foreachq(`x', ``(', `)'', `<x>')
+-dnl @result{}<(><)> / <(><)>
+-define(`ab', `oops')dnl using defn(`iterator')
+-foreach(`x', `(`a', `b')', `defn(`x')') /dnl
+- foreachq(`x', ``a', `b'', `defn(`x')')
+-dnl @result{}ab / ab
+-define(`active', `ACT, IVE')
+-dnl @result{}
+-traceon(`active')
+-dnl @result{}
+-dnl list of unquoted macros; expansion occurs before recursion
+-foreach(`x', `(active, active)', `<x>
+-')dnl
+-dnl @error{}m4trace: -4- active -> `ACT, IVE'
+-dnl @error{}m4trace: -4- active -> `ACT, IVE'
+-dnl @result{}<ACT>
+-dnl @result{}<IVE>
+-dnl @result{}<ACT>
+-dnl @result{}<IVE>
+-foreachq(`x', `active, active', `<x>
+-')dnl
+-dnl @error{}m4trace: -3- active -> `ACT, IVE'
+-dnl @error{}m4trace: -3- active -> `ACT, IVE'
+-dnl @result{}<ACT>
+-dnl @error{}m4trace: -3- active -> `ACT, IVE'
+-dnl @error{}m4trace: -3- active -> `ACT, IVE'
+-dnl @result{}<IVE>
+-dnl @result{}<ACT>
+-dnl @result{}<IVE>
+-dnl list of quoted macros; expansion occurs during recursion
+-foreach(`x', `(`active', `active')', `<x>
+-')dnl
+-dnl @error{}m4trace: -1- active -> `ACT, IVE'
+-dnl @result{}<ACT, IVE>
+-dnl @error{}m4trace: -1- active -> `ACT, IVE'
+-dnl @result{}<ACT, IVE>
+-foreachq(`x', ``active', `active'', `<x>
+-')dnl
+-dnl @error{}m4trace: -1- active -> `ACT, IVE'
+-dnl @result{}<ACT, IVE>
+-dnl @error{}m4trace: -1- active -> `ACT, IVE'
+-dnl @result{}<ACT, IVE>
+-dnl list of double-quoted macro names; no expansion
+-foreach(`x', `(``active'', ``active'')', `<x>
+-')dnl
+-dnl @result{}<active>
+-dnl @result{}<active>
+-foreachq(`x', ```active'', ``active''', `<x>
++foreach(`x', `(`1', `2', `3', `4')', `x
+ ')dnl
+-dnl @result{}<active>
+-dnl @result{}<active>
++dnl @error{}m4trace: -4- shift(`1', `2', `3', `4')
++dnl @error{}m4trace: -4- shift(`2', `3', `4')
++dnl @error{}m4trace: -4- shift(`3', `4')
++dnl @result{}1
++dnl @error{}m4trace: -3- shift(``1'', ``2'', ``3'', ``4'')
++dnl @result{}2
++dnl @error{}m4trace: -3- shift(``2'', ``3'', ``4'')
++dnl @result{}3
++dnl @error{}m4trace: -3- shift(``3'', ``4'')
++dnl @result{}4
++dnl @error{}m4trace: -3- shift(``4'')
+diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/checks/224.improved_f m4-1.4.18/checks/224.improved_f
+--- m4-1.4.18.orig/checks/224.improved_f	2016-12-31 23:36:45.000000000 +0100
++++ m4-1.4.18/checks/224.improved_f	2019-08-22 15:32:06.683157113 +0200
+@@ -1,11 +1,77 @@
+-dnl @ ../doc/m4.texi:8272: Origin of test
++dnl @ ../doc/m4.texi:8220: Origin of test
+ dnl @ expected status: 0
+-dnl @ extra options:  -Dlimit=10 -Dverbose
++dnl @ extra options: 
+ dnl @ Copyright (C) 2006, 2007, 2008, 2009 Free Software
+ dnl @ Foundation, Inc.
+ dnl @ This file is free software; the Free Software Foundation
+ dnl @ gives unlimited permission to copy and/or distribute it
+ dnl @ with or without modifications, as long as this notice
+ dnl @ is preserved.
+-include(`loop.m4')dnl
+-dnl @result{} 1 2 3 4 5 6 7 8 9 10
++include(`foreach2.m4')
++dnl @result{}
++include(`foreachq2.m4')
++dnl @result{}
++dnl 0-element list:
++foreach(`x', `', `<x>') / foreachq(`x', `', `<x>')
++dnl @result{} / 
++dnl 1-element list of empty element
++foreach(`x', `()', `<x>') / foreachq(`x', ``'', `<x>')
++dnl @result{}<> / <>
++dnl 2-element list of empty elements
++foreach(`x', `(`',`')', `<x>') / foreachq(`x', ``',`'', `<x>')
++dnl @result{}<><> / <><>
++dnl 1-element list of a comma
++foreach(`x', `(`,')', `<x>') / foreachq(`x', ``,'', `<x>')
++dnl @result{}<,> / <,>
++dnl 2-element list of unbalanced parentheses
++foreach(`x', `(`(', `)')', `<x>') / foreachq(`x', ``(', `)'', `<x>')
++dnl @result{}<(><)> / <(><)>
++define(`ab', `oops')dnl using defn(`iterator')
++foreach(`x', `(`a', `b')', `defn(`x')') /dnl
++ foreachq(`x', ``a', `b'', `defn(`x')')
++dnl @result{}ab / ab
++define(`active', `ACT, IVE')
++dnl @result{}
++traceon(`active')
++dnl @result{}
++dnl list of unquoted macros; expansion occurs before recursion
++foreach(`x', `(active, active)', `<x>
++')dnl
++dnl @error{}m4trace: -4- active -> `ACT, IVE'
++dnl @error{}m4trace: -4- active -> `ACT, IVE'
++dnl @result{}<ACT>
++dnl @result{}<IVE>
++dnl @result{}<ACT>
++dnl @result{}<IVE>
++foreachq(`x', `active, active', `<x>
++')dnl
++dnl @error{}m4trace: -3- active -> `ACT, IVE'
++dnl @error{}m4trace: -3- active -> `ACT, IVE'
++dnl @result{}<ACT>
++dnl @error{}m4trace: -3- active -> `ACT, IVE'
++dnl @error{}m4trace: -3- active -> `ACT, IVE'
++dnl @result{}<IVE>
++dnl @result{}<ACT>
++dnl @result{}<IVE>
++dnl list of quoted macros; expansion occurs during recursion
++foreach(`x', `(`active', `active')', `<x>
++')dnl
++dnl @error{}m4trace: -1- active -> `ACT, IVE'
++dnl @result{}<ACT, IVE>
++dnl @error{}m4trace: -1- active -> `ACT, IVE'
++dnl @result{}<ACT, IVE>
++foreachq(`x', ``active', `active'', `<x>
++')dnl
++dnl @error{}m4trace: -1- active -> `ACT, IVE'
++dnl @result{}<ACT, IVE>
++dnl @error{}m4trace: -1- active -> `ACT, IVE'
++dnl @result{}<ACT, IVE>
++dnl list of double-quoted macro names; no expansion
++foreach(`x', `(``active'', ``active'')', `<x>
++')dnl
++dnl @result{}<active>
++dnl @result{}<active>
++foreachq(`x', ```active'', ``active''', `<x>
++')dnl
++dnl @result{}<active>
++dnl @result{}<active>
+diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/checks/225.improved_f m4-1.4.18/checks/225.improved_f
+--- m4-1.4.18.orig/checks/225.improved_f	2016-12-31 23:36:45.000000000 +0100
++++ m4-1.4.18/checks/225.improved_f	2019-08-22 15:32:06.683157113 +0200
+@@ -1,6 +1,6 @@
+-dnl @ ../doc/m4.texi:8282: Origin of test
++dnl @ ../doc/m4.texi:8301: Origin of test
+ dnl @ expected status: 0
+-dnl @ extra options:  -Dlimit=10 -Dverbose -Dalt
++dnl @ extra options:  -Dlimit=10 -Dverbose
+ dnl @ Copyright (C) 2006, 2007, 2008, 2009 Free Software
+ dnl @ Foundation, Inc.
+ dnl @ This file is free software; the Free Software Foundation
+diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/checks/226.improved_f m4-1.4.18/checks/226.improved_f
+--- m4-1.4.18.orig/checks/226.improved_f	2016-12-31 23:36:45.000000000 +0100
++++ m4-1.4.18/checks/226.improved_f	2019-08-22 15:32:06.683157113 +0200
+@@ -1,6 +1,6 @@
+-dnl @ ../doc/m4.texi:8292: Origin of test
++dnl @ ../doc/m4.texi:8311: Origin of test
+ dnl @ expected status: 0
+-dnl @ extra options:  -Dlimit=10 -Dverbose -Dalt=4
++dnl @ extra options:  -Dlimit=10 -Dverbose -Dalt
+ dnl @ Copyright (C) 2006, 2007, 2008, 2009 Free Software
+ dnl @ Foundation, Inc.
+ dnl @ This file is free software; the Free Software Foundation
+diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/checks/227.improved_f m4-1.4.18/checks/227.improved_f
+--- m4-1.4.18.orig/checks/227.improved_f	2016-12-31 23:36:45.000000000 +0100
++++ m4-1.4.18/checks/227.improved_f	2019-08-22 15:32:06.683157113 +0200
+@@ -1,6 +1,6 @@
+-dnl @ ../doc/m4.texi:8300: Origin of test
++dnl @ ../doc/m4.texi:8321: Origin of test
+ dnl @ expected status: 0
+-dnl @ extra options:  -Dlimit=2500 -Dalt=4
++dnl @ extra options:  -Dlimit=10 -Dverbose -Dalt=4
+ dnl @ Copyright (C) 2006, 2007, 2008, 2009 Free Software
+ dnl @ Foundation, Inc.
+ dnl @ This file is free software; the Free Software Foundation
+@@ -8,3 +8,4 @@
+ dnl @ with or without modifications, as long as this notice
+ dnl @ is preserved.
+ include(`loop.m4')dnl
++dnl @result{} 1 2 3 4 5 6 7 8 9 10
+diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/checks/228.improved_f m4-1.4.18/checks/228.improved_f
+--- m4-1.4.18.orig/checks/228.improved_f	2016-12-31 23:36:45.000000000 +0100
++++ m4-1.4.18/checks/228.improved_f	2019-08-22 15:32:06.683157113 +0200
+@@ -1,14 +1,10 @@
+-dnl @ ../doc/m4.texi:8307: Origin of test
++dnl @ ../doc/m4.texi:8329: Origin of test
+ dnl @ expected status: 0
+-dnl @ extra options:  -Dlimit=10000 -Dalt=4
++dnl @ extra options:  -Dlimit=2500 -Dalt=4
+ dnl @ Copyright (C) 2006, 2007, 2008, 2009 Free Software
+ dnl @ Foundation, Inc.
+ dnl @ This file is free software; the Free Software Foundation
+ dnl @ gives unlimited permission to copy and/or distribute it
+ dnl @ with or without modifications, as long as this notice
+ dnl @ is preserved.
+-define(`foo', `divert`'len(popdef(`_foreachq')_foreachq($@))')dnl
+-define(`debug', `pushdef(`_foreachq', defn(`foo'))')
+-dnl @result{}
+ include(`loop.m4')dnl
+-dnl @result{}48894
+diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/checks/229.improved_c m4-1.4.18/checks/229.improved_c
+--- m4-1.4.18.orig/checks/229.improved_c	2016-12-31 23:36:45.000000000 +0100
++++ m4-1.4.18/checks/229.improved_c	1970-01-01 01:00:00.000000000 +0100
+@@ -1,46 +0,0 @@
+-dnl @ ../doc/m4.texi:8370: Origin of test
+-dnl @ expected status: 0
+-dnl @ extra options: 
+-dnl @ Copyright (C) 2006, 2007, 2008, 2009 Free Software
+-dnl @ Foundation, Inc.
+-dnl @ This file is free software; the Free Software Foundation
+-dnl @ gives unlimited permission to copy and/or distribute it
+-dnl @ with or without modifications, as long as this notice
+-dnl @ is preserved.
+-include(`stack_sep.m4')
+-dnl @result{}
+-define(`copy', `ifdef(`$2', `errprint(`$2 already defined
+-')m4exit(`1')',
+-   `stack_foreach_sep(`$1', `pushdef(`$2',', `)')')')dnl
+-pushdef(`a', `1')pushdef(`a', defn(`divnum'))
+-dnl @result{}
+-copy(`a', `b')
+-dnl @result{}
+-b
+-dnl @result{}0
+-popdef(`b')
+-dnl @result{}
+-b
+-dnl @result{}1
+-pushdef(`c', `1')pushdef(`c', `2')
+-dnl @result{}
+-stack_foreach_sep_lifo(`c', `', `', `, ')
+-dnl @result{}2, 1
+-undivert(`stack_sep.m4')dnl
+-dnl @result{}divert(`-1')
+-dnl @result{}# stack_foreach_sep(macro, pre, post, sep)
+-dnl @result{}# Invoke PRE`'defn`'POST with a single argument of each definition
+-dnl @result{}# from the definition stack of MACRO, starting with the oldest, and
+-dnl @result{}# separated by SEP between definitions.
+-dnl @result{}define(`stack_foreach_sep',
+-dnl @result{}`_stack_reverse_sep(`$1', `tmp-$1')'dnl
+-dnl @result{}`_stack_reverse_sep(`tmp-$1', `$1', `$2`'defn(`$1')$3', `$4`'')')
+-dnl @result{}# stack_foreach_sep_lifo(macro, pre, post, sep)
+-dnl @result{}# Like stack_foreach_sep, but starting with the newest definition.
+-dnl @result{}define(`stack_foreach_sep_lifo',
+-dnl @result{}`_stack_reverse_sep(`$1', `tmp-$1', `$2`'defn(`$1')$3', `$4`'')'dnl
+-dnl @result{}`_stack_reverse_sep(`tmp-$1', `$1')')
+-dnl @result{}define(`_stack_reverse_sep',
+-dnl @result{}`ifdef(`$1', `pushdef(`$2', defn(`$1'))$3`'popdef(`$1')$0(
+-dnl @result{}  `$1', `$2', `$4$3')')')
+-dnl @result{}divert`'dnl
+diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/checks/229.improved_f m4-1.4.18/checks/229.improved_f
+--- m4-1.4.18.orig/checks/229.improved_f	1970-01-01 01:00:00.000000000 +0100
++++ m4-1.4.18/checks/229.improved_f	2019-08-22 15:32:06.683157113 +0200
+@@ -0,0 +1,14 @@
++dnl @ ../doc/m4.texi:8336: Origin of test
++dnl @ expected status: 0
++dnl @ extra options:  -Dlimit=10000 -Dalt=4
++dnl @ Copyright (C) 2006, 2007, 2008, 2009 Free Software
++dnl @ Foundation, Inc.
++dnl @ This file is free software; the Free Software Foundation
++dnl @ gives unlimited permission to copy and/or distribute it
++dnl @ with or without modifications, as long as this notice
++dnl @ is preserved.
++define(`foo', `divert`'len(popdef(`_foreachq')_foreachq($@))')dnl
++define(`debug', `pushdef(`_foreachq', defn(`foo'))')
++dnl @result{}
++include(`loop.m4')dnl
++dnl @result{}48894
+diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/checks/230.improved_c m4-1.4.18/checks/230.improved_c
+--- m4-1.4.18.orig/checks/230.improved_c	2016-12-31 23:36:45.000000000 +0100
++++ m4-1.4.18/checks/230.improved_c	2019-08-22 15:32:06.683157113 +0200
+@@ -1,4 +1,4 @@
+-dnl @ ../doc/m4.texi:8416: Origin of test
++dnl @ ../doc/m4.texi:8399: Origin of test
+ dnl @ expected status: 0
+ dnl @ extra options: 
+ dnl @ Copyright (C) 2006, 2007, 2008, 2009 Free Software
+@@ -7,10 +7,40 @@
+ dnl @ gives unlimited permission to copy and/or distribute it
+ dnl @ with or without modifications, as long as this notice
+ dnl @ is preserved.
+-include(`forloop3.m4')include(`stack_sep.m4')dnl
+-forloop(`i', `1', `10000', `pushdef(`s', i)')
++include(`stack_sep.m4')
+ dnl @result{}
+-define(`colon', `:')define(`dash', `-')
++define(`copy', `ifdef(`$2', `errprint(`$2 already defined
++')m4exit(`1')',
++   `stack_foreach_sep(`$1', `pushdef(`$2',', `)')')')dnl
++pushdef(`a', `1')pushdef(`a', defn(`divnum'))
+ dnl @result{}
+-len(stack_foreach_sep(`s', `dash', `', `colon'))
+-dnl @result{}58893
++copy(`a', `b')
++dnl @result{}
++b
++dnl @result{}0
++popdef(`b')
++dnl @result{}
++b
++dnl @result{}1
++pushdef(`c', `1')pushdef(`c', `2')
++dnl @result{}
++stack_foreach_sep_lifo(`c', `', `', `, ')
++dnl @result{}2, 1
++undivert(`stack_sep.m4')dnl
++dnl @result{}divert(`-1')
++dnl @result{}# stack_foreach_sep(macro, pre, post, sep)
++dnl @result{}# Invoke PRE`'defn`'POST with a single argument of each definition
++dnl @result{}# from the definition stack of MACRO, starting with the oldest, and
++dnl @result{}# separated by SEP between definitions.
++dnl @result{}define(`stack_foreach_sep',
++dnl @result{}`_stack_reverse_sep(`$1', `tmp-$1')'dnl
++dnl @result{}`_stack_reverse_sep(`tmp-$1', `$1', `$2`'defn(`$1')$3', `$4`'')')
++dnl @result{}# stack_foreach_sep_lifo(macro, pre, post, sep)
++dnl @result{}# Like stack_foreach_sep, but starting with the newest definition.
++dnl @result{}define(`stack_foreach_sep_lifo',
++dnl @result{}`_stack_reverse_sep(`$1', `tmp-$1', `$2`'defn(`$1')$3', `$4`'')'dnl
++dnl @result{}`_stack_reverse_sep(`tmp-$1', `$1')')
++dnl @result{}define(`_stack_reverse_sep',
++dnl @result{}`ifdef(`$1', `pushdef(`$2', defn(`$1'))$3`'popdef(`$1')$0(
++dnl @result{}  `$1', `$2', `$4$3')')')
++dnl @result{}divert`'dnl
+diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/checks/231.improved_c m4-1.4.18/checks/231.improved_c
+--- m4-1.4.18.orig/checks/231.improved_c	1970-01-01 01:00:00.000000000 +0100
++++ m4-1.4.18/checks/231.improved_c	2019-08-22 15:32:06.683157113 +0200
+@@ -0,0 +1,16 @@
++dnl @ ../doc/m4.texi:8445: Origin of test
++dnl @ expected status: 0
++dnl @ extra options: 
++dnl @ Copyright (C) 2006, 2007, 2008, 2009 Free Software
++dnl @ Foundation, Inc.
++dnl @ This file is free software; the Free Software Foundation
++dnl @ gives unlimited permission to copy and/or distribute it
++dnl @ with or without modifications, as long as this notice
++dnl @ is preserved.
++include(`forloop3.m4')include(`stack_sep.m4')dnl
++forloop(`i', `1', `10000', `pushdef(`s', i)')
++dnl @result{}
++define(`colon', `:')define(`dash', `-')
++dnl @result{}
++len(stack_foreach_sep(`s', `dash', `', `colon'))
++dnl @result{}58893
+diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/checks/231.improved_m m4-1.4.18/checks/231.improved_m
+--- m4-1.4.18.orig/checks/231.improved_m	2016-12-31 23:36:45.000000000 +0100
++++ m4-1.4.18/checks/231.improved_m	1970-01-01 01:00:00.000000000 +0100
+@@ -1,19 +0,0 @@
+-dnl @ ../doc/m4.texi:8439: Origin of test
+-dnl @ expected status: 0
+-dnl @ extra options: 
+-dnl @ Copyright (C) 2006, 2007, 2008, 2009 Free Software
+-dnl @ Foundation, Inc.
+-dnl @ This file is free software; the Free Software Foundation
+-dnl @ gives unlimited permission to copy and/or distribute it
+-dnl @ with or without modifications, as long as this notice
+-dnl @ is preserved.
+-include(`wraplifo.m4')
+-dnl @result{}
+-m4wrap(`define(`foo', ``$0:'-$1-$*-$#-')foo(`a', `b')
+-')
+-dnl @result{}
+-builtin(`m4wrap', ``'define(`bar', ``$0:'-$1-$*-$#-')bar(`a', `b')
+-')
+-dnl @result{}
+-dnl @result{}bar:-a-a,b-2-
+-dnl @result{}m4wrap0:---0-
+diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/checks/232.improved_m m4-1.4.18/checks/232.improved_m
+--- m4-1.4.18.orig/checks/232.improved_m	2016-12-31 23:36:45.000000000 +0100
++++ m4-1.4.18/checks/232.improved_m	2019-08-22 15:32:06.683157113 +0200
+@@ -1,4 +1,4 @@
+-dnl @ ../doc/m4.texi:8472: Origin of test
++dnl @ ../doc/m4.texi:8468: Origin of test
+ dnl @ expected status: 0
+ dnl @ extra options: 
+ dnl @ Copyright (C) 2006, 2007, 2008, 2009 Free Software
+@@ -7,25 +7,13 @@
+ dnl @ gives unlimited permission to copy and/or distribute it
+ dnl @ with or without modifications, as long as this notice
+ dnl @ is preserved.
+-include(`wraplifo2.m4')
++include(`wraplifo.m4')
+ dnl @result{}
+-undivert(`wraplifo2.m4')dnl
+-dnl @result{}dnl Redefine m4wrap to have LIFO semantics, improved example.
+-dnl @result{}include(`join.m4')dnl
+-dnl @result{}define(`_m4wrap', defn(`m4wrap'))dnl
+-dnl @result{}define(`_arg1', `$1')dnl
+-dnl @result{}define(`m4wrap',
+-dnl @result{}`ifdef(`_$0_text',
+-dnl @result{}       `define(`_$0_text', joinall(` ', $@)defn(`_$0_text'))',
+-dnl @result{}       `_$0(`_arg1(defn(`_$0_text')undefine(`_$0_text'))')dnl
+-dnl @result{}define(`_$0_text', joinall(` ', $@))')')dnl
+ m4wrap(`define(`foo', ``$0:'-$1-$*-$#-')foo(`a', `b')
+ ')
+ dnl @result{}
+-m4wrap(`lifo text
+-m4wrap(`nested', `', `$@
+-')')
++builtin(`m4wrap', ``'define(`bar', ``$0:'-$1-$*-$#-')bar(`a', `b')
++')
+ dnl @result{}
+-dnl @result{}lifo text
+-dnl @result{}foo:-a-a,b-2-
+-dnl @result{}nested  $@
++dnl @result{}bar:-a-a,b-2-
++dnl @result{}m4wrap0:---0-
+diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/checks/233.improved_c m4-1.4.18/checks/233.improved_c
+--- m4-1.4.18.orig/checks/233.improved_c	2016-12-31 23:36:45.000000000 +0100
++++ m4-1.4.18/checks/233.improved_c	1970-01-01 01:00:00.000000000 +0100
+@@ -1,31 +0,0 @@
+-dnl @ ../doc/m4.texi:8508: Origin of test
+-dnl @ expected status: 0
+-dnl @ extra options: 
+-dnl @ Copyright (C) 2006, 2007, 2008, 2009 Free Software
+-dnl @ Foundation, Inc.
+-dnl @ This file is free software; the Free Software Foundation
+-dnl @ gives unlimited permission to copy and/or distribute it
+-dnl @ with or without modifications, as long as this notice
+-dnl @ is preserved.
+-define(`cleardivert',
+-  `pushdef(`_n', divnum)divert(`-1')undivert($@)divert(_n)popdef(`_n')')
+-dnl @result{}
+-divert(`1')one
+-divert
+-dnl @result{}
+-cleardivert
+-dnl @result{}
+-undivert
+-dnl @result{}one
+-dnl @result{}
+-define(`cleardivert',
+-  `pushdef(`_num', divnum)divert(`-1')ifelse(`$#', `0',
+-    `undivert`'', `undivert($@)')divert(_num)popdef(`_num')')
+-dnl @result{}
+-divert(`2')two
+-divert
+-dnl @result{}
+-cleardivert
+-dnl @result{}
+-undivert
+-dnl @result{}
+diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/checks/233.improved_m m4-1.4.18/checks/233.improved_m
+--- m4-1.4.18.orig/checks/233.improved_m	1970-01-01 01:00:00.000000000 +0100
++++ m4-1.4.18/checks/233.improved_m	2019-08-22 15:32:06.683157113 +0200
+@@ -0,0 +1,31 @@
++dnl @ ../doc/m4.texi:8501: Origin of test
++dnl @ expected status: 0
++dnl @ extra options: 
++dnl @ Copyright (C) 2006, 2007, 2008, 2009 Free Software
++dnl @ Foundation, Inc.
++dnl @ This file is free software; the Free Software Foundation
++dnl @ gives unlimited permission to copy and/or distribute it
++dnl @ with or without modifications, as long as this notice
++dnl @ is preserved.
++include(`wraplifo2.m4')
++dnl @result{}
++undivert(`wraplifo2.m4')dnl
++dnl @result{}dnl Redefine m4wrap to have LIFO semantics, improved example.
++dnl @result{}include(`join.m4')dnl
++dnl @result{}define(`_m4wrap', defn(`m4wrap'))dnl
++dnl @result{}define(`_arg1', `$1')dnl
++dnl @result{}define(`m4wrap',
++dnl @result{}`ifdef(`_$0_text',
++dnl @result{}       `define(`_$0_text', joinall(` ', $@)defn(`_$0_text'))',
++dnl @result{}       `_$0(`_arg1(defn(`_$0_text')undefine(`_$0_text'))')dnl
++dnl @result{}define(`_$0_text', joinall(` ', $@))')')dnl
++m4wrap(`define(`foo', ``$0:'-$1-$*-$#-')foo(`a', `b')
++')
++dnl @result{}
++m4wrap(`lifo text
++m4wrap(`nested', `', `$@
++')')
++dnl @result{}
++dnl @result{}lifo text
++dnl @result{}foo:-a-a,b-2-
++dnl @result{}nested  $@
+diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/checks/234.improved_c m4-1.4.18/checks/234.improved_c
+--- m4-1.4.18.orig/checks/234.improved_c	2016-12-31 23:36:45.000000000 +0100
++++ m4-1.4.18/checks/234.improved_c	2019-08-22 15:32:06.683157113 +0200
+@@ -1,4 +1,4 @@
+-dnl @ ../doc/m4.texi:8544: Origin of test
++dnl @ ../doc/m4.texi:8537: Origin of test
+ dnl @ expected status: 0
+ dnl @ extra options: 
+ dnl @ Copyright (C) 2006, 2007, 2008, 2009 Free Software
+@@ -7,31 +7,25 @@
+ dnl @ gives unlimited permission to copy and/or distribute it
+ dnl @ with or without modifications, as long as this notice
+ dnl @ is preserved.
+-include(`capitalize.m4')dnl
+-define(`active', `act1, ive')dnl
+-define(`Active', `Act2, Ive')dnl
+-define(`ACTIVE', `ACT3, IVE')dnl
+-upcase(active)
+-dnl @result{}ACT1,IVE
+-upcase(`active')
+-dnl @result{}ACT3, IVE
+-upcase(``active'')
+-dnl @result{}ACTIVE
+-downcase(ACTIVE)
+-dnl @result{}act3,ive
+-downcase(`ACTIVE')
+-dnl @result{}act1, ive
+-downcase(``ACTIVE'')
+-dnl @result{}active
+-capitalize(active)
+-dnl @result{}Act1
+-capitalize(`active')
+-dnl @result{}Active
+-capitalize(``active'')
+-dnl @result{}_capitalize(`active')
+-define(`A', `OOPS')
+-dnl @result{}
+-capitalize(active)
+-dnl @result{}OOPSct1
+-capitalize(`active')
+-dnl @result{}OOPSctive
++define(`cleardivert',
++  `pushdef(`_n', divnum)divert(`-1')undivert($@)divert(_n)popdef(`_n')')
++dnl @result{}
++divert(`1')one
++divert
++dnl @result{}
++cleardivert
++dnl @result{}
++undivert
++dnl @result{}one
++dnl @result{}
++define(`cleardivert',
++  `pushdef(`_num', divnum)divert(`-1')ifelse(`$#', `0',
++    `undivert`'', `undivert($@)')divert(_num)popdef(`_num')')
++dnl @result{}
++divert(`2')two
++divert
++dnl @result{}
++cleardivert
++dnl @result{}
++undivert
++dnl @result{}
+diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/checks/235.improved_c m4-1.4.18/checks/235.improved_c
+--- m4-1.4.18.orig/checks/235.improved_c	2016-12-31 23:36:45.000000000 +0100
++++ m4-1.4.18/checks/235.improved_c	2019-08-22 15:32:06.683157113 +0200
+@@ -1,4 +1,4 @@
+-dnl @ ../doc/m4.texi:8621: Origin of test
++dnl @ ../doc/m4.texi:8573: Origin of test
+ dnl @ expected status: 0
+ dnl @ extra options: 
+ dnl @ Copyright (C) 2006, 2007, 2008, 2009 Free Software
+@@ -7,30 +7,31 @@
+ dnl @ gives unlimited permission to copy and/or distribute it
+ dnl @ with or without modifications, as long as this notice
+ dnl @ is preserved.
+-include(`capitalize2.m4')dnl
++include(`capitalize.m4')dnl
+ define(`active', `act1, ive')dnl
+ define(`Active', `Act2, Ive')dnl
+ define(`ACTIVE', `ACT3, IVE')dnl
+-define(`A', `OOPS')dnl
+-capitalize(active; `active'; ``active''; ```actIVE''')
+-dnl @result{}Act1,Ive; Act2, Ive; Active; `Active'
+-undivert(`capitalize2.m4')dnl
+-dnl @result{}divert(`-1')
+-dnl @result{}# upcase(text)
+-dnl @result{}# downcase(text)
+-dnl @result{}# capitalize(text)
+-dnl @result{}#   change case of text, improved version
+-dnl @result{}define(`upcase', `translit(`$*', `a-z', `A-Z')')
+-dnl @result{}define(`downcase', `translit(`$*', `A-Z', `a-z')')
+-dnl @result{}define(`_arg1', `$1')
+-dnl @result{}define(`_to_alt', `changequote(`<<[', `]>>')')
+-dnl @result{}define(`_from_alt', `changequote(<<[`]>>, <<[']>>)')
+-dnl @result{}define(`_upcase_alt', `translit(<<[$*]>>, <<[a-z]>>, <<[A-Z]>>)')
+-dnl @result{}define(`_downcase_alt', `translit(<<[$*]>>, <<[A-Z]>>, <<[a-z]>>)')
+-dnl @result{}define(`_capitalize_alt',
+-dnl @result{}  `regexp(<<[$1]>>, <<[^\(\w\)\(\w*\)]>>,
+-dnl @result{}    <<[_upcase_alt(<<[<<[\1]>>]>>)_downcase_alt(<<[<<[\2]>>]>>)]>>)')
+-dnl @result{}define(`capitalize',
+-dnl @result{}  `_arg1(_to_alt()patsubst(<<[<<[$*]>>]>>, <<[\w+]>>,
+-dnl @result{}    _from_alt()`]>>_$0_alt(<<[\&]>>)<<['_to_alt())_from_alt())')
+-dnl @result{}divert`'dnl
++upcase(active)
++dnl @result{}ACT1,IVE
++upcase(`active')
++dnl @result{}ACT3, IVE
++upcase(``active'')
++dnl @result{}ACTIVE
++downcase(ACTIVE)
++dnl @result{}act3,ive
++downcase(`ACTIVE')
++dnl @result{}act1, ive
++downcase(``ACTIVE'')
++dnl @result{}active
++capitalize(active)
++dnl @result{}Act1
++capitalize(`active')
++dnl @result{}Active
++capitalize(``active'')
++dnl @result{}_capitalize(`active')
++define(`A', `OOPS')
++dnl @result{}
++capitalize(active)
++dnl @result{}OOPSct1
++capitalize(`active')
++dnl @result{}OOPSctive
+diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/checks/236.improved_c m4-1.4.18/checks/236.improved_c
+--- m4-1.4.18.orig/checks/236.improved_c	1970-01-01 01:00:00.000000000 +0100
++++ m4-1.4.18/checks/236.improved_c	2019-08-22 15:32:06.683157113 +0200
+@@ -0,0 +1,36 @@
++dnl @ ../doc/m4.texi:8650: Origin of test
++dnl @ expected status: 0
++dnl @ extra options: 
++dnl @ Copyright (C) 2006, 2007, 2008, 2009 Free Software
++dnl @ Foundation, Inc.
++dnl @ This file is free software; the Free Software Foundation
++dnl @ gives unlimited permission to copy and/or distribute it
++dnl @ with or without modifications, as long as this notice
++dnl @ is preserved.
++include(`capitalize2.m4')dnl
++define(`active', `act1, ive')dnl
++define(`Active', `Act2, Ive')dnl
++define(`ACTIVE', `ACT3, IVE')dnl
++define(`A', `OOPS')dnl
++capitalize(active; `active'; ``active''; ```actIVE''')
++dnl @result{}Act1,Ive; Act2, Ive; Active; `Active'
++undivert(`capitalize2.m4')dnl
++dnl @result{}divert(`-1')
++dnl @result{}# upcase(text)
++dnl @result{}# downcase(text)
++dnl @result{}# capitalize(text)
++dnl @result{}#   change case of text, improved version
++dnl @result{}define(`upcase', `translit(`$*', `a-z', `A-Z')')
++dnl @result{}define(`downcase', `translit(`$*', `A-Z', `a-z')')
++dnl @result{}define(`_arg1', `$1')
++dnl @result{}define(`_to_alt', `changequote(`<<[', `]>>')')
++dnl @result{}define(`_from_alt', `changequote(<<[`]>>, <<[']>>)')
++dnl @result{}define(`_upcase_alt', `translit(<<[$*]>>, <<[a-z]>>, <<[A-Z]>>)')
++dnl @result{}define(`_downcase_alt', `translit(<<[$*]>>, <<[A-Z]>>, <<[a-z]>>)')
++dnl @result{}define(`_capitalize_alt',
++dnl @result{}  `regexp(<<[$1]>>, <<[^\(\w\)\(\w*\)]>>,
++dnl @result{}    <<[_upcase_alt(<<[<<[\1]>>]>>)_downcase_alt(<<[<<[\2]>>]>>)]>>)')
++dnl @result{}define(`capitalize',
++dnl @result{}  `_arg1(_to_alt()patsubst(<<[<<[$*]>>]>>, <<[\w+]>>,
++dnl @result{}    _from_alt()`]>>_$0_alt(<<[\&]>>)<<['_to_alt())_from_alt())')
++dnl @result{}divert`'dnl
+diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/checks/236.improved_f m4-1.4.18/checks/236.improved_f
+--- m4-1.4.18.orig/checks/236.improved_f	2016-12-31 23:36:45.000000000 +0100
++++ m4-1.4.18/checks/236.improved_f	1970-01-01 01:00:00.000000000 +0100
+@@ -1,21 +0,0 @@
+-dnl @ ../doc/m4.texi:8665: Origin of test
+-dnl @ expected status: 1
+-dnl @ extra options: 
+-dnl @ Copyright (C) 2006, 2007, 2008, 2009 Free Software
+-dnl @ Foundation, Inc.
+-dnl @ This file is free software; the Free Software Foundation
+-dnl @ gives unlimited permission to copy and/or distribute it
+-dnl @ with or without modifications, as long as this notice
+-dnl @ is preserved.
+-define(`fatal_error',
+-  `errprint(ifdef(`__program__', `__program__', ``m4'')'dnl
+-`:ifelse(__line__, `0', `',
+-    `__file__:__line__:')` fatal error: $*
+-')m4exit(`1')')
+-dnl @result{}
+-m4wrap(`divnum(`demo of internal message')
+-fatal_error(`inside wrapped text')')
+-dnl @result{}
+-dnl @error{}m4:stdin:6: Warning: excess arguments to builtin `divnum' ignored
+-dnl @result{}0
+-dnl @error{}m4:stdin:6: fatal error: inside wrapped text
+diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/checks/237.improved_f m4-1.4.18/checks/237.improved_f
+--- m4-1.4.18.orig/checks/237.improved_f	1970-01-01 01:00:00.000000000 +0100
++++ m4-1.4.18/checks/237.improved_f	2019-08-22 15:32:06.683157113 +0200
+@@ -0,0 +1,21 @@
++dnl @ ../doc/m4.texi:8694: Origin of test
++dnl @ expected status: 1
++dnl @ extra options: 
++dnl @ Copyright (C) 2006, 2007, 2008, 2009 Free Software
++dnl @ Foundation, Inc.
++dnl @ This file is free software; the Free Software Foundation
++dnl @ gives unlimited permission to copy and/or distribute it
++dnl @ with or without modifications, as long as this notice
++dnl @ is preserved.
++define(`fatal_error',
++  `errprint(ifdef(`__program__', `__program__', ``m4'')'dnl
++`:ifelse(__line__, `0', `',
++    `__file__:__line__:')` fatal error: $*
++')m4exit(`1')')
++dnl @result{}
++m4wrap(`divnum(`demo of internal message')
++fatal_error(`inside wrapped text')')
++dnl @result{}
++dnl @error{}m4:stdin:6: Warning: excess arguments to builtin `divnum' ignored
++dnl @result{}0
++dnl @error{}m4:stdin:6: fatal error: inside wrapped text
+diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/doc/m4.info m4-1.4.18/doc/m4.info
+--- m4-1.4.18.orig/doc/m4.info	2016-12-31 23:36:45.000000000 +0100
++++ m4-1.4.18/doc/m4.info	2019-08-22 15:32:06.611156086 +0200
+@@ -1,6 +1,6 @@
+-This is m4.info, produced by makeinfo version 6.1 from m4.texi.
++This is m4.info, produced by makeinfo version 6.5 from m4.texi.
+ 
+-This manual (31 December 2016) is for GNU M4 (version 1.4.18), a package
++This manual (22 August 2019) is for GNU M4 (version 1.4.18), a package
+ containing an implementation of the m4 macro language.
+ 
+    Copyright (C) 1989-1994, 2004-2014, 2016 Free Software Foundation,
+@@ -19,116 +19,116 @@
+ 
+ 
+ Indirect:
+-m4.info-1: 818
+-m4.info-2: 301584
++m4.info-1: 816
++m4.info-2: 302531
+ 
+ Tag Table:
+ (Indirect)
+-Node: Top818
+-Node: Preliminaries9627
+-Node: Intro10313
+-Node: History11944
+-Node: Bugs15881
+-Node: Manual17132
+-Node: Invoking m420530
+-Node: Operation modes22674
+-Node: Preprocessor features25641
+-Node: Limits control28737
+-Node: Frozen state32634
+-Node: Debugging options33433
+-Node: Command line files35413
+-Node: Syntax36986
+-Node: Names38105
+-Node: Quoted strings38567
+-Node: Comments39216
+-Node: Other tokens40093
+-Node: Input processing40671
+-Ref: Input processing-Footnote-148597
+-Node: Macros48792
+-Node: Invocation49286
+-Node: Inhibiting Invocation50087
+-Node: Macro Arguments54223
+-Node: Quoting Arguments57282
+-Node: Macro expansion59405
+-Node: Definitions60106
+-Node: Define60891
+-Node: Arguments63329
+-Node: Pseudo Arguments66999
+-Node: Undefine70541
+-Node: Defn71671
+-Node: Pushdef76115
+-Node: Indir78741
+-Node: Builtin80865
+-Node: Conditionals83083
+-Node: Ifdef84025
+-Node: Ifelse84887
+-Node: Shift88202
+-Node: Forloop98746
+-Node: Foreach101383
+-Node: Stacks106871
+-Node: Composition109911
+-Node: Debugging115851
+-Node: Dumpdef116436
+-Node: Trace117790
+-Node: Debug Levels121349
+-Node: Debug Output126041
+-Node: Input Control127321
+-Node: Dnl127858
+-Node: Changequote129757
+-Node: Changecom135853
+-Node: Changeword139548
+-Node: M4wrap144989
+-Node: File Inclusion148985
+-Node: Include149302
+-Node: Search Path152010
+-Node: Diversions152927
+-Node: Divert154610
+-Node: Undivert157136
+-Node: Divnum160459
+-Node: Cleardivert160923
+-Node: Text handling162128
+-Node: Len162851
+-Node: Index macro163236
+-Node: Regexp164108
+-Node: Substr166640
+-Node: Translit167685
+-Node: Patsubst170406
+-Node: Format174930
+-Node: Arithmetic178121
+-Node: Incr178570
+-Node: Eval179343
+-Node: Shell commands187285
+-Node: Platform macros188207
+-Node: Syscmd190322
+-Node: Esyscmd192602
+-Node: Sysval194111
+-Node: Mkstemp195793
+-Node: Miscellaneous199743
+-Node: Errprint200176
+-Node: Location201393
+-Node: M4exit204164
+-Node: Frozen files206250
+-Node: Using frozen files207032
+-Node: Frozen file format210297
+-Node: Compatibility213363
+-Node: Extensions214428
+-Node: Incompatibilities218295
+-Node: Other Incompatibilities227209
+-Node: Answers229855
+-Node: Improved exch230637
+-Node: Improved forloop231175
+-Node: Improved foreach236505
+-Node: Improved copy249465
+-Node: Improved m4wrap253419
+-Node: Improved cleardivert255843
+-Node: Improved capitalize256824
+-Node: Improved fatal_error261684
+-Node: Copying This Package262744
+-Node: GNU General Public License263223
+-Node: Copying This Manual301584
+-Node: GNU Free Documentation License302104
+-Node: Indices327215
+-Node: Macro index327495
+-Node: Concept index333878
++Node: Top816
++Node: Preliminaries9623
++Node: Intro10309
++Node: History11940
++Node: Bugs15877
++Node: Manual17128
++Node: Invoking m420526
++Node: Operation modes22670
++Node: Preprocessor features25637
++Node: Limits control28733
++Node: Frozen state32630
++Node: Debugging options33429
++Node: Command line files35409
++Node: Syntax36982
++Node: Names38101
++Node: Quoted strings38563
++Node: Comments39212
++Node: Other tokens40089
++Node: Input processing40667
++Ref: Input processing-Footnote-148593
++Node: Macros48788
++Node: Invocation49282
++Node: Inhibiting Invocation50083
++Node: Macro Arguments54219
++Node: Quoting Arguments57278
++Node: Macro expansion59401
++Node: Definitions60102
++Node: Define60887
++Node: Arguments63325
++Node: Pseudo Arguments66995
++Node: Undefine70537
++Node: Defn71667
++Node: Pushdef76111
++Node: Indir78737
++Node: Builtin80861
++Node: Conditionals83079
++Node: Ifdef84021
++Node: Ifelse84883
++Node: Shift88198
++Node: Forloop98742
++Node: Foreach101379
++Node: Stacks106867
++Node: Composition109907
++Node: Debugging115847
++Node: Dumpdef116432
++Node: Trace117786
++Node: Debug Levels121345
++Node: Debug Output126037
++Node: Input Control127317
++Node: Dnl127854
++Node: Changequote129753
++Node: Changecom135849
++Node: Changeword139544
++Node: M4wrap144985
++Node: File Inclusion148981
++Node: Include149298
++Node: Search Path152006
++Node: Diversions152923
++Node: Divert154606
++Node: Undivert157132
++Node: Divnum160455
++Node: Cleardivert160919
++Node: Text handling162124
++Node: Len162847
++Node: Index macro163232
++Node: Regexp164104
++Node: Substr166636
++Node: Translit167681
++Node: Patsubst170402
++Node: Format174926
++Node: Arithmetic178117
++Node: Incr178566
++Node: Eval179339
++Node: Shell commands187281
++Node: Platform macros188203
++Node: Syscmd190318
++Node: Esyscmd192598
++Node: Sysval194107
++Node: Mkstemp195789
++Node: Miscellaneous199739
++Node: Errprint200172
++Node: Location201389
++Node: M4exit205113
++Node: Frozen files207199
++Node: Using frozen files207981
++Node: Frozen file format211246
++Node: Compatibility214312
++Node: Extensions215377
++Node: Incompatibilities219244
++Node: Other Incompatibilities228158
++Node: Answers230804
++Node: Improved exch231586
++Node: Improved forloop232124
++Node: Improved foreach237454
++Node: Improved copy250414
++Node: Improved m4wrap254368
++Node: Improved cleardivert256792
++Node: Improved capitalize257773
++Node: Improved fatal_error262633
++Node: Copying This Package263693
++Node: GNU General Public License264172
++Node: Copying This Manual302531
++Node: GNU Free Documentation License303051
++Node: Indices328162
++Node: Macro index328442
++Node: Concept index334825
+ 
+ End Tag Table
+diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/doc/m4.info-1 m4-1.4.18/doc/m4.info-1
+--- m4-1.4.18.orig/doc/m4.info-1	2016-12-31 23:36:45.000000000 +0100
++++ m4-1.4.18/doc/m4.info-1	2019-08-22 15:32:06.551155230 +0200
+@@ -1,6 +1,6 @@
+-This is m4.info, produced by makeinfo version 6.1 from m4.texi.
++This is m4.info, produced by makeinfo version 6.5 from m4.texi.
+ 
+-This manual (31 December 2016) is for GNU M4 (version 1.4.18), a package
++This manual (22 August 2019) is for GNU M4 (version 1.4.18), a package
+ containing an implementation of the m4 macro language.
+ 
+    Copyright (C) 1989-1994, 2004-2014, 2016 Free Software Foundation,
+@@ -23,7 +23,7 @@
+ GNU M4
+ ******
+ 
+-This manual (31 December 2016) is for GNU M4 (version 1.4.18), a package
++This manual (22 August 2019) is for GNU M4 (version 1.4.18), a package
+ containing an implementation of the m4 macro language.
+ 
+    Copyright (C) 1989-1994, 2004-2014, 2016 Free Software Foundation,
+@@ -5640,7 +5640,8 @@
+ Preprocessor features.), and the 'f' and 'l' flags of 'debugmode' (*note
+ Debug Levels::), also use this notion of current file and line.
+ Redefining the three location macros has no effect on syncline, debug,
+-warning, or error message output.
++warning, or error message output, although the line numbers and file
++names can be reset as described below.
+ 
+    This example reuses the file 'incl.m4' mentioned earlier (*note
+ Include::):
+@@ -5693,6 +5694,31 @@
+      =>6
+      =>6
+ 
++   The '__file__' and '__line__' macros take an optional argument which
++allow to reset the current input file name and line number,
++respectively.  If '-s' is enabled, a synchronization line will be
++emitted at the next newline in the input.  Input line numbers will
++autoincrement from the new value, and the file name will stay active for
++the current input source until the input source is exhausted or the name
++is reset again.  This feature can be used when the input to M4 already
++contains synchronization information, as when M4 is used as a filter
++between a preprocessor and a compiler.
++
++     $ m4 -s
++     foo __line__(42)bar __line__
++     baz __line__
++     __line__
++     =>#line 1 "stdin"
++     =>foo bar 42
++     =>#line 43
++     =>baz 43
++     =>44
++     foo __file__(`newname')bar __file__
++     baz __file__
++     =>foo bar newname
++     =>#line 46 "newname"
++     =>baz newname
++
+    The '__program__' macro behaves like '$0' in shell terminology.  If
+ you invoke 'm4' through an absolute path or a link with a different
+ spelling, rather than by relying on a 'PATH' search for plain 'm4', it
+diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/doc/m4.info-2 m4-1.4.18/doc/m4.info-2
+--- m4-1.4.18.orig/doc/m4.info-2	2016-12-31 23:36:45.000000000 +0100
++++ m4-1.4.18/doc/m4.info-2	2019-08-22 15:32:06.611156086 +0200
+@@ -1,6 +1,6 @@
+-This is m4.info, produced by makeinfo version 6.1 from m4.texi.
++This is m4.info, produced by makeinfo version 6.5 from m4.texi.
+ 
+-This manual (31 December 2016) is for GNU M4 (version 1.4.18), a package
++This manual (22 August 2019) is for GNU M4 (version 1.4.18), a package
+ containing an implementation of the m4 macro language.
+ 
+    Copyright (C) 1989-1994, 2004-2014, 2016 Free Software Foundation,
+diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/doc/m4.texi m4-1.4.18/doc/m4.texi
+--- m4-1.4.18.orig/doc/m4.texi	2016-12-31 23:34:38.000000000 +0100
++++ m4-1.4.18/doc/m4.texi	2019-08-22 15:27:10.430904768 +0200
+@@ -6984,9 +6984,10 @@
+ reflected in the file name.  The syncline option (@option{-s},
+ @pxref{Preprocessor features, , Invoking m4}), and the
+ @samp{f} and @samp{l} flags of @code{debugmode} (@pxref{Debug Levels}),
+-also use this notion of current file and line.  Redefining the three
+-location macros has no effect on syncline, debug, warning, or error
+-message output.
++also use this notion of current file and line. Redefining the three location macros
++has no effect on syncline, debug, warning, or error message output,
++although the line numbers and file names can be reset as described
++below.
+ 
+ This example reuses the file @file{incl.m4} mentioned earlier
+ (@pxref{Include}):
+@@ -7044,6 +7045,34 @@
+ @result{}6
+ @end example
+ 
++The @code{@w{__file__}} and @code{@w{__line__}} macros take an optional
++argument which allow to reset the current input file name and line
++number, respectively. If @option{-s} is enabled, a synchronization line
++will be emitted at the next newline in the input. Input line numbers
++will autoincrement from the new value, and the file name will stay
++active for the current input source until the input source is exhausted
++or the name is reset again. This feature can be used when the input to
++M4 already contains synchronization information, as when M4 is used as a
++filter between a preprocessor and a compiler.
++
++@comment options: -s
++@example
++$ @kbd{m4 -s}
++foo __line__(42)bar __line__
++baz __line__
++__line__
++@result{}#line 1 "stdin"
++@result{}foo bar 42
++@result{}#line 43
++@result{}baz 43
++@result{}44
++foo __file__(`newname')bar __file__
++baz __file__
++@result{}foo bar newname
++@result{}#line 46 "newname"
++@result{}baz newname
++@end example
++
+ The @code{@w{__program__}} macro behaves like @samp{$0} in shell
+ terminology.  If you invoke @code{m4} through an absolute path or a link
+ with a different spelling, rather than by relying on a @env{PATH} search
+diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/doc/stamp-vti m4-1.4.18/doc/stamp-vti
+--- m4-1.4.18.orig/doc/stamp-vti	2019-08-22 15:22:10.690513404 +0200
++++ m4-1.4.18/doc/stamp-vti	2019-08-22 15:32:04.935132176 +0200
+@@ -1,4 +1,4 @@
+-@set UPDATED 31 December 2016
+-@set UPDATED-MONTH December 2016
++@set UPDATED 22 August 2019
++@set UPDATED-MONTH August 2019
+ @set EDITION 1.4.18
+ @set VERSION 1.4.18
+diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/doc/version.texi m4-1.4.18/doc/version.texi
+--- m4-1.4.18.orig/doc/version.texi	2016-12-31 22:47:00.000000000 +0100
++++ m4-1.4.18/doc/version.texi	2019-08-22 15:32:04.931132117 +0200
+@@ -1,4 +1,4 @@
+-@set UPDATED 31 December 2016
+-@set UPDATED-MONTH December 2016
++@set UPDATED 22 August 2019
++@set UPDATED-MONTH August 2019
+ @set EDITION 1.4.18
+ @set VERSION 1.4.18
+diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/src/builtin.c m4-1.4.18/src/builtin.c
+--- m4-1.4.18.orig/src/builtin.c	2016-12-29 21:32:18.000000000 +0100
++++ m4-1.4.18/src/builtin.c	2019-08-22 15:31:58.983047266 +0200
+@@ -1501,19 +1501,33 @@
+ static void
+ m4___file__ (struct obstack *obs, int argc, token_data **argv)
+ {
+-  if (bad_argc (argv[0], argc, 1, 1))
++  if (bad_argc (argv[0], argc, 0, 1))
+     return;
+-  obstack_grow (obs, lquote.string, lquote.length);
+-  obstack_grow (obs, current_file, strlen (current_file));
+-  obstack_grow (obs, rquote.string, rquote.length);
++  if (argc > 1)
++    reset_file (ARG (1));
++  else
++    {
++	  obstack_grow (obs, lquote.string, lquote.length);
++	  obstack_grow (obs, current_file, strlen (current_file));
++	  obstack_grow (obs, rquote.string, rquote.length);
++    }
+ }
+ 
+ static void
+ m4___line__ (struct obstack *obs, int argc, token_data **argv)
+ {
+-  if (bad_argc (argv[0], argc, 1, 1))
++  int line;
++  if (bad_argc (argv[0], argc, 0, 1))
+     return;
+-  shipout_int (obs, current_line);
++
++  if (argc > 1)
++    {
++      if (!numeric_arg (argv[0], ARG (1), &line))
++	return;
++      reset_line (line);
++    }
++  else
++    shipout_int (obs, current_line);
+ }
+ 
+ static void
+diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/src/input.c m4-1.4.18/src/input.c
+--- m4-1.4.18.orig/src/input.c	2016-12-29 21:32:18.000000000 +0100
++++ m4-1.4.18/src/input.c	2019-08-22 15:25:50.609736065 +0200
+@@ -1155,3 +1155,22 @@
+     print_token ("lex", t, &td);
+ }
+ #endif /* DEBUG_INPUT */
++
++/*---------------------------------.
++ | Reset the current line counter. |
++ `--------------------------------*/
++void reset_line(int line)
++{
++  isp->line = line;
++  input_change = true;
++}
++
++/*-------------------------------.
++ | Reset the current file title. |
++ `------------------------------*/
++void reset_file(const char *title)
++{
++  isp->file = (char *) obstack_copy0 (&file_names, title, strlen (title));
++  output_current_line = -1;
++  input_change = true;
++}
+diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/src/m4.h m4-1.4.18/src/m4.h
+--- m4-1.4.18.orig/src/m4.h	2016-12-29 21:32:18.000000000 +0100
++++ m4-1.4.18/src/m4.h	2019-08-22 15:25:50.613736123 +0200
+@@ -462,6 +462,11 @@
+ extern void produce_frozen_state (const char *);
+ extern void reload_frozen_state (const char *);
+ 
++/* File: input.c --- input sources.  */
++
++void reset_line (int);
++void reset_file (const char *);
++
+ /* Debugging the memory allocator.  */
+ 
+ #ifdef WITH_DMALLOC
