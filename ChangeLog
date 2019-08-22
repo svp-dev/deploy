@@ -1,5 +1,12 @@
 2019-08-22  Raphael 'kena' Poss  <knz@thaumogen.net>
 
+	m4 build: Fix the file/line macros.
+
+	* installer/patches/m4-patch-file-line.patch: properly verify argc
+	in the line/file macros.
+
+2019-08-22  Raphael 'kena' Poss  <knz@thaumogen.net>
+
 	Apply the file/line patch on top of m4 1.4.18. The source archive
 	was generated on a Ubuntu system (via dpkg-source) so as to pick
 	up the gnulib diffs required for building on newer glib 2.28

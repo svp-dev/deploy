@@ -1966,13 +1966,13 @@ diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/doc/version.texi m4-1.4.
  @set VERSION 1.4.18
 diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/src/builtin.c m4-1.4.18/src/builtin.c
 --- m4-1.4.18.orig/src/builtin.c	2016-12-29 21:32:18.000000000 +0100
-+++ m4-1.4.18/src/builtin.c	2019-08-22 15:31:58.983047266 +0200
++++ m4-1.4.18/src/builtin.c	2019-08-22 18:53:42.103909214 +0200
 @@ -1501,19 +1501,33 @@
  static void
  m4___file__ (struct obstack *obs, int argc, token_data **argv)
  {
 -  if (bad_argc (argv[0], argc, 1, 1))
-+  if (bad_argc (argv[0], argc, 0, 1))
++  if (bad_argc (argv[0], argc, 1, 2))
      return;
 -  obstack_grow (obs, lquote.string, lquote.length);
 -  obstack_grow (obs, current_file, strlen (current_file));
@@ -1992,7 +1992,7 @@ diff -uNr -x '*~' -x '*.orig' -x '*.rej' m4-1.4.18.orig/src/builtin.c m4-1.4.18/
  {
 -  if (bad_argc (argv[0], argc, 1, 1))
 +  int line;
-+  if (bad_argc (argv[0], argc, 0, 1))
++  if (bad_argc (argv[0], argc, 1, 2))
      return;
 -  shipout_int (obs, current_line);
 +
