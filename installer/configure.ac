@@ -248,9 +248,9 @@ AM_CONDITIONAL([ENABLE_MT], [test "x$enable_mtsparc" = "xyes" -o "x$enable_mtalp
 AM_CONDITIONAL([ENABLE_NEO], [test "x$enable_leon2mt" = "xyes"])
 
 AC_ARG_ENABLE([ptl],
-              [AC_HELP_STRING([--disable-ptl],
-                              [disable support for the utc-ptl library])],
-              [], [enable_ptl=yes])
+              [AC_HELP_STRING([--enable-ptl],
+                              [enable support for the utc-ptl library])],
+              [], [enable_ptl=no])
 AM_CONDITIONAL([ENABLE_PTL], [test "x$enable_ptl" = "xyes"])
 
 AC_CONFIG_FILES([Makefile slenv deslenv slversion])
